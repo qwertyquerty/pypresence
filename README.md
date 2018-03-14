@@ -28,12 +28,14 @@ Stop the client.
 
 ----------
 
-`client.authorize(client_id, scopes)`
+`client.authorize(client_id, scopes, rpc_token=None, username=None)`
 
 Used to authenticate a new client with your app. By default this pops up a modal in-app that asks the user to authorize access to your app.
 
 * `client_id`: OAuth2 application id `[string]`
 * `scopes`: a list of OAuth scopes as strings `[list]`
+* `rpc_token`: one-time use RPC token `[string]`
+* `username`:	username to create a guest account with if the user does not have Discord `[string]`
 
 ----------
 
