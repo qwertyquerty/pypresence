@@ -1,4 +1,5 @@
 
+
 # pypresence
 A Discord rich presence library in python! Wow!
 
@@ -152,3 +153,30 @@ Used to unsubscribe from events.
 Get the user's voice settings.
 
 ----------
+
+`client.set_voice_settings(self, _input=None, output=None, mode=None, automatic_gain_control=None, echo_cancellation=None, noise_suppression=None, qos=None, silence_warning=None, deaf=None, mute=None)`
+
+Set the user's voice settings.
+
+* `_input`: input settings `[dict]`
+* `output`: output settings `[dict]`
+* `mode`: voice mode settings`[dict]`
+* `automatic_gain_control`: state of automatic gain control `[bool]` 
+* `echo_cancellation`: state of echo cancellation `[bool]` 
+* `noise_suppression`: state of noise suppression `[bool]` 
+* `qos`: state of voice quality of service `[bool]` 
+* `silence_warning`: state of silence warning notice `[bool]`
+* `deaf`: state of self-deafen `[bool]` 
+* `mute`: state of self-mute `[bool]`
+
+----------
+
+`client.capture_shortcut(action)`
+
+Used to capture a keyboard shortcut entered by the user.
+
+* `action`: capture action, either START or STOP `[string]`
+
+----------
+
+### Welp, you made it all the way through the docs. If you see any errors or inccorect items, please do make a pull request!
