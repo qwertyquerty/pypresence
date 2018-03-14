@@ -37,6 +37,8 @@ Used to authenticate a new client with your app. By default this pops up a modal
 * `rpc_token`: one-time use RPC token `[string]`
 * `username`:	username to create a guest account with if the user does not have Discord `[string]`
 
+All the different scopes can be found here: [https://discordapp.com/developers/docs/topics/oauth2](https://discordapp.com/developers/docs/topics/oauth2)
+
 ----------
 
 `client.authenticate(token)`
