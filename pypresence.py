@@ -167,7 +167,7 @@ class client:
         sent = self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def get_selected_voice_channel(self, channel_id):
+    def get_selected_voice_channel(self):
         current_time = time.time()
         payload = {
             "cmd": "GET_SELECTED_VOICE_CHANNEL",
