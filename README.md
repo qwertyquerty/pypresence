@@ -10,7 +10,7 @@ A Discord rich presence library in python! Wow!
 `client(client_id)`
 
 * `client_id`: OAuth2 application id `[string]`
-* 
+
 ----------
 
 `client.start()`
