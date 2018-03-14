@@ -1,3 +1,4 @@
+
 # pypresence
 A Discord rich presence library in python! Wow!
 
@@ -59,7 +60,7 @@ Used to get a channel the client is in.
 
 ----------
 
-`client.set_user_voice_settings(user_id, pan_left=None, pan_right=None,volume=None, mute=None)`
+`client.set_user_voice_settings(user_id, pan_left=None, pan_right=None, volume=None, mute=None)`
 
 Used to change voice settings of users in voice channels.
 
@@ -69,4 +70,47 @@ Used to change voice settings of users in voice channels.
 * `volume`: the volume of user (defaults to 100, min 0, max 200) `[int]`
 * `mute`: the mute state of the user `[bool]`
 
+----------
+
+`client.select_voice_channel(channel_id)`
+
+Used to join and leave voice channels, group dms, or dms.
+
+* `channel_id`: channel id to join (or `None` to leave) `[string]`
+
+----------
+
+`client.get_selected_voice_channel()`
+
+Used to get the client's current voice channel.
+
+----------
+
+`client.select_text_channel(channel_id):`
+
+Used to join and leave text channels, group dms, or dms.
+
+* `channel_id`: channel id to join (or `None` to leave) `[string]`
+
+----------
+
+`client.set_activity(pid=os.getpid(), state=None, details=None, start=None, end=None, large_image=None, large_text=None, small_image=None, small_text=None, party_id=None, party_size=None, join=None, spectate=None, match=None, instance=True):`
+
+Used to set the activity shown on Discord profiles and status of users.
+
+* `pid`: the process id of your game `[int]`
+* `state`: the user's current status `[string]`
+* `details`: what the player is currently doing`[string]`
+* `start`: seconds for game start `[int]` 
+* `end`: seconds for game end `[int]` 
+* `large_image`: name of the uploaded image for the large profile artwork `[string]` 
+* `large_text`: tooltip for the large image `[string]` 
+* `small_image`: name of the uploaded image for the small profile artwork `[string]`
+* `small_text`: tootltip for the small image `[string]` 
+* `party_id`: id of the player's party, lobby, or group `[string]`
+* `party_size`: current size of the player's party, lobby, or group, and the max `[list]`
+* `join`: unique hashed string for chat invitations and ask to join `[string]`
+* `spectate`: unique hashed string for spectate button `[string]`
+* `match`: unique hashed string for spectate and join `[string]`
+* `instance`: marks the match as a game session with a specific beginning and end `[bool]`
 ----------
