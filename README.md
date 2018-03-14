@@ -7,7 +7,7 @@ A Discord rich presence library in python! Wow!
 
 ### The Client
 
-`client(client_id)`
+`pypresence.client(client_id)`
 
 * `client_id`: OAuth2 application id `[string]`
 
