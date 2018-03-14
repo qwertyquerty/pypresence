@@ -1,6 +1,6 @@
-import rpc
+import pypresence
 client_id = '64567352374564' #Put your Client ID here
-RPC = rpc.client(client_id)
+RPC = pypresence.client(client_id)
 RPC.start()
 
 print(RPC.set_activity(state="ree")) #Set the presence
