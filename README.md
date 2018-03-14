@@ -86,7 +86,7 @@ Used to get the client's current voice channel.
 
 ----------
 
-`client.select_text_channel(channel_id):`
+`client.select_text_channel(channel_id)`
 
 Used to join and leave text channels, group dms, or dms.
 
@@ -94,7 +94,7 @@ Used to join and leave text channels, group dms, or dms.
 
 ----------
 
-`client.set_activity(pid=os.getpid(), state=None, details=None, start=None, end=None, large_image=None, large_text=None, small_image=None, small_text=None, party_id=None, party_size=None, join=None, spectate=None, match=None, instance=True):`
+`client.set_activity(pid=os.getpid(), state=None, details=None, start=None, end=None, large_image=None, large_text=None, small_image=None, small_text=None, party_id=None, party_size=None, join=None, spectate=None, match=None, instance=True)`
 
 Used to set the activity shown on Discord profiles and status of users.
 
@@ -113,4 +113,22 @@ Used to set the activity shown on Discord profiles and status of users.
 * `spectate`: unique hashed string for spectate button `[string]`
 * `match`: unique hashed string for spectate and join `[string]`
 * `instance`: marks the match as a game session with a specific beginning and end `[bool]`
+----------
+
+`client.subscribe(self,event,args={})`
+
+Used to subscribe to events.
+
+* `event`: event name to subscribe to `[string]`
+* `args`: any args to go along with the event `[dict]`
+
+----------
+
+`client.unsubscribe(self,event,args={})`
+
+Used to unsubscribe from events.
+
+* `event`: event name to unsubscribe from `[string]`
+* `args`: any args to go along with the event `[dict]`
+
 ----------
