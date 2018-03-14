@@ -10,6 +10,18 @@ A Discord rich presence library in python! Wow!
 `client(client_id)`
 
 * `client_id`: OAuth2 application id `[string]`
+* 
+----------
+
+`client.start()`
+
+Start up the client so it is ready to perform commands.
+
+----------
+
+`client.close()`
+
+Stop the client.
 
 ----------
 
@@ -115,7 +127,7 @@ Used to set the activity shown on Discord profiles and status of users.
 * `instance`: marks the match as a game session with a specific beginning and end `[bool]`
 ----------
 
-`client.subscribe(self,event,args={})`
+`client.subscribe(event,args={})`
 
 Used to subscribe to events.
 
@@ -124,11 +136,17 @@ Used to subscribe to events.
 
 ----------
 
-`client.unsubscribe(self,event,args={})`
+`client.unsubscribe(event,args={})`
 
 Used to unsubscribe from events.
 
 * `event`: event name to unsubscribe from `[string]`
 * `args`: any args to go along with the event `[dict]`
+
+----------
+
+`client.get_voice_settings()`
+
+Get the user's voice settings.
 
 ----------
