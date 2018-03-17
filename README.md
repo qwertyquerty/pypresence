@@ -1,7 +1,7 @@
 
 
 # pypresence
-A Discord RPC library in python! Wow!
+A Discord RPC library in python! Wow! Looks like you've come to the right place.
 
 ## So you want docs? Fine.
 
