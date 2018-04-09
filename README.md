@@ -113,6 +113,7 @@ Used to join and leave text channels, group dms, or dms.
 
 ----------
 #Rich Presence
+
 `client.set_activity(pid=os.getpid(), state=None, details=None, start=None, end=None, large_image=None, large_text=None, small_image=None, small_text=None, party_id=None, party_size=None, join=None, spectate=None, match=None, instance=True)`
 
 Used to set the activity shown on Discord profiles and status of users.
