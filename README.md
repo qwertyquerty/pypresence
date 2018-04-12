@@ -5,6 +5,18 @@ A Discord RPC library in python! Wow! Looks like you've come to the right place.
 
 [![GitHub stars](https://img.shields.io/github/stars/qwertyquerty/pypresence.svg?style=for-the-badge&label=Stars)](https://github.com/qwertyquerty/pypresence) ![Github file size](https://img.shields.io/github/size/qwertyquerty/pypresence/pypresence.py.svg?style=for-the-badge) [![license](https://img.shields.io/github/license/qwertyquerty/pypresence.svg?style=for-the-badge)](https://github.com/qwertyquerty/pypresence/blob/master/LICENSE) ![GitHub last commit](https://img.shields.io/github/last-commit/qwertyquerty/pypresence.svg?style=for-the-badge)
 
+----------
+
+Use this badge in your project's readme file to show you're using pypresence! The markdown code is below.
+
+[![pypresence](https://img.shields.io/badge/using-pypresence-00bb88.svg?style=for-the-badge&logo=discord&logoWidth=20)](https://github.com/qwertyquerty/pypresence)
+
+```markdown
+[![pypresence](https://img.shields.io/badge/using-pypresence-00bb88.svg?style=for-the-badge&logo=discord&logoWidth=20)](https://github.com/qwertyquerty/pypresence)
+```
+
+----------
+
 ## So you want docs? Fine.
 
 
@@ -185,11 +197,15 @@ Used to capture a keyboard shortcut entered by the user.
 * `action`: capture action, either START or STOP `[string]`
 
 ----------
+
 Use this badge in your project's readme file to show you're using pypresence! The markdown code is below.
 
 [![pypresence](https://img.shields.io/badge/using-pypresence-00bb88.svg?style=for-the-badge&logo=discord&logoWidth=20)](https://github.com/qwertyquerty/pypresence)
 
 ```markdown
-[![pypresence](https://img.shields.io/badge/using-pypresence-00bb88.svg?style=for-the-badge&logo=discord&logoWidth=20)](https://github.com/qwertyquerty/pypresence)```
+[![pypresence](https://img.shields.io/badge/using-pypresence-00bb88.svg?style=for-the-badge&logo=discord&logoWidth=20)](https://github.com/qwertyquerty/pypresence)
+```
+
+----------
 
 ### Welp, you made it all the way through the docs. If you see any errors or inccorect items, please do make a pull request!
