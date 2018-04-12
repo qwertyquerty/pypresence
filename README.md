@@ -185,5 +185,11 @@ Used to capture a keyboard shortcut entered by the user.
 * `action`: capture action, either START or STOP `[string]`
 
 ----------
+Use this badge in your project's readme file to show you're using pypresence! The markdown code is below.
+
+[![pypresence](https://img.shields.io/badge/using-pypresence-00bb88.svg?style=for-the-badge&logo=discord&logoWidth=20)](https://github.com/qwertyquerty/pypresence)
+
+```markdown
+[![pypresence](https://img.shields.io/badge/using-pypresence-00bb88.svg?style=for-the-badge&logo=discord&logoWidth=20)](https://github.com/qwertyquerty/pypresence)```
 
 ### Welp, you made it all the way through the docs. If you see any errors or inccorect items, please do make a pull request!
