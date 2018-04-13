@@ -198,4 +198,4 @@ Used to capture a keyboard shortcut entered by the user.
 
 ----------
 
-### Welp, you made it all the way through the docs. If you see any errors or inccorect items, please do make a pull request!
+### Welp, you made it all the way through the docs. If you see any errors or incorrect items, please do make a pull request!
