@@ -5,6 +5,13 @@ import struct
 import sys
 import time
 
+class InvalidID(Exception):
+    def __init__(self):
+        super().__init__('Client ID is Invalid')
+        
+class InvalidPipe(Exception):
+    def __init__(self):
+        super().__init__('Pipe Not Found - Are you running a non-standard version of Discord?')
 
 class client:
     def __init__(self, client_id, pipe=0):
@@ -29,7 +36,10 @@ class client:
         self.client_id = client_id
 
     async def read_output(self):
-        data = await self.sock_reader.read(1024)
+        try:
+            data = await self.sock_reader.read(1024)
+        except BrokenPipeError:
+            raise InvalidID
         code, length = struct.unpack('<ii', data[:8])
         return json.loads(data[8:].decode('utf-8'))
 
@@ -50,7 +60,10 @@ class client:
             self.sock_reader = asyncio.StreamReader(loop=self.loop)
             reader_protocol = asyncio.StreamReaderProtocol(
                 self.sock_reader, loop=self.loop)
-            self.sock_writer, _ = await self.loop.create_pipe_connection(lambda: reader_protocol, self.ipc_path)
+            try:
+                self.sock_writer, _ = await self.loop.create_pipe_connection(lambda: reader_protocol, self.ipc_path)
+            except FileNotFoundError:
+                raise InvalidPipe
         self.send_data(0, {'v': 1, 'client_id': self.client_id})
         data = await self.sock_reader.read(1024)
         code, length = struct.unpack('<ii', data[:8])
