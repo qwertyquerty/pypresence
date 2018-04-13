@@ -210,4 +210,20 @@ Used to capture a keyboard shortcut entered by the user.
 
 ----------
 
+`Client.send_activity_join_invite(user_id)`
+
+Used to accept an Ask to Join request.
+
+* `user_id`: user id `[string]`
+
+----------
+
+`Client.close_activity_request(user_id)`
+
+Used to reject an Ask to Join request.
+
+* `user_id`: user id `[string]`
+
+----------
+
 ### Welp, you made it all the way through the docs. If you see any errors or incorrect items, please do make a pull request!
