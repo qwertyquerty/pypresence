@@ -1,5 +1,6 @@
 from pypresence import Client
 import time
+import random
 
 client_id = '64567352374564'  # Put your Client ID here, this is a fake ID
 RPC = Client(client_id)  # Initialize the client class
@@ -21,5 +22,5 @@ quotes = [
 
 
 while True:  # The presence will stay on as long as the program is running
-    print(RPC.set_activity(state="Click for quote!", details=random.choice(quotes))) #Set the presence, picking a random quote
+    RPC.set_activity(state="Click for quote!", details=random.choice(quotes)) #Set the presence, picking a random quote
     time.sleep(60) #Wait a wee bit
