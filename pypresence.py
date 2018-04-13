@@ -11,7 +11,7 @@ class InvalidID(Exception):
         
 class InvalidPipe(Exception):
     def __init__(self):
-        super().__init__('Invalid Pipe - Are you running a non-standard version of Discord?')
+        super().__init__('Pipe Not Found - Are you running a non-standard version of Discord?')
 
 class client:
     def __init__(self, client_id, pipe=0):
