@@ -3,7 +3,7 @@
 # pypresence
 A Discord RPC library in python! Wow! Looks like you've come to the right place. Just looking to do Rich Presence? Click [here](https://github.com/qwertyquerty/pypresence/blob/master/README.md#rich-presence).
 
-[![GitHub stars](https://img.shields.io/github/stars/qwertyquerty/pypresence.svg?style=for-the-badge&label=Stars)](https://github.com/qwertyquerty/pypresence) ![Github file size](https://img.shields.io/github/size/qwertyquerty/pypresence/pypresence.py.svg?style=for-the-badge) [![license](https://img.shields.io/github/license/qwertyquerty/pypresence.svg?style=for-the-badge)](https://github.com/qwertyquerty/pypresence/blob/master/LICENSE) ![GitHub last commit](https://img.shields.io/github/last-commit/qwertyquerty/pypresence.svg?style=for-the-badge)
+[![GitHub stars](https://img.shields.io/github/stars/qwertyquerty/pypresence.svg?style=for-the-badge&label=Stars)](https://github.com/qwertyquerty/pypresence) [![license](https://img.shields.io/github/license/qwertyquerty/pypresence.svg?style=for-the-badge)](https://github.com/qwertyquerty/pypresence/blob/master/LICENSE) ![GitHub last commit](https://img.shields.io/github/last-commit/qwertyquerty/pypresence.svg?style=for-the-badge)
 
 ----------
 
