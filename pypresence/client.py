@@ -12,16 +12,11 @@ class InvalidID(Exception):
         
 class InvalidPipe(Exception):
     def __init__(self):
-        super().__init__('Pipe Not Found - Are you running a non-standard version of Discord?')
+        super().__init__('Pipe Not Found - Are you running a non-standard version of Discord?')        
 
-<<<<<<< HEAD:pypresence.py
-class client:
-    def __init__(self, client_id, pipe=0):
-        client_id = str(client_id)
-=======
 class Client:
-    def __init__(self, client_id):
->>>>>>> pr/9:pypresence/client.py
+    def __init__(self, client_id,pipe=0):
+        client_id = str(client_id)
         if sys.platform == 'linux' or sys.platform == 'darwin':
             self.ipc_path = (
                 os.environ.get(
