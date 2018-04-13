@@ -8,6 +8,7 @@ import time
 
 class client:
     def __init__(self, client_id, pipe=0):
+        client_id = str(client_id)
         if sys.platform == 'linux' or sys.platform == 'darwin':
             self.ipc_path = (
                 os.environ.get(
