@@ -22,27 +22,27 @@ Use this badge in your project's readme file to show you're using pypresence! Th
 
 ### The Client
 
-`pypresence.client(client_id)`
+`pypresence.Client(client_id)`
 
-Construct the client.
+Construct the Client.
 
 * `client_id`: OAuth2 application id `[string]`
 
 ----------
 
-`client.start()`
+`Client.start()`
 
 Start up the client so it is ready to perform commands.
 
 ----------
 
-`client.close()`
+`Client.close()`
 
-Stop the client.
+Stop the Client.
 
 ----------
 
-`client.authorize(client_id, scopes, rpc_token=None, username=None)`
+`Client.authorize(client_id, scopes, rpc_token=None, username=None)`
 
 Used to authenticate a new client with your app. By default this pops up a modal in-app that asks the user to authorize access to your app.
 
@@ -55,7 +55,7 @@ All the different scopes can be found here: [https://discordapp.com/developers/d
 
 ----------
 
-`client.authenticate(token)`
+`Client.authenticate(token)`
 
 Used to authenticate an existing client with your app.
 
@@ -63,13 +63,13 @@ Used to authenticate an existing client with your app.
 
 ----------
 
-`client.get_guilds()`
+`Client.get_guilds()`
 
 Used to get a list of guilds the client is in.
 
 ----------
 
-`client.get_guild(guild_id)`
+`Client.get_guild(guild_id)`
 
 Used to get a guild the client is in.
 
@@ -77,7 +77,7 @@ Used to get a guild the client is in.
 
 ----------
 
-`client.get_channels(guild_id)`
+`Client.get_channels(guild_id)`
 
 Used to get a guild's channels the client is in.
 
@@ -85,7 +85,7 @@ Used to get a guild's channels the client is in.
 
 ----------
 
-`client.get_channel(channel_id)`
+`Client.get_channel(channel_id)`
 
 Used to get a channel the client is in.
 
@@ -93,7 +93,7 @@ Used to get a channel the client is in.
 
 ----------
 
-`client.set_user_voice_settings(user_id, pan_left=None, pan_right=None, volume=None, mute=None)`
+`Client.set_user_voice_settings(user_id, pan_left=None, pan_right=None, volume=None, mute=None)`
 
 Used to change voice settings of users in voice channels.
 
@@ -105,7 +105,7 @@ Used to change voice settings of users in voice channels.
 
 ----------
 
-`client.select_voice_channel(channel_id)`
+`Client.select_voice_channel(channel_id)`
 
 Used to join and leave voice channels, group dms, or dms.
 
@@ -113,13 +113,13 @@ Used to join and leave voice channels, group dms, or dms.
 
 ----------
 
-`client.get_selected_voice_channel()`
+`Client.get_selected_voice_channel()`
 
 Used to get the client's current voice channel.
 
 ----------
 
-`client.select_text_channel(channel_id)`
+`Client.select_text_channel(channel_id)`
 
 Used to join and leave text channels, group dms, or dms.
 
@@ -128,7 +128,7 @@ Used to join and leave text channels, group dms, or dms.
 ----------
 #### Rich Presence
 
-`client.set_activity(pid=os.getpid(), state=None, details=None, start=None, end=None, large_image=None, large_text=None, small_image=None, small_text=None, party_id=None, party_size=None, join=None, spectate=None, match=None, instance=True)`
+`Client.set_activity(pid=os.getpid(), state=None, details=None, start=None, end=None, large_image=None, large_text=None, small_image=None, small_text=None, party_id=None, party_size=None, join=None, spectate=None, match=None, instance=True)`
 
 Used to set the activity shown on Discord profiles and status of users.
 
@@ -149,7 +149,7 @@ Used to set the activity shown on Discord profiles and status of users.
 * `instance`: marks the match as a game session with a specific beginning and end `[bool]`
 ----------
 
-`client.subscribe(event,args={})`
+`Client.subscribe(event,args={})`
 
 Used to subscribe to events.
 
@@ -158,7 +158,7 @@ Used to subscribe to events.
 
 ----------
 
-`client.unsubscribe(event,args={})`
+`Client.unsubscribe(event,args={})`
 
 Used to unsubscribe from events.
 
@@ -167,13 +167,13 @@ Used to unsubscribe from events.
 
 ----------
 
-`client.get_voice_settings()`
+`Client.get_voice_settings()`
 
 Get the user's voice settings.
 
 ----------
 
-`client.set_voice_settings(self, _input=None, output=None, mode=None, automatic_gain_control=None, echo_cancellation=None, noise_suppression=None, qos=None, silence_warning=None, deaf=None, mute=None)`
+`Client.set_voice_settings(self, _input=None, output=None, mode=None, automatic_gain_control=None, echo_cancellation=None, noise_suppression=None, qos=None, silence_warning=None, deaf=None, mute=None)`
 
 Set the user's voice settings.
 
@@ -190,7 +190,7 @@ Set the user's voice settings.
 
 ----------
 
-`client.capture_shortcut(action)`
+`Client.capture_shortcut(action)`
 
 Used to capture a keyboard shortcut entered by the user.
 
