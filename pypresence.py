@@ -7,7 +7,7 @@ import time
 
 class InvalidID(Exception):
     def __init__(self):
-        super().__init__('Invalid ID Passed')
+        super().__init__('Client ID is Invalid')
         
 class InvalidPipe(Exception):
     def __init__(self):
