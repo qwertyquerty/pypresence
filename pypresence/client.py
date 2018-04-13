@@ -39,7 +39,6 @@ class Client:
 
     def send_data(self, op: int, payload: dict):
         payload = json.dumps(payload)
-        print(payload)
         self.sock_writer.write(
             struct.pack(
                 '<ii',
@@ -349,9 +348,37 @@ class Client:
         sent = self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
+    def send_activity_join_invite(self, user_id):
+        current_time = time.time()
+        payload = {
+            "cmd": "SEND_ACTIVITY_JOIN_INVITE",
+            "args": {
+                "user_id": str(user_id)
+            },
+            "nonce": '{:.20f}'.format(current_time)
+        }
+        sent = self.send_data(1, payload)
+        return self.loop.run_until_complete(self.read_output())
+
+    def close_activity_request(self, user_id):
+        current_time = time.time()
+        payload = {
+            "cmd": "CLOSE_ACTIVITY_REQUEST",
+            "args": {
+                "user_id": str(user_id)
+            },
+            "nonce": '{:.20f}'.format(current_time)
+        }
+        sent = self.send_data(1, payload)
+        return self.loop.run_until_complete(self.read_output())
+
+
     def close(self):
         self.sock_writer.close()
         self.loop.close()
 
     def start(self):
         self.loop.run_until_complete(self.handshake())
+
+    def read(self):
+        return self.loop.run_until_complete(self.read_output())
