@@ -26,6 +26,7 @@ Install pypresence with `pip`:
 
 `pip install https://github.com/qwertyquerty/pypresence/archive/master.zip`
 
+----------
 
 ### The Client
 
