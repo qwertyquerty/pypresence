@@ -6,7 +6,7 @@ import sys
 import time
 
 
-class client:
+class Client:
     def __init__(self, client_id):
         if sys.platform == 'linux' or sys.platform == 'darwin':
             self.ipc_path = (
