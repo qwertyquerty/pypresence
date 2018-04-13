@@ -5,6 +5,9 @@ import struct
 import sys
 import time
 
+class InvalidID(Exception):
+    def __init__(self):
+        super().__init__('Invalid ID or Invalid Pipe Number')
 
 class client:
     def __init__(self, client_id, pipe=0):
@@ -29,7 +32,10 @@ class client:
         self.client_id = client_id
 
     async def read_output(self):
-        data = await self.sock_reader.read(1024)
+        try:
+            data = await self.sock_reader.read(1024)
+        except BrokenPipeError:
+            raise InvalidID
         code, length = struct.unpack('<ii', data[:8])
         return json.loads(data[8:].decode('utf-8'))
 
