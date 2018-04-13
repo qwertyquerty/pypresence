@@ -4,6 +4,7 @@ import os
 import struct
 import sys
 import time
+
 from .exceptions import *
 
 
@@ -37,6 +38,7 @@ class Client:
         code, length = struct.unpack('<ii', data[:8])
         return json.loads(data[8:].decode('utf-8'))
 
+
     def send_data(self, op: int, payload: dict):
         payload = json.dumps(payload)
         self.sock_writer.write(
@@ -47,9 +49,9 @@ class Client:
             payload.encode('utf-8'))
 
     async def handshake(self):
-        if sys.platform == 'linux':
+        if sys.platform == 'linux' or sys.platform == 'darwin':
             self.sock_reader, self.sock_writer = await asyncio.open_unix_connection(self.ipc_path, loop=self.loop)
-        elif sys.platform == 'win32':
+        elif sys.platform == 'win32' or sys.platform == 'win64':
             self.sock_reader = asyncio.StreamReader(loop=self.loop)
             reader_protocol = asyncio.StreamReaderProtocol(
                 self.sock_reader, loop=self.loop)
