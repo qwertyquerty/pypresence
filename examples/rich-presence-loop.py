@@ -1,9 +1,9 @@
-import pypresence
+from pypresence import Client
 import time
 
-client_id = '64567352374564' #Put your Client ID here, this is a fake ID
-RPC = pypresence.client(client_id) #Initialize the client class
-RPC.start() #Start the handshake loop
+client_id = '64567352374564'  # Put your Client ID here, this is a fake ID
+RPC = Client(client_id)  # Initialize the client class
+RPC.start()  # Start the handshake loop
 
 
 quotes = [
@@ -17,9 +17,9 @@ quotes = [
     "Strive not to be a success, but rather to be of value.",
     "The best time to plant a tree was 20 years ago. The second best time is now.",
     "Everything you’ve ever wanted is on the other side of fear."
-] #The quotes to choose from
+]  # The quotes to choose from
 
 
-while True: #The presence will stay on as long as the program is running
+while True:  # The presence will stay on as long as the program is running
     print(RPC.set_activity(state="Click for quote!", details=random.choice(quotes))) #Set the presence, picking a random quote
     time.sleep(60) #Wait a wee bit
