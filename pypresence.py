@@ -7,7 +7,7 @@ import time
 
 
 class client:
-    def __init__(self, client_id):
+    def __init__(self, client_id, pipe=0):
         if sys.platform == 'linux' or sys.platform == 'darwin':
             self.ipc_path = (
                 os.environ.get(
@@ -18,10 +18,10 @@ class client:
                     'TMP',
                     None) or os.environ.get(
                     'TEMP',
-                    None) or '/tmp') + '/discord-ipc-0'
+                    None) or '/tmp') + '/discord-ipc-'+str(pipe)
             self.loop = asyncio.get_event_loop()
         elif sys.platform == 'win32' or sys.platform == 'win64':
-            self.ipc_path = r'\\?\pipe\discord-ipc-0'
+            self.ipc_path = r'\\?\pipe\discord-ipc-'+str(pipe)
             self.loop = asyncio.ProactorEventLoop()
         self.sock_reader: asyncio.StreamReader = None
         self.sock_writer: asyncio.StreamWriter = None
