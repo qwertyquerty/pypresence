@@ -20,6 +20,13 @@ Use this badge in your project's readme file to show you're using pypresence! Th
 ## So you want docs? Fine.
 
 
+### Installation
+
+Install pypresence with `pip`:
+
+`pip install https://github.com/qwertyquerty/pypresence/archive/master.zip`
+
+
 ### The Client
 
 `pypresence.Client(client_id)`
