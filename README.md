@@ -17,9 +17,6 @@ Use this badge in your project's readme file to show you're using pypresence! Th
 
 ----------
 
-## So you want docs? Fine.
-
-
 ### Installation
 
 Install pypresence with `pip`:
@@ -29,6 +26,10 @@ Install pypresence with `pip`:
 or
 
 `pip install pypresence`
+
+----------
+
+###Documentation
 
 ----------
 
