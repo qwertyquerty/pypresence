@@ -12,4 +12,4 @@ while True:  # The presence will stay on as long as the program is running
     mem = psutil.virtual_memory()
     mem_per = round(psutil.virtual_memory().percent,1)
     print(RPC.set_activity(details="RAM: "+str(mem_per)+"%", state="CPU: "+str(cpu_per)+"%"))  # Set the presence
-    time.sleep(15) # Wait
+    time.sleep(15) # Can only update rich presence every 15 seconds

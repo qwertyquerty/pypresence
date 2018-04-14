@@ -22,5 +22,5 @@ quotes = [
 
 
 while True:  # The presence will stay on as long as the program is running
-    RPC.set_activity(state="Click for quote!", details=random.choice(quotes)) #Set the presence, picking a random quote
+    RPC.set_activity(details="Famous Quote:", state=random.choice(quotes)) #Set the presence, picking a random quote
     time.sleep(60) #Wait a wee bit
