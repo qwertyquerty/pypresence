@@ -1,5 +1,7 @@
 """
 Python RPC Client for Discord
+-----------------------------
+By: qwertyquerty and LewdNeko
 """
 
 from .client import Client
