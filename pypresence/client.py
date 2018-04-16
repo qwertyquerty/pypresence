@@ -23,7 +23,7 @@ class Client:
                     'TEMP',
                     None) or '/tmp') + '/discord-ipc-'+str(pipe)
             self.loop = asyncio.get_event_loop()
-        elif sys.platform == 'win32' or sys.platform == 'win64':
+        elif sys.platform == 'win32':
             self.ipc_path = r'\\?\pipe\discord-ipc-'+str(pipe)
             self.loop = asyncio.ProactorEventLoop()
         self.sock_reader: asyncio.StreamReader = None
