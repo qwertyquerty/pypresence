@@ -34,11 +34,12 @@ or
 
 ### The Client
 
-`pypresence.Client(client_id)`
+`pypresence.Client(client_id, pipe=0)`
 
 Construct the Client.
 
 * `client_id`: OAuth2 application id `[string]`
+* `pipe`: The pipe number to use, usually should be 0, can be 0-9 `[int]`
 
 ----------
 
