@@ -30,9 +30,10 @@ class Client:
         self.sock_writer: asyncio.StreamWriter = None
         self.client_id = client_id
 
-    async def read_output(self):
+    @asyncio.coroutine
+    def read_output(self):
         try:
-            data = await self.sock_reader.read(1024)
+            data = yield from self.sock_reader.read(1024)
         except BrokenPipeError:
             raise InvalidID
         code, length = struct.unpack('<ii', data[:8])
@@ -48,19 +49,20 @@ class Client:
                 len(payload)) +
             payload.encode('utf-8'))
 
-    async def handshake(self):
+    @asyncio.coroutine
+    def handshake(self):
         if sys.platform == 'linux' or sys.platform == 'darwin':
-            self.sock_reader, self.sock_writer = await asyncio.open_unix_connection(self.ipc_path, loop=self.loop)
+            self.sock_reader, self.sock_writer = yield from asyncio.open_unix_connection(self.ipc_path, loop=self.loop)
         elif sys.platform == 'win32' or sys.platform == 'win64':
             self.sock_reader = asyncio.StreamReader(loop=self.loop)
             reader_protocol = asyncio.StreamReaderProtocol(
                 self.sock_reader, loop=self.loop)
             try:
-                self.sock_writer, _ = await self.loop.create_pipe_connection(lambda: reader_protocol, self.ipc_path)
+                self.sock_writer, _ = yield from self.loop.create_pipe_connection(lambda: reader_protocol, self.ipc_path)
             except FileNotFoundError:
                 raise InvalidPipe
         self.send_data(0, {'v': 1, 'client_id': self.client_id})
-        data = await self.sock_reader.read(1024)
+        data = yield from self.sock_reader.read(1024)
         code, length = struct.unpack('<ii', data[:8])
 
     def authorize(self, client_id, scopes):
