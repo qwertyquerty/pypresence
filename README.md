@@ -19,6 +19,7 @@ Use this badge in your project's REEEEEEEEadme file to show you're using pyprese
 
 ## So you want docs? Fine.
 
+**NOTE**: You need an authorized app to do anything besides rich presence!
 
 ### Installation
 
