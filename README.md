@@ -1,7 +1,7 @@
 
 
 # pypresence
-A Discord RPC library in Python? Wow! Looks like you've come to the right place. Just looking to do Rich Presence? Click [here](https://github.com/qwertyquerty/pypresence/blob/master/README.md#rich-presence).
+A Discord RPC library in Python? Wow! Looks like you've come to the right place. **Just looking to do Rich Presence? Click [here](https://github.com/qwertyquerty/pypresence/blob/master/README.md#rich-presence).**
 
 [![GitHub stars](https://img.shields.io/github/stars/qwertyquerty/pypresence.svg?style=for-the-badge&label=Stars)](https://github.com/qwertyquerty/pypresence) [![license](https://img.shields.io/github/license/qwertyquerty/pypresence.svg?style=for-the-badge)](https://github.com/qwertyquerty/pypresence/blob/master/LICENSE) ![GitHub last commit](https://img.shields.io/github/last-commit/qwertyquerty/pypresence.svg?style=for-the-badge)
 
@@ -19,6 +19,7 @@ Use this badge in your project's REEEEEEEEadme file to show you're using pyprese
 
 ## So you want docs? Fine.
 
+**NOTE**: You need an authorized app to do anything besides rich presence!
 
 ### Installation
 
