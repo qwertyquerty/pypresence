@@ -5,6 +5,7 @@ By: qwertyquerty and LewdNeko
 """
 
 from .client import Client
+from . presence import Presence
 from .exceptions import *
 
 __title__ = 'pypresence'
