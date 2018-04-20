@@ -8,8 +8,8 @@ import time
 from .exceptions import *
 
 
-class Client:
-    def __init__(self, client_id,pipe=0):
+class Presence:
+    def __init__(self, client_id, pipe=0):
         client_id = str(client_id)
         if sys.platform == 'linux' or sys.platform == 'darwin':
             self.ipc_path = (
@@ -65,143 +65,7 @@ class Client:
         data = yield from self.sock_reader.read(1024)
         code, length = struct.unpack('<ii', data[:8])
 
-    def authorize(self, client_id, scopes):
-        current_time = time.time()
-        payload = {
-            "cmd": "AUTHORIZE",
-            "args": {
-                "client_id": str(client_id),
-                "scopes": scopes
-            },
-            "nonce": '{:.20f}'.format(current_time)
-        }
-        sent = self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
-
-    def authenticate(self, token):
-        current_time = time.time()
-        payload = {
-            "cmd": "AUTHENTICATE",
-            "args": {
-                "access_token": token
-            },
-            "nonce": '{:.20f}'.format(current_time)
-        }
-
-        sent = self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
-
-    def get_guilds(self):
-        current_time = time.time()
-        payload = {
-            "cmd": "GET_GUILDS",
-            "args": {
-            },
-            "nonce": '{:.20f}'.format(current_time)
-        }
-        sent = self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
-
-    def get_guild(self, guild_id):
-        current_time = time.time()
-        payload = {
-            "cmd": "GET_GUILD",
-            "args": {
-                "guild_id": str(guild_id),
-            },
-            "nonce": '{:.20f}'.format(current_time)
-        }
-        sent = self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
-
-    def get_channel(self, channel_id):
-        current_time = time.time()
-        payload = {
-            "cmd": "GET_CHANNEL",
-            "args": {
-                "channel_id": str(channel_id),
-            },
-            "nonce": '{:.20f}'.format(current_time)
-        }
-        sent = self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
-
-    def get_channels(self, guild_id):
-        current_time = time.time()
-        payload = {
-            "cmd": "GET_CHANNELS",
-            "args": {
-                "guild_id": str(guild_id),
-            },
-            "nonce": '{:.20f}'.format(current_time)
-        }
-        sent = self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
-
-    def set_user_voice_settings(self,user_id,pan_left=None,pan_right=None,volume=None,mute=None):
-        current_time = time.time()
-        payload = {
-            "cmd": "SET_USER_VOICE_SETTINGS",
-            "args": {
-                "user_id": str(user_id),
-                "pan": {
-                    "left": pan_left,
-                    "right": pan_right
-                },
-                "volume": volume,
-                "mute": mute
-            },
-            "nonce": '{:.20f}'.format(current_time)
-        }
-
-        if pan_left is None:
-            del payload["args"]["pan"]["left"]
-        if pan_right is None:
-            del payload["args"]["pan"]["right"]
-        if volume is None:
-            del payload["args"]["volume"]
-        if mute is None:
-            del payload["args"]["mute"]
-
-        sent = self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
-
-    def select_voice_channel(self, channel_id):
-        current_time = time.time()
-        payload = {
-            "cmd": "SELECT_VOICE_CHANNEL",
-            "args": {
-                "channel_id": str(channel_id),
-            },
-            "nonce": '{:.20f}'.format(current_time)
-        }
-        sent = self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
-
-    def get_selected_voice_channel(self):
-        current_time = time.time()
-        payload = {
-            "cmd": "GET_SELECTED_VOICE_CHANNEL",
-            "args": {
-            },
-            "nonce": '{:.20f}'.format(current_time)
-        }
-        sent = self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
-
-    def select_text_channel(self, channel_id):
-        current_time = time.time()
-        payload = {
-            "cmd": "SELECT_VOICE_CHANNEL",
-            "args": {
-                "channel_id": str(channel_id),
-            },
-            "nonce": '{:.20f}'.format(current_time)
-        }
-        sent = self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
-
-    def set_activity(self,pid=os.getpid(),state=None,details=None,start=None,end=None,large_image=None,large_text=None,small_image=None,small_text=None,party_id=None,party_size=None,join=None,spectate=None,match=None,instance=True):
+    def update(self,pid=os.getpid(),state=None,details=None,start=None,end=None,large_image=None,large_text=None,small_image=None,small_text=None,party_id=None,party_size=None,join=None,spectate=None,match=None,instance=True):
         current_time = time.time()
         payload = {
             "cmd": "SET_ACTIVITY",
@@ -263,126 +127,12 @@ class Client:
         if instance is None:
             del payload["args"]["activity"]["instance"]
 
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
-
-    def subscribe(self,event,args={}):
-        current_time = time.time()
-        payload = {
-            "cmd": "SUBSCRIBE",
-            "args": args,
-            "evt": event,
-            "nonce": '{:.20f}'.format(current_time)
-        }
-        sent = self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
-
-    def unsubscribe(self,event,args={}):
-        current_time = time.time()
-        payload = {
-            "cmd": "UNSUBSCRIBE",
-            "args": args,
-            "evt": event,
-            "nonce": '{:.20f}'.format(current_time)
-        }
-        sent = self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
-
-    def get_voice_settings(self):
-        current_time = time.time()
-        payload = {
-            "cmd": "GET_VOICE_SETTINGS",
-            "args": {},
-            "nonce": '{:.20f}'.format(current_time)
-        }
-        sent = self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
-
-    def set_voice_settings(self,_input=None,output=None,mode=None,automatic_gain_control=None,echo_cancellation=None,noise_suppression=None,qos=None,silence_warning=None,deaf=None,mute=None):
-        current_time = time.time()
-        payload = {
-            "cmd": "SET_VOICE_SETTINGS",
-            "args": {
-                "input": _input,
-                "output": output,
-                "mode": mode,
-                "automatic_gain_control": automatic_gain_control,
-                "echo_cancellation": echo_cancellation,
-                "noise_suppression": noise_suppression,
-                "qos": qos,
-                "silence_warning": silence_warning,
-                "deaf": deaf,
-                "mute": mute
-            },
-            "nonce": '{:.20f}'.format(current_time)
-        }
-        sent = self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
-
-        if _input is None:
-            del payload["args"]["input"]
-        if output is None:
-            del payload["args"]["output"]
-        if mode is None:
-            del payload["args"]["mode"]
-        if automatic_gain_control is None:
-            del payload["args"]["automatic_gain_control"]
-        if echo_cancellation is None:
-            del payload["args"]["echo_cancellation"]
-        if noise_suppression is None:
-            del payload["args"]["noise_suppression"]
-        if qos is None:
-            del payload["args"]["qos"]
-        if silence_warning is None:
-            del payload["args"]["silence_warning"]
-        if deaf is None:
-            del payload["args"]["deaf"]
-        if mute is None:
-            del payload["args"]["mute"]
-
-    def capture_shortcut(self, action):
-        current_time = time.time()
-        payload = {
-            "cmd": "CAPTURE_SHORTCUT",
-            "args": {
-                "action": action.upper()
-            },
-            "nonce": '{:.20f}'.format(current_time)
-        }
-        sent = self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
-
-    def send_activity_join_invite(self, user_id):
-        current_time = time.time()
-        payload = {
-            "cmd": "SEND_ACTIVITY_JOIN_INVITE",
-            "args": {
-                "user_id": str(user_id)
-            },
-            "nonce": '{:.20f}'.format(current_time)
-        }
-        sent = self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
-
-    def close_activity_request(self, user_id):
-        current_time = time.time()
-        payload = {
-            "cmd": "CLOSE_ACTIVITY_REQUEST",
-            "args": {
-                "user_id": str(user_id)
-            },
-            "nonce": '{:.20f}'.format(current_time)
-        }
-        sent = self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
-
-
-    def close(self):
-        self.sock_writer.close()
-        self.loop.close()
 
     def start(self):
         self.loop.run_until_complete(self.handshake())
 
-    def read(self):
-        return self.loop.run_until_complete(self.read_output())
+    def close(self):
+        self.sock_writer.close()
+        self.loop.close()
