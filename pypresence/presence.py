@@ -6,6 +6,7 @@ import sys
 import time
 
 from .exceptions import *
+from .utils import *
 
 
 class Presence:
@@ -98,34 +99,7 @@ class Presence:
             },
             "nonce": '{:.20f}'.format(current_time)
         }
-        if state is None:
-            del payload["args"]["activity"]["state"]
-        if details is None:
-            del payload["args"]["activity"]["details"]
-        if start is None:
-            del payload["args"]["activity"]["timestamps"]["start"]
-        if end is None:
-            del payload["args"]["activity"]["timestamps"]["end"]
-        if large_image is None:
-            del payload["args"]["activity"]["assets"]["large_image"]
-        if large_text is None:
-            del payload["args"]["activity"]["assets"]["large_text"]
-        if small_image is None:
-            del payload["args"]["activity"]["assets"]["small_image"]
-        if small_text is None:
-            del payload["args"]["activity"]["assets"]["small_text"]
-        if party_id is None:
-            del payload["args"]["activity"]["party"]["id"]
-        if party_size is None:
-            del payload["args"]["activity"]["party"]["size"]
-        if join is None:
-            del payload["args"]["activity"]["secrets"]["join"]
-        if spectate is None:
-            del payload["args"]["activity"]["secrets"]["spectate"]
-        if match is None:
-            del payload["args"]["activity"]["secrets"]["match"]
-        if instance is None:
-            del payload["args"]["activity"]["instance"]
+        payload = remove_none(payload)
 
         self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
