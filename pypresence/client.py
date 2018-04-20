@@ -6,6 +6,7 @@ import sys
 import time
 
 from .exceptions import *
+from .utils import *
 
 
 class Client:
