@@ -130,7 +130,7 @@ class Presence:
         self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def start(self):
+    def connect(self):
         self.loop.run_until_complete(self.handshake())
 
     def close(self):
