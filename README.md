@@ -17,11 +17,11 @@ Use this badge in your project's REEEEEEEEadme file to show you're using pyprese
 
 ----------
 
-## So you want docs? Fine.
+# So you want docs? Fine.
 
 **NOTE**: You need an authorized app to do anything besides rich presence!
 
-### Installation
+## Installation
 
 Install pypresence with `pip`:
 
@@ -33,7 +33,7 @@ or
 
 ----------
 
-### Rich Presence Client
+## Rich Presence Client
 
 Examples for this can be found in the examples folder.
 
@@ -80,7 +80,7 @@ Sets the user's presence on Discord. Takes the following as parameters.
 
 ----------
 
-### RPC Client
+## RPC Client
 
 `pypresence.Client(client_id, pipe=0)`
 
