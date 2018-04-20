@@ -246,7 +246,7 @@ Initializes the connection - must be done in order to make any updates to Rich P
 
 ----------
 
-`Presence.update(**kwargs)`
+`Presence.update(**options)`
 
 Sets the user's presence on Discord. Takes the following as parameters.
 
