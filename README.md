@@ -236,7 +236,7 @@ Examples for this can be found in the examples folder.
 Creates the class ready for usage.
 
 * `client_id`: OAuth2 App ID  (found at https://discordapp.com/developers/applications/me) [string]
-* `pipe`: Pipe that should be used to connect to the Discord client. Defaults to 0, can be 0-9.
+* `pipe`: Pipe that should be used to connect to the Discord client. Defaults to 0, can be 0-9. [int]
 
 ----------
 
