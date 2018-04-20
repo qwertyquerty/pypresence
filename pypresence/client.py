@@ -6,6 +6,7 @@ import sys
 import time
 
 from .exceptions import *
+from .utils import *
 
 
 class Client:
@@ -154,14 +155,7 @@ class Client:
             "nonce": '{:.20f}'.format(current_time)
         }
 
-        if pan_left is None:
-            del payload["args"]["pan"]["left"]
-        if pan_right is None:
-            del payload["args"]["pan"]["right"]
-        if volume is None:
-            del payload["args"]["volume"]
-        if mute is None:
-            del payload["args"]["mute"]
+        payload = remove_none(payload)
 
         sent = self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
@@ -234,34 +228,7 @@ class Client:
             },
             "nonce": '{:.20f}'.format(current_time)
         }
-        if state is None:
-            del payload["args"]["activity"]["state"]
-        if details is None:
-            del payload["args"]["activity"]["details"]
-        if start is None:
-            del payload["args"]["activity"]["timestamps"]["start"]
-        if end is None:
-            del payload["args"]["activity"]["timestamps"]["end"]
-        if large_image is None:
-            del payload["args"]["activity"]["assets"]["large_image"]
-        if large_text is None:
-            del payload["args"]["activity"]["assets"]["large_text"]
-        if small_image is None:
-            del payload["args"]["activity"]["assets"]["small_image"]
-        if small_text is None:
-            del payload["args"]["activity"]["assets"]["small_text"]
-        if party_id is None:
-            del payload["args"]["activity"]["party"]["id"]
-        if party_size is None:
-            del payload["args"]["activity"]["party"]["size"]
-        if join is None:
-            del payload["args"]["activity"]["secrets"]["join"]
-        if spectate is None:
-            del payload["args"]["activity"]["secrets"]["spectate"]
-        if match is None:
-            del payload["args"]["activity"]["secrets"]["match"]
-        if instance is None:
-            del payload["args"]["activity"]["instance"]
+        payload = remove_none(payload)
 
         sent = self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
@@ -319,26 +286,7 @@ class Client:
         sent = self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-        if _input is None:
-            del payload["args"]["input"]
-        if output is None:
-            del payload["args"]["output"]
-        if mode is None:
-            del payload["args"]["mode"]
-        if automatic_gain_control is None:
-            del payload["args"]["automatic_gain_control"]
-        if echo_cancellation is None:
-            del payload["args"]["echo_cancellation"]
-        if noise_suppression is None:
-            del payload["args"]["noise_suppression"]
-        if qos is None:
-            del payload["args"]["qos"]
-        if silence_warning is None:
-            del payload["args"]["silence_warning"]
-        if deaf is None:
-            del payload["args"]["deaf"]
-        if mute is None:
-            del payload["args"]["mute"]
+        payload = remove_none(payload)
 
     def capture_shortcut(self, action):
         current_time = time.time()
