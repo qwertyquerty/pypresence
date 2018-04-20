@@ -1,7 +1,7 @@
 
 
 # pypresence
-A Discord RPC library in Python? Wow! Looks like you've come to the right place. **Just looking to do Rich Presence? Click [here](https://github.com/qwertyquerty/pypresence/blob/master/README.md#rich-presence).**
+A Discord RPC library in Python? Wow! Looks like you've come to the right place.
 
 [![GitHub stars](https://img.shields.io/github/stars/qwertyquerty/pypresence.svg?style=for-the-badge&label=Stars)](https://github.com/qwertyquerty/pypresence) [![license](https://img.shields.io/github/license/qwertyquerty/pypresence.svg?style=for-the-badge)](https://github.com/qwertyquerty/pypresence/blob/master/LICENSE) ![GitHub last commit](https://img.shields.io/github/last-commit/qwertyquerty/pypresence.svg?style=for-the-badge)
 
@@ -33,7 +33,54 @@ or
 
 ----------
 
-### The Client
+### Rich Presence Client
+
+Examples for this can be found in the examples folder.
+
+`pypresence.Presence(client_id, pipe=0)`
+
+Creates the class ready for usage.
+
+* `client_id`: OAuth2 App ID  (found at https://discordapp.com/developers/applications/me) [string]
+* `pipe`: Pipe that should be used to connect to the Discord client. Defaults to 0, can be 0-9. [int]
+
+----------
+
+`Presence.connect()`
+
+Initializes the connection - must be done in order to make any updates to Rich Presence.
+
+----------
+
+`Presence.close()`
+
+Closes the connection.
+
+----------
+
+`Presence.update(**options)`
+
+Sets the user's presence on Discord. Takes the following as parameters.
+
+* `pid`: the process id of your game `[int]`
+* `state`: the user's current status `[string]`
+* `details`: what the player is currently doing`[string]`
+* `start`: seconds for game start `[int]` 
+* `end`: seconds for game end `[int]` 
+* `large_image`: name of the uploaded image for the large profile artwork `[string]` 
+* `large_text`: tooltip for the large image `[string]` 
+* `small_image`: name of the uploaded image for the small profile artwork `[string]`
+* `small_text`: tootltip for the small image `[string]` 
+* `party_id`: id of the player's party, lobby, or group `[string]`
+* `party_size`: current size of the player's party, lobby, or group, and the max `[list]`
+* `join`: unique hashed string for chat invitations and ask to join `[string]`
+* `spectate`: unique hashed string for spectate button `[string]`
+* `match`: unique hashed string for spectate and join `[string]`
+* `instance`: marks the match as a game session with a specific beginning and end `[bool]`
+
+----------
+
+### RPC Client
 
 `pypresence.Client(client_id, pipe=0)`
 
@@ -46,13 +93,13 @@ Construct the Client.
 
 `Client.start()`
 
-Start up the client so it is ready to perform commands.
+Initializes the connection - must be done in order to run RPC commands.
 
 ----------
 
 `Client.close()`
 
-Stop the Client.
+Closes the connection.
 
 ----------
 
@@ -224,53 +271,6 @@ Used to accept an Ask to Join request.
 Used to reject an Ask to Join request.
 
 * `user_id`: user id `[string]`
-
-----------
-
-#### Rich Presence
-
-Examples for this can be found in the examples folder.
-
-`pypresence.Presence(client_id, pipe=0)`
-
-Creates the class ready for usage.
-
-* `client_id`: OAuth2 App ID  (found at https://discordapp.com/developers/applications/me) [string]
-* `pipe`: Pipe that should be used to connect to the Discord client. Defaults to 0, can be 0-9. [int]
-
-----------
-
-`Presence.connect()`
-
-Initializes the connection - must be done in order to make any updates to Rich Presence.
-
-----------
-
-`Presence.update(**options)`
-
-Sets the user's presence on Discord. Takes the following as parameters.
-
-* `pid`: the process id of your game `[int]`
-* `state`: the user's current status `[string]`
-* `details`: what the player is currently doing`[string]`
-* `start`: seconds for game start `[int]` 
-* `end`: seconds for game end `[int]` 
-* `large_image`: name of the uploaded image for the large profile artwork `[string]` 
-* `large_text`: tooltip for the large image `[string]` 
-* `small_image`: name of the uploaded image for the small profile artwork `[string]`
-* `small_text`: tootltip for the small image `[string]` 
-* `party_id`: id of the player's party, lobby, or group `[string]`
-* `party_size`: current size of the player's party, lobby, or group, and the max `[list]`
-* `join`: unique hashed string for chat invitations and ask to join `[string]`
-* `spectate`: unique hashed string for spectate button `[string]`
-* `match`: unique hashed string for spectate and join `[string]`
-* `instance`: marks the match as a game session with a specific beginning and end `[bool]`
-
-----------
-
-`Presence.close()`
-
-Closes the connection.
 
 ----------
 
