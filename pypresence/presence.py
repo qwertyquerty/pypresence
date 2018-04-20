@@ -5,10 +5,10 @@ class Presence(Client):
         super().__init__(**kwargs)
         
     def connect():
-        super().start()
+        self.start()
         
     def update(**kwargs):
-        super().set_activity(**kwargs)
+        self.set_activity(**kwargs)
         
     def close():
-        super().close()
+        self.close()
