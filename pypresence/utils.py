@@ -1,5 +1,5 @@
 # Util functions that are needed but messy.
-def remove_none(d: dict):
+def remove_none(d: dict): # Made by https://github.com/LewdNeko ;^)
     for item in d.copy():
         if isinstance(d[item], dict):
             if len(d[item]):
