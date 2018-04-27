@@ -74,7 +74,7 @@ Sets the user's presence on Discord. Takes the following as parameters.
 * `small_image`: name of the uploaded image for the small profile artwork `[string]`
 * `small_text`: tootltip for the small image `[string]` 
 * `party_id`: id of the player's party, lobby, or group `[string]`
-* `party_size`: current size of the player's party, lobby, or group, and the max `[list]`
+* `party_size`: current size of the player's party, lobby, or group, and the max in this format: `[1,4]` `[list]`
 * `join`: unique hashed string for chat invitations and ask to join `[string]`
 * `spectate`: unique hashed string for spectate button `[string]`
 * `match`: unique hashed string for spectate and join `[string]`
@@ -205,7 +205,7 @@ Used to set the activity shown on Discord profiles and status of users.
 * `small_image`: name of the uploaded image for the small profile artwork `[string]`
 * `small_text`: tootltip for the small image `[string]` 
 * `party_id`: id of the player's party, lobby, or group `[string]`
-* `party_size`: current size of the player's party, lobby, or group, and the max `[list]`
+* `party_size`: current size of the player's party, lobby, or group, and the max in this format: `[1,4]` `[list]`
 * `join`: unique hashed string for chat invitations and ask to join `[string]`
 * `spectate`: unique hashed string for spectate button `[string]`
 * `match`: unique hashed string for spectate and join `[string]`
