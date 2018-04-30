@@ -38,7 +38,10 @@ class Client:
         except BrokenPipeError:
             raise InvalidID
         code, length = struct.unpack('<ii', data[:8])
-        return json.loads(data[8:].decode('utf-8'))
+        payload = json.loads(data[8:].decode('utf-8'))
+        if payload["evt"] == "ERROR":
+            raise ServerError(payload["data"]["message"])
+        return payload
 
 
     def send_data(self, op: int, payload: dict):
