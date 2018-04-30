@@ -121,5 +121,5 @@ class Presence:
         self.loop.run_until_complete(self.handshake())
 
     def close(self):
-        self.sock_writer.close()
-        self.loop.close()
+        self.send_data(0, {'v': 1, 'client_id': self.client_id})
+
