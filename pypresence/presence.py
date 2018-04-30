@@ -121,5 +121,5 @@ class Presence:
         self.loop.run_until_complete(self.handshake())
 
     def close(self):
-        self.send_data(0, {'v': 1, 'client_id': self.client_id})
+        self.send_data(2, {'v': 1, 'client_id': self.client_id})
 
