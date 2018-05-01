@@ -54,7 +54,7 @@ Initializes the connection - must be done in order to make any updates to Rich P
 
 ----------
 
-`Presence.clear()`
+`Presence.clear(pid=os.getpid())`
 
 Clear the presence.
 
@@ -216,6 +216,13 @@ Used to set the activity shown on Discord profiles and status of users.
 * `spectate`: unique hashed string for spectate button `[string]`
 * `match`: unique hashed string for spectate and join `[string]`
 * `instance`: marks the match as a game session with a specific beginning and end `[bool]`
+
+----------
+
+`Presence.clear_activity(pid=os.getpid())`
+
+Clear the activity.
+
 ----------
 
 `Client.subscribe(event,args={})`
