@@ -30,6 +30,9 @@ class Client:
         self.sock_reader: asyncio.StreamReader = None
         self.sock_writer: asyncio.StreamWriter = None
         self.client_id = client_id
+        self._closed = False
+
+    @asyncio.coroutine
 
     @asyncio.coroutine
     def read_output(self):
@@ -236,6 +239,19 @@ class Client:
         sent = self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
+    def clear_activity(self,pid=os.getpid()):
+        current_time = time.time()
+        payload = {
+            "cmd": "SET_ACTIVITY",
+            "args": {
+                "pid": pid,
+                "activity": None
+            },
+            "nonce": '{:.20f}'.format(current_time)
+        }
+        self.send_data(1, payload)
+        return self.loop.run_until_complete(self.read_output())
+    
     def subscribe(self,event,args={}):
         current_time = time.time()
         payload = {

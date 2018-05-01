@@ -18,7 +18,7 @@ Use this badge in your project's Readme to show you're using pypresence! The mar
 ----------
 ----------
 
-# So you want docs? Fine.
+# Documentation
 
 **NOTE**: You need an authorized app to do anything besides rich presence!
 
@@ -51,6 +51,12 @@ Creates the class ready for usage.
 `Presence.connect()`
 
 Initializes the connection - must be done in order to make any updates to Rich Presence.
+
+----------
+
+`Presence.clear(pid=os.getpid())`
+
+Clear the presence.
 
 ----------
 
@@ -210,6 +216,13 @@ Used to set the activity shown on Discord profiles and status of users.
 * `spectate`: unique hashed string for spectate button `[string]`
 * `match`: unique hashed string for spectate and join `[string]`
 * `instance`: marks the match as a game session with a specific beginning and end `[bool]`
+
+----------
+
+`Presence.clear_activity(pid=os.getpid())`
+
+Clear the activity.
+
 ----------
 
 `Client.subscribe(event,args={})`
@@ -274,6 +287,22 @@ Used to accept an Ask to Join request.
 Used to reject an Ask to Join request.
 
 * `user_id`: user id `[string]`
+
+----------
+
+## Examples
+
+Examples can be found in the [examples](https://github.com/qwertyquerty/pypresence/tree/master/examples) directory, and you can contribute your own examples if you wish, just read [examples.md](https://github.com/qwertyquerty/pypresence/blob/master/examples/examples.md)!
+
+Furthermore, here is a list of repositories that use pypresence:
+
+* [anime-RPC](https://github.com/cheddar-cheeze/anime-RPC) by cheddar-cheeze
+* [switchcord](https://github.com/TemTemmie/switchcord) by TemTemmie
+* [osu-rpc-linux](https://github.com/diamondburned/osu-rpc-linux) by diamondburned
+* [taiko3-discord-rpc](https://github.com/bui/taiko3-discord-rpc) by bui
+* [HQMediaPlayer](https://github.com/DAgostinateur/HQMediaPlayer) by DAgonstinateur
+* [WowDiscordRichPresence](https://github.com/Arwic/WowDiscordRichPresence) by Arwic
+* [ss13rp](https://github.com/qwertyquerty/ss13rp) by qwertyquerty
 
 ----------
 
