@@ -54,6 +54,12 @@ Initializes the connection - must be done in order to make any updates to Rich P
 
 ----------
 
+`Presence.clear()`
+
+Clear the presence.
+
+----------
+
 `Presence.close()`
 
 Closes the connection.
