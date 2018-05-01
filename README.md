@@ -284,8 +284,12 @@ Examples can be found in the [examples](https://github.com/qwertyquerty/pypresen
 Furthermore, here is a list of repositories that use pypresence:
 
 * [anime-RPC](https://github.com/cheddar-cheeze/anime-RPC) by cheddar-cheeze
-*
-*
+* [switchcord](https://github.com/TemTemmie/switchcord) by TemTemmie
+* [osu-rpc-linux](https://github.com/diamondburned/osu-rpc-linux) by diamondburned
+* [taiko3-discord-rpc](https://github.com/bui/taiko3-discord-rpc) by bui
+* [HQMediaPlayer](https://github.com/DAgostinateur/HQMediaPlayer) DAgonstinateur
+* [WowDiscordRichPresence](https://github.com/Arwic/WowDiscordRichPresence) Arwic
+* [ss13rp](https://github.com/qwertyquerty/ss13rp) by qwertyquerty
 
 ----------
 
