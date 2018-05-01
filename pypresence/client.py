@@ -30,6 +30,9 @@ class Client:
         self.sock_reader: asyncio.StreamReader = None
         self.sock_writer: asyncio.StreamWriter = None
         self.client_id = client_id
+        self._closed = False
+
+    @asyncio.coroutine
 
     @asyncio.coroutine
     def read_output(self):

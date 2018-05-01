@@ -1,4 +1,7 @@
+import asyncio
 # Util functions that are needed but messy.
+
+
 def remove_none(d: dict): # Made by https://github.com/LewdNeko ;^)
     for item in d.copy():
         if isinstance(d[item], dict):
@@ -9,3 +12,9 @@ def remove_none(d: dict): # Made by https://github.com/LewdNeko ;^)
         elif d[item] is None:
             del d[item]
     return d
+
+
+try: # Thanks, Rapptz :^)
+    create_task = asyncio.ensure_future
+except AttributeError:
+    create_task = asyncio.async
