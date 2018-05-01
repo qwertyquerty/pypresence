@@ -283,8 +283,10 @@ Examples can be found in the [examples](https://github.com/qwertyquerty/pypresen
 
 Furthermore, here is a list of repositories that use pypresence:
 
+* [anime-RPC](https://github.com/cheddar-cheeze/anime-RPC) by cheddar-cheeze
 *
 *
-*
+
+----------
 
 ### Welp, you made it all the way through the docs. If you see any errors or incorrect items, please do make a pull request!
