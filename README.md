@@ -290,6 +290,8 @@ Used to reject an Ask to Join request.
 
 ----------
 
+----------
+
 ## Examples
 
 Examples can be found in the [examples](https://github.com/qwertyquerty/pypresence/tree/master/examples) directory, and you can contribute your own examples if you wish, just read [examples.md](https://github.com/qwertyquerty/pypresence/blob/master/examples/examples.md)!
