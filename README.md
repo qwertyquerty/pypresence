@@ -219,7 +219,7 @@ Used to set the activity shown on Discord profiles and status of users.
 
 ----------
 
-`Presence.clear_activity(pid=os.getpid())`
+`Client.clear_activity(pid=os.getpid())`
 
 Clear the activity.
 
