@@ -306,6 +306,7 @@ Furthermore, here is a list of repositories that use pypresence:
 | [taiko3-discord-rpc](https://github.com/bui/taiko3-discord-rpc) | bui |
 | [HQMediaPlayer](https://github.com/DAgostinateur/HQMediaPlayer) | DAgonstinateur |
 | [WowDiscordRichPresence](https://github.com/Arwic/WowDiscordRichPresence) | Arwic |
+| [discord-rpc-mpris](https://github.com/RayzrDev/discord-rpc-mpris) | RayzrDev |
 | [ss13rp](https://github.com/qwertyquerty/ss13rp) | qwertyquerty |
 
 ----------
