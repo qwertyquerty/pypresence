@@ -297,7 +297,7 @@ Examples can be found in the [examples](https://github.com/qwertyquerty/pypresen
 Furthermore, here is a list of repositories that use pypresence:
 
 | Repository | Author |
-| --- | --- |
+|:---:|:---:|
 | [anime-RPC](https://github.com/cheddar-cheeze/anime-RPC) | cheddar-cheeze |
 | [switchcord](https://github.com/TemTemmie/switchcord) | TemTemmie |
 | [osu-rpc-linux](https://github.com/diamondburned/osu-rpc-linux) | diamondburned |
