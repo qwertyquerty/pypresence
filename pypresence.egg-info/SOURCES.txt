@@ -1,0 +1,11 @@
+setup.cfg
+setup.py
+pypresence/__init__.py
+pypresence/client.py
+pypresence/exceptions.py
+pypresence/presence.py
+pypresence/utils.py
+pypresence.egg-info/PKG-INFO
+pypresence.egg-info/SOURCES.txt
+pypresence.egg-info/dependency_links.txt
+pypresence.egg-info/top_level.txt

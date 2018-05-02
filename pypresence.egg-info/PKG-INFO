@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: pypresence
+Version: 1.1.0
+Summary: Discord RPC client written in python
+Home-page: https://github.com/qwertyquerty/pypresence
+Author: qwertyquerty
+Author-email: UNKNOWN
+License: MIT
+Description: A Discord RPC library in python! Wow! Looks like you've come to the right place. Just looking to do Rich Presence? We Got you covered.
+Platform: UNKNOWN
