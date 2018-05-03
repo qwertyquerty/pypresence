@@ -25,19 +25,19 @@ class Client:
         self._closed = False
         self._events = {}
 
-    def register_event(self, event: str, func: function):
+    def register_event(self, event: str, func: function, args={}):
         if inspect.iscoroutinefunction(func):
             raise NotImplementedError
         elif len(inspect.signature(func).parameters) != 1:
             raise ArgumentError
-        self.subscribe(event)
+        self.subscribe(event, args)
         self._events[event.lower()] = func
 
-    def unregister_event(self, event: str):
+    def unregister_event(self, event: str, args={}):
         event = event.lower()
         if event not in self._events:
             raise EventNotFound
-        self.unsubscribe(event)
+        self.unsubscribe(event, args)
         del self._events[event]
 
     async def read_output(self):
