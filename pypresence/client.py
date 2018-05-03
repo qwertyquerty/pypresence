@@ -30,14 +30,14 @@ class Client:
             raise NotImplementedError
         elif len(inspect.signature(func).parameters) != 1:
             raise ArgumentError
-
+        self.subscribe(event)
         self._events[event.lower()] = func
 
     def unregister_event(self, event: str):
         event = event.lower()
         if event not in self._events:
             raise EventNotFound
-
+        self.unsubscribe(event)
         del self._events[event]
 
     async def read_output(self):
