@@ -47,7 +47,7 @@ class Client:
             raise InvalidID
         code, length = struct.unpack('<ii', data[:8])
         payload = json.loads(data[8:].decode('utf-8'))
-        if payload["evt"] == "ERROR":
+        if "evt" in payload and payload["evt"] == "ERROR":
             raise ServerError(payload["data"]["message"])
         return payload
 
@@ -94,12 +94,13 @@ class Client:
                 self.sock_reader._paused = True
 
         payload = json.loads(data[8:].decode('utf-8'))
-        try:
+
+        if payload["evt"] is not None:
             evt = payload["evt"].lower()
             if evt in self._events:
                 self._events[evt](payload["data"])
-        except KeyError:
-            pass
+            elif evt == 'error':
+                raise DiscordError(payload["data"]["code"], payload["data"]["message"])
 
     def authorize(self, client_id,scopes):
         current_time = time.time()

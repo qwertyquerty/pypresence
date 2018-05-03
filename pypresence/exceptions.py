@@ -13,6 +13,13 @@ class ServerError(Exception):
         super().__init__(message.replace(']','').replace('[','').capitalize())
 
 
+class DiscordError(Exception):
+    def __init__(self, code, message):
+        self.code = code
+        self.message = message
+        super().__init__('Error Code: {0} Message: {1}'.format(code, message))
+
+
 class ArgumentError(Exception):
     def __init__(self, message):
         super().__init__('Event function can only have one argument.')
