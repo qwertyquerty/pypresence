@@ -21,8 +21,8 @@ class DiscordError(Exception):
 
 
 class ArgumentError(Exception):
-    def __init__(self, message):
-        super().__init__('Event function can only have one argument.')
+    def __init__(self):
+        super().__init__('Event function must have one argument.')
 
 
 class EventNotFound(Exception):

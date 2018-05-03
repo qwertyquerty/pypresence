@@ -25,7 +25,7 @@ class Client:
         self._closed = False
         self._events = {}
 
-    def register_event(self, event: str, func: function, args={}):
+    def register_event(self, event: str, func, args={}):
         if inspect.iscoroutinefunction(func):
             raise NotImplementedError
         elif len(inspect.signature(func).parameters) != 1:
@@ -74,7 +74,7 @@ class Client:
         self.send_data(0, {'v': 1, 'client_id': self.client_id})
         data = await self.sock_reader.read(1024)
         code, length = struct.unpack('<ii', data[:8])
-        self.sock_reader.feed_data = self.on_data
+        self.sock_reader.feed_data = self.on_event
 
     def on_event(self, data):
         assert not self.sock_reader._eof, 'feed_data after feed_eof'
