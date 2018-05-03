@@ -6,6 +6,7 @@ import sys
 import time
 from .exceptions import *
 from .utils import *
+import inspect
 
 
 class Client:
@@ -22,13 +23,26 @@ class Client:
         self.sock_writer: asyncio.StreamWriter = None
         self.client_id = client_id
         self._closed = False
+        self._events = {}
 
+    def register_event(self, event: str, func: function):
+        if inspect.iscoroutinefunction(func):
+            raise NotImplementedError
+        elif len(inspect.signature(func).parameters) != 1:
+            raise ArgumentError
 
+        self._events[event.lower()] = func
 
-    @asyncio.coroutine
-    def read_output(self):
+    def unregister_event(self, event: str):
+        event = event.lower()
+        if event not in self._events:
+            raise EventNotFound
+
+        del self._events[event]
+
+    async def read_output(self):
         try:
-            data = yield from self.sock_reader.read(1024)
+            data = await self.sock_reader.read(1024)
         except BrokenPipeError:
             raise InvalidID
         code, length = struct.unpack('<ii', data[:8])
@@ -46,24 +60,23 @@ class Client:
                 len(payload)) +
             payload.encode('utf-8'))
 
-    @asyncio.coroutine
-    def handshake(self):
+    async def handshake(self):
         if sys.platform == 'linux' or sys.platform == 'darwin':
-            self.sock_reader, self.sock_writer = yield from asyncio.open_unix_connection(self.ipc_path, loop=self.loop)
+            self.sock_reader, self.sock_writer = await asyncio.open_unix_connection(self.ipc_path, loop=self.loop)
         elif sys.platform == 'win32' or sys.platform == 'win64':
             self.sock_reader = asyncio.StreamReader(loop=self.loop)
             reader_protocol = asyncio.StreamReaderProtocol(
                 self.sock_reader, loop=self.loop)
             try:
-                self.sock_writer, _ = yield from self.loop.create_pipe_connection(lambda: reader_protocol, self.ipc_path)
+                self.sock_writer, _ = await self.loop.create_pipe_connection(lambda: reader_protocol, self.ipc_path)
             except FileNotFoundError:
                 raise InvalidPipe
         self.send_data(0, {'v': 1, 'client_id': self.client_id})
-        data = yield from self.sock_reader.read(1024)
+        data = await self.sock_reader.read(1024)
         code, length = struct.unpack('<ii', data[:8])
         self.sock_reader.feed_data = self.on_data
 
-    def on_event(self,data):
+    def on_event(self, data):
         assert not self.sock_reader._eof, 'feed_data after feed_eof'
         if not data:
             print("oof")
@@ -79,11 +92,16 @@ class Client:
                 self.sock_reader._transport = None
             else:
                 self.sock_reader._paused = True
-        code, length = struct.unpack('<ii', data[:8])
+
         payload = json.loads(data[8:].decode('utf-8'))
+        try:
+            evt = payload["evt"].lower()
+            if evt in self._events:
+                self._events[evt](payload["data"])
+        except KeyError:
+            pass
 
-
-    def authorize(self,client_id,scopes):
+    def authorize(self, client_id,scopes):
         current_time = time.time()
         payload = {
             "cmd": "AUTHORIZE",
@@ -96,7 +114,7 @@ class Client:
         sent = self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def authenticate(self,token):
+    def authenticate(self, token):
         current_time = time.time()
         payload = {
             "cmd": "AUTHENTICATE",
@@ -120,7 +138,7 @@ class Client:
         sent = self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def get_guild(self,guild_id):
+    def get_guild(self, guild_id):
         current_time = time.time()
         payload = {
             "cmd": "GET_GUILD",
@@ -132,7 +150,7 @@ class Client:
         sent = self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def get_channel(self,channel_id):
+    def get_channel(self, channel_id):
         current_time = time.time()
         payload = {
             "cmd": "GET_CHANNEL",
@@ -144,7 +162,7 @@ class Client:
         sent = self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def get_channels(self,guild_id):
+    def get_channels(self, guild_id):
         current_time = time.time()
         payload = {
             "cmd": "GET_CHANNELS",
@@ -156,7 +174,7 @@ class Client:
         sent = self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def set_user_voice_settings(self,user_id,pan_left=None,pan_right=None,volume=None,mute=None):
+    def set_user_voice_settings(self, user_id, pan_left=None, pan_right=None, volume=None, mute=None):
         current_time = time.time()
         payload = {
             "cmd": "SET_USER_VOICE_SETTINGS",
@@ -212,7 +230,7 @@ class Client:
         sent = self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def set_activity(self,pid=os.getpid(),state=None,details=None,start=None,end=None,large_image=None,large_text=None,small_image=None,small_text=None,party_id=None,party_size=None,join=None,spectate=None,match=None,instance=True):
+    def set_activity(self, pid=os.getpid(), state=None, details=None, start=None, end=None, large_image=None, large_text=None, small_image=None, small_text=None, party_id=None, party_size=None, join=None, spectate=None, match=None, instance=True):
         current_time = time.time()
         payload = {
             "cmd": "SET_ACTIVITY",
@@ -250,7 +268,7 @@ class Client:
         sent = self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def clear_activity(self,pid=os.getpid()):
+    def clear_activity(self, pid=os.getpid()):
         current_time = time.time()
         payload = {
             "cmd": "SET_ACTIVITY",
@@ -263,7 +281,7 @@ class Client:
         self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def subscribe(self,event,args={}):
+    def subscribe(self, event, args={}):
         current_time = time.time()
         payload = {
             "cmd": "SUBSCRIBE",
@@ -274,7 +292,7 @@ class Client:
         sent = self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def unsubscribe(self,event,args={}):
+    def unsubscribe(self, event, args={}):
         current_time = time.time()
         payload = {
             "cmd": "UNSUBSCRIBE",
@@ -318,7 +336,7 @@ class Client:
 
         payload = remove_none(payload)
 
-    def capture_shortcut(self,action):
+    def capture_shortcut(self, action):
         current_time = time.time()
         payload = {
             "cmd": "CAPTURE_SHORTCUT",
@@ -330,7 +348,7 @@ class Client:
         sent = self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def send_activity_join_invite(self,user_id):
+    def send_activity_join_invite(self, user_id):
         current_time = time.time()
         payload = {
             "cmd": "SEND_ACTIVITY_JOIN_INVITE",
@@ -342,7 +360,7 @@ class Client:
         sent = self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def close_activity_request(self,user_id):
+    def close_activity_request(self, user_id):
         current_time = time.time()
         payload = {
             "cmd": "CLOSE_ACTIVITY_REQUEST",
@@ -357,6 +375,7 @@ class Client:
     def close(self):
         self.send_data(2, {'v': 1, 'client_id': self.client_id})
         self.sock_writer.close()
+        self._closed = True
         self.loop.close()
 
     def start(self):
