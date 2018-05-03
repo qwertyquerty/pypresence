@@ -287,7 +287,7 @@ class Client:
         payload = {
             "cmd": "SUBSCRIBE",
             "args": args,
-            "evt": event,
+            "evt": event.upper(),
             "nonce": '{:.20f}'.format(current_time)
         }
         sent = self.send_data(1, payload)
@@ -298,7 +298,7 @@ class Client:
         payload = {
             "cmd": "UNSUBSCRIBE",
             "args": args,
-            "evt": event,
+            "evt": event.upper(),
             "nonce": '{:.20f}'.format(current_time)
         }
         sent = self.send_data(1, payload)
