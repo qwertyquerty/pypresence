@@ -292,6 +292,29 @@ Used to reject an Ask to Join request.
 
 ----------
 
+## Events
+
+`Client.register_event(event, func, args={})`
+
+Hook an event to a function. The function will be called whenever Discord sends that event. Will auto subscribe to it.
+
+* `event`: the event to hook `[string]`
+* `func`: the function to pair with the event `[function]`
+* `args`: optional args used in subscription `[dict]`
+
+----------
+
+`Client.unregister_event(event, args={})`
+
+Unhook an event from a function. Will auto unsubscribe from the event as well.
+
+* `event`: the event to unhook `[string]`
+* `args`: optional args used in unsubscription `[dict]`
+
+----------
+
+----------
+
 ## Examples
 
 Examples can be found in the [examples](https://github.com/qwertyquerty/pypresence/tree/master/examples) directory, and you can contribute your own examples if you wish, just read [examples.md](https://github.com/qwertyquerty/pypresence/blob/master/examples/examples.md)!
