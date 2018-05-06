@@ -5,6 +5,8 @@ A Discord RPC library in Python? Wow! Looks like you've come to the right place.
 
 [![GitHub stars](https://img.shields.io/github/stars/qwertyquerty/pypresence.svg?style=for-the-badge&label=Stars)](https://github.com/qwertyquerty/pypresence) [![license](https://img.shields.io/github/license/qwertyquerty/pypresence.svg?style=for-the-badge)](https://github.com/qwertyquerty/pypresence/blob/master/LICENSE) ![GitHub last commit](https://img.shields.io/github/last-commit/qwertyquerty/pypresence.svg?style=for-the-badge)
 
+[My Discord Server](https://discord.gg/d7dH65)
+
 ----------
 
 Use this badge in your project's Readme to show you're using pypresence! The markdown code is below.
