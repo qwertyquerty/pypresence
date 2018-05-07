@@ -325,7 +325,7 @@ Furthermore, here is a list of repositories that use pypresence:
 
 | Repository | Author |
 |:---:|:---:|
-| [anime-RPC](https://github.com/cheddar-cheeze/anime-RPC) | cheddar-cheeze |
+| [MAL-RPC](https://github.com/cheddar-cheeze/MAL-RPC) | cheddar-cheeze |
 | [switchcord](https://github.com/TemTemmie/switchcord) | TemTemmie |
 | [osu-rpc-linux](https://github.com/diamondburned/osu-rpc-linux) | diamondburned |
 | [taiko3-discord-rpc](https://github.com/bui/taiko3-discord-rpc) | bui |
@@ -333,6 +333,7 @@ Furthermore, here is a list of repositories that use pypresence:
 | [WowDiscordRichPresence](https://github.com/Arwic/WowDiscordRichPresence) | Arwic |
 | [discord-rpc-mpris](https://github.com/RayzrDev/discord-rpc-mpris) | RayzrDev |
 | [ss13rp](https://github.com/qwertyquerty/ss13rp) | qwertyquerty |
+| [DiscordRPGUI](https://github.com/Elliot-Potts/DiscordRPGUI) | Elliot-Potts |
 
 ----------
 
