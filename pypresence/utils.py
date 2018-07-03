@@ -17,4 +17,8 @@ def remove_none(d: dict): # Made by https://github.com/LewdNeko ;^)
 try: # Thanks, Rapptz :^)
     create_task = asyncio.ensure_future
 except AttributeError:
-    create_task = asyncio.async
+    create_task = eval(
+        "asyncio.async"
+    )
+    # No longer crashes Python 3.7.
+    # Fix by JakeMakesStuff.
