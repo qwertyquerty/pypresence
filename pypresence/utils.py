@@ -20,4 +20,5 @@ except AttributeError:
     create_task = eval(
         "asyncio.async"
     )
-    # No longer crashes Python 3.7
+    # No longer crashes Python 3.7.
+    # Fix by JakeMakesStuff.
