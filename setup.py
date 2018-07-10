@@ -3,7 +3,7 @@ from setuptools import setup
 setup(name='pypresence',
       author='qwertyquerty',
       url='https://github.com/qwertyquerty/pypresence',
-      version='2.0.0',
+      version='2.0.2',
       packages=['pypresence'],
       license='MIT',
       description='Discord RPC client written in python',
