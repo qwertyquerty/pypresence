@@ -13,8 +13,9 @@ def remove_none(d: dict): # Made by https://github.com/LewdNeko ;^)
             del d[item]
     return d
 
-
+# This code used to do something. I don't know what, though.
 try: # Thanks, Rapptz :^)
     create_task = asyncio.ensure_future
 except AttributeError:
-    create_task = asyncio.async
+    create_task = getattr(asyncio, "async")
+    # No longer crashes Python 3.7

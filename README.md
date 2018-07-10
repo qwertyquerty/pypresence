@@ -5,6 +5,8 @@ A Discord RPC library in Python? Wow! Looks like you've come to the right place.
 
 [![GitHub stars](https://img.shields.io/github/stars/qwertyquerty/pypresence.svg?style=for-the-badge&label=Stars)](https://github.com/qwertyquerty/pypresence) [![license](https://img.shields.io/github/license/qwertyquerty/pypresence.svg?style=for-the-badge)](https://github.com/qwertyquerty/pypresence/blob/master/LICENSE) ![GitHub last commit](https://img.shields.io/github/last-commit/qwertyquerty/pypresence.svg?style=for-the-badge)
 
+[My Discord Server](https://discordapp.com/invite/uV5y7RY)
+
 ----------
 
 Use this badge in your project's Readme to show you're using pypresence! The markdown code is below.
@@ -323,7 +325,7 @@ Furthermore, here is a list of repositories that use pypresence:
 
 | Repository | Author |
 |:---:|:---:|
-| [anime-RPC](https://github.com/cheddar-cheeze/anime-RPC) | cheddar-cheeze |
+| [MAL-RPC](https://github.com/cheddar-cheeze/MAL-RPC) | cheddar-cheeze |
 | [switchcord](https://github.com/TemTemmie/switchcord) | TemTemmie |
 | [osu-rpc-linux](https://github.com/diamondburned/osu-rpc-linux) | diamondburned |
 | [taiko3-discord-rpc](https://github.com/bui/taiko3-discord-rpc) | bui |
@@ -331,6 +333,7 @@ Furthermore, here is a list of repositories that use pypresence:
 | [WowDiscordRichPresence](https://github.com/Arwic/WowDiscordRichPresence) | Arwic |
 | [discord-rpc-mpris](https://github.com/RayzrDev/discord-rpc-mpris) | RayzrDev |
 | [ss13rp](https://github.com/qwertyquerty/ss13rp) | qwertyquerty |
+| [DiscordRPGUI](https://github.com/Elliot-Potts/DiscordRPGUI) | Elliot-Potts |
 
 ----------
 
