@@ -10,7 +10,7 @@ from .utils import *
 
 
 class Presence:
-    def __init__(self, client_id, pipe=0):
+    def __init__(self, client_id, pipe=0,loop=None):
         client_id = str(client_id)
         if sys.platform == 'linux' or sys.platform == 'darwin':
             self.ipc_path = (
@@ -27,6 +27,10 @@ class Presence:
         elif sys.platform == 'win32':
             self.ipc_path = r'\\?\pipe\discord-ipc-'+str(pipe)
             self.loop = asyncio.ProactorEventLoop()
+        
+        if loop is not None:
+            self.loop = loop
+        
         self.sock_reader: asyncio.StreamReader = None
         self.sock_writer: asyncio.StreamWriter = None
         self.client_id = client_id
