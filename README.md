@@ -7,6 +7,8 @@ A Discord RPC library in Python? Wow! Looks like you've come to the right place.
 
 [My Discord Server](https://discordapp.com/invite/uV5y7RY)
 
+[![ko-fi](https://www.ko-fi.com/img/donate_sm.png)](https://ko-fi.com/P5P3GHMZ)
+
 ----------
 
 Use this badge in your project's Readme to show you're using pypresence! The markdown code is below.
