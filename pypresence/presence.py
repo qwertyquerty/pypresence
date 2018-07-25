@@ -1,4 +1,5 @@
 import asyncio
+import inspect
 import json
 import os
 import struct
@@ -10,7 +11,7 @@ from .utils import *
 
 
 class Presence:
-    def __init__(self, client_id, pipe=0,loop=None):
+    def __init__(self, client_id, pipe=0, loop=None, handler=None):
         client_id = str(client_id)
         if sys.platform == 'linux' or sys.platform == 'darwin':
             self.ipc_path = (
@@ -34,6 +35,23 @@ class Presence:
         self.sock_reader: asyncio.StreamReader = None
         self.sock_writer: asyncio.StreamWriter = None
         self.client_id = client_id
+
+        if handler is not None:
+            if not inspect.isfunction(handler):
+                raise PyPresenceException('Error handler must be a function.')
+            args = inspect.getfullargspec(handler).args
+            if args[0] == 'self': args = args[1:]
+            if len(args) != 2:
+                raise PyPresenceException('Error handler should only accept two arguments.')
+
+            loop.set_exception_handler(self._err_handle)
+            self.handler
+
+    def _err_handle(self, loop, context):
+        if inspect.iscoroutinefunction(self.handler):
+            loop.run_until_complete(self.handler(context['exception'], context['future']))
+        else:
+            self.handler(context['exception'], context['future'])
 
     @asyncio.coroutine
     def read_output(self):
