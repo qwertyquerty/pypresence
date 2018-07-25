@@ -43,12 +43,14 @@ or
 
 Examples for this can be found in the examples folder.
 
-`pypresence.Presence(client_id, pipe=0)`
+`pypresence.Presence(client_id, pipe=0, loop=None, handler=None)`
 
 Creates the class ready for usage.
 
 * `client_id`: OAuth2 App ID  (found at https://discordapp.com/developers/applications/me) [string]
 * `pipe`: Pipe that should be used to connect to the Discord client. Defaults to 0, can be 0-9. [int]
+* `loop`: Your own event loop (if you have one) that PyPresence should use. One will be created if not supplied. Information at https://docs.python.org/3/library/asyncio-eventloop.html [asyncio event loop]
+* `handler`: The exception handler PyPresence should send asynchronous errors to. This can be a coroutine or standard function as long as it takes two arguments (exception, future). Exception will be the exception to handle and future will be an instance of [asyncio.Future](https://docs.python.org/3/library/asyncio-task.html#asyncio.Future)
 
 ----------
 
