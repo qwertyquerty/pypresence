@@ -7,7 +7,6 @@ A Discord RPC library in Python? Wow! Looks like you've come to the right place.
 
 [My Discord Server](https://discordapp.com/invite/uV5y7RY) | [My Patreon](https://www.patreon.com/qwertyquerty)
 
-[![ko-fi](https://www.ko-fi.com/img/donate_sm.png)](https://ko-fi.com/P5P3GHMZ)
 
 ----------
 
