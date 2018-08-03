@@ -45,7 +45,7 @@ class Presence:
                 raise PyPresenceException('Error handler should only accept two arguments.')
 
             loop.set_exception_handler(self._err_handle)
-            self.handler
+            self.handler = handler
 
     def _err_handle(self, loop, context):
         if inspect.iscoroutinefunction(self.handler):
