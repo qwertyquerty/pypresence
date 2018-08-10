@@ -1,6 +1,6 @@
 class PyPresenceException(Exception):
     def __init__(self, message=None):
-        message = 'An error has occured within PyPresence' if message is None
+        if message is None: message = 'An error has occured within PyPresence'
         super().__init__(message)
 
 class InvalidID(PyPresenceException):
