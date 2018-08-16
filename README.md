@@ -341,3 +341,6 @@ Furthermore, here is a list of repositories that use pypresence:
 ----------
 
 ### Welp, you made it all the way through the docs. If you see any errors or incorrect items, please do make a pull request!
+
+
+![](https://svgur.com/i/7so.svg)
