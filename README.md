@@ -337,6 +337,7 @@ Furthermore, here is a list of repositories that use pypresence:
 | [discord-rpc-mpris](https://github.com/RayzrDev/discord-rpc-mpris) | RayzrDev |
 | [ss13rp](https://github.com/qwertyquerty/ss13rp) | qwertyquerty |
 | [DiscordRPGUI](https://github.com/Elliot-Potts/DiscordRPGUI) | Elliot-Potts |
+| [KoDiscord](https://github.com/Tusky/KoDiscord) | Tusky |
 
 ----------
 
