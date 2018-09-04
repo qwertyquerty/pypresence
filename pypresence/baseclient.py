@@ -27,9 +27,9 @@ class BaseClient:
                                 None) or os.environ.get(
                                 'TEMP',
                                 None) or '/tmp')
-            snap_path = '/snap.discord'
-            base_path += snap_path if os.path.isdir(base_path + snap_path) else ''
-            self.ipc_path = base_path + '/discord-ipc-' + str(pipe)
+            pipe_file = '/discord-ipc-' + str(pipe)
+            snap_path = base_path + '/snap.discord' + pipe_file
+            self.ipc_path = snap_path if os.path.exists(snap_path) else base_path + pipe_file
             self.loop = asyncio.get_event_loop()
         elif sys.platform == 'win32':
             self.ipc_path = r'\\?\pipe\discord-ipc-' + str(pipe)
