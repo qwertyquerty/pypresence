@@ -23,7 +23,7 @@ Use this badge in your project's Readme to show you're using pypresence! The mar
 
 # Documentation
 
-**NOTE**: You need an authorized app to do anything besides rich presence!
+> **NOTE**: You need an **authorized app** to do anything besides rich presence!
 
 ## Installation
 
