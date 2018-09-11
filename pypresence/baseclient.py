@@ -17,7 +17,7 @@ class BaseClient:
 
         client_id = str(client_id)
         if sys.platform == 'linux' or sys.platform == 'darwin':
-            self.ipc_path = (
+            base_path = (
                                     os.environ.get(
                                         'XDG_RUNTIME_DIR',
                                         None) or os.environ.get(
@@ -26,7 +26,10 @@ class BaseClient:
                                 'TMP',
                                 None) or os.environ.get(
                                 'TEMP',
-                                None) or '/tmp') + '/discord-ipc-' + str(pipe)
+                                None) or '/tmp')
+            pipe_file = '/discord-ipc-' + str(pipe)
+            snap_path = base_path + '/snap.discord' + pipe_file
+            self.ipc_path = snap_path if os.path.exists(snap_path) else base_path + pipe_file
             self.loop = asyncio.get_event_loop()
         elif sys.platform == 'win32':
             self.ipc_path = r'\\?\pipe\discord-ipc-' + str(pipe)
