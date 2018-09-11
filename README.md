@@ -324,7 +324,7 @@ Unhook an event from a function. Will auto unsubscribe from the event as well.
 
 Examples can be found in the [examples](https://github.com/qwertyquerty/pypresence/tree/master/examples) directory, and you can contribute your own examples if you wish, just read [examples.md](https://github.com/qwertyquerty/pypresence/blob/master/examples/examples.md)!
 
-Furthermore, here is a list of repositories that use pypresence:
+Furthermore, here is a list of repositories that use pypresence. If you wish you may PR yours in here as well.
 
 | Repository | Author |
 |:---:|:---:|
@@ -338,6 +338,8 @@ Furthermore, here is a list of repositories that use pypresence:
 | [ss13rp](https://github.com/qwertyquerty/ss13rp) | qwertyquerty |
 | [DiscordRPGUI](https://github.com/Elliot-Potts/DiscordRPGUI) | Elliot-Potts |
 | [KoDiscord](https://github.com/Tusky/KoDiscord) | Tusky |
+| [Splatnet2-Rich-Presence](https://github.com/Valerokai/Splatnet2-Rich-Presence) | Valerokai |
+| [PoeRP](https://github.com/FollowTM/PoeRPC) | FollowTM |
 
 ----------
 
