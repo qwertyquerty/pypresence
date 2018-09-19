@@ -6,12 +6,7 @@ from .baseclient import BaseClient
 
 
 class Presence(BaseClient):
-
-    def __init__(self, *args, **kwargs):
-
-        super().__init__(*args, **kwargs)
-
-    def update(self,pid=os.getpid(),state=None,details=None,start=None,end=None,large_image=None,large_text=None,small_image=None,small_text=None,party_id=None,party_size=None,join=None,spectate=None,match=None,instance=True):
+    async def update(self,pid=os.getpid(),state=None,details=None,start=None,end=None,large_image=None,large_text=None,small_image=None,small_text=None,party_id=None,party_size=None,join=None,spectate=None,match=None,instance=True):
         current_time = time.time()
         payload = {
             "cmd": "SET_ACTIVITY",
@@ -47,9 +42,9 @@ class Presence(BaseClient):
         payload = remove_none(payload)
 
         self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
+        return await self.read_output()
 
-    def clear(self,pid=os.getpid()):
+    async def clear(self,pid=os.getpid()):
         current_time = time.time()
         payload = {
             "cmd": "SET_ACTIVITY",
@@ -60,12 +55,11 @@ class Presence(BaseClient):
             "nonce": '{:.20f}'.format(current_time)
         }
         self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
-    
-    def connect(self):
-        self.loop.run_until_complete(self.handshake())
+        return await self.read_output()
+
+    async def connect(self):
+        await self.handshake()
 
     def close(self):
         self.send_data(2, {'v': 1, 'client_id': self.client_id})
         self.sock_writer.close()
-        self.loop.close()
