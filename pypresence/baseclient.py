@@ -56,10 +56,9 @@ class BaseClient:
             self._events_on = False
 
     def _err_handle(self, loop, context):
+        result = self.handler(context['exception'], context['future'])
         if inspect.iscoroutinefunction(self.handler):
-            loop.run_until_complete(self.handler(context['exception'], context['future']))
-        else:
-            self.handler(context['exception'], context['future'])
+            loop.run_until_complete(result)
 
     async def read_output(self):
         try:

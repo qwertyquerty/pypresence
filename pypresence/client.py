@@ -57,7 +57,7 @@ class Client(BaseClient):
             elif evt == 'error':
                 raise DiscordError(payload["data"]["code"], payload["data"]["message"])
 
-    def authorize(self, client_id,scopes):
+    async def authorize(self, client_id,scopes):
         current_time = time.time()
         payload = {
             "cmd": "AUTHORIZE",
@@ -68,9 +68,9 @@ class Client(BaseClient):
             "nonce": '{:.20f}'.format(current_time)
         }
         sent = self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
+        return await self.read_output()
 
-    def authenticate(self, token):
+    async def authenticate(self, token):
         current_time = time.time()
         payload = {
             "cmd": "AUTHENTICATE",
@@ -81,9 +81,9 @@ class Client(BaseClient):
         }
 
         sent = self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
+        return await self.read_output()
 
-    def get_guilds(self):
+    async def get_guilds(self):
         current_time = time.time()
         payload = {
             "cmd": "GET_GUILDS",
@@ -92,9 +92,9 @@ class Client(BaseClient):
             "nonce": '{:.20f}'.format(current_time)
         }
         sent = self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
+        return await self.read_output()
 
-    def get_guild(self, guild_id):
+    async def get_guild(self, guild_id):
         current_time = time.time()
         payload = {
             "cmd": "GET_GUILD",
@@ -104,9 +104,9 @@ class Client(BaseClient):
             "nonce": '{:.20f}'.format(current_time)
         }
         sent = self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
+        return await self.read_output()
 
-    def get_channel(self, channel_id):
+    async def get_channel(self, channel_id):
         current_time = time.time()
         payload = {
             "cmd": "GET_CHANNEL",
@@ -116,9 +116,9 @@ class Client(BaseClient):
             "nonce": '{:.20f}'.format(current_time)
         }
         sent = self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
+        return await self.read_output()
 
-    def get_channels(self, guild_id):
+    async def get_channels(self, guild_id):
         current_time = time.time()
         payload = {
             "cmd": "GET_CHANNELS",
@@ -128,9 +128,9 @@ class Client(BaseClient):
             "nonce": '{:.20f}'.format(current_time)
         }
         sent = self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
+        return await self.read_output()
 
-    def set_user_voice_settings(self, user_id, pan_left=None, pan_right=None, volume=None, mute=None):
+    async def set_user_voice_settings(self, user_id, pan_left=None, pan_right=None, volume=None, mute=None):
         current_time = time.time()
         payload = {
             "cmd": "SET_USER_VOICE_SETTINGS",
@@ -149,9 +149,9 @@ class Client(BaseClient):
         payload = remove_none(payload)
 
         sent = self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
+        return await self.read_output()
 
-    def select_voice_channel(self, channel_id):
+    async def select_voice_channel(self, channel_id):
         current_time = time.time()
         payload = {
             "cmd": "SELECT_VOICE_CHANNEL",
@@ -161,9 +161,9 @@ class Client(BaseClient):
             "nonce": '{:.20f}'.format(current_time)
         }
         sent = self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
+        return await self.read_output()
 
-    def get_selected_voice_channel(self):
+    async def get_selected_voice_channel(self):
         current_time = time.time()
         payload = {
             "cmd": "GET_SELECTED_VOICE_CHANNEL",
@@ -172,9 +172,9 @@ class Client(BaseClient):
             "nonce": '{:.20f}'.format(current_time)
         }
         sent = self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
+        return await self.read_output()
 
-    def select_text_channel(self, channel_id):
+    async def select_text_channel(self, channel_id):
         current_time = time.time()
         payload = {
             "cmd": "SELECT_VOICE_CHANNEL",
@@ -184,9 +184,9 @@ class Client(BaseClient):
             "nonce": '{:.20f}'.format(current_time)
         }
         sent = self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
+        return await self.read_output()
 
-    def set_activity(self, pid=os.getpid(), state=None, details=None, start=None, end=None, large_image=None, large_text=None, small_image=None, small_text=None, party_id=None, party_size=None, join=None, spectate=None, match=None, instance=True):
+    async def set_activity(self, pid=os.getpid(), state=None, details=None, start=None, end=None, large_image=None, large_text=None, small_image=None, small_text=None, party_id=None, party_size=None, join=None, spectate=None, match=None, instance=True):
         current_time = time.time()
         payload = {
             "cmd": "SET_ACTIVITY",
@@ -222,9 +222,9 @@ class Client(BaseClient):
         payload = remove_none(payload)
 
         sent = self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
+        return await self.read_output()
 
-    def clear_activity(self, pid=os.getpid()):
+    async def clear_activity(self, pid=os.getpid()):
         current_time = time.time()
         payload = {
             "cmd": "SET_ACTIVITY",
@@ -235,9 +235,9 @@ class Client(BaseClient):
             "nonce": '{:.20f}'.format(current_time)
         }
         self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
+        return await self.read_output()
 
-    def subscribe(self, event, args={}):
+    async def subscribe(self, event, args={}):
         current_time = time.time()
         payload = {
             "cmd": "SUBSCRIBE",
@@ -246,9 +246,9 @@ class Client(BaseClient):
             "nonce": '{:.20f}'.format(current_time)
         }
         sent = self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
+        return await self.read_output()
 
-    def unsubscribe(self, event, args={}):
+    async def unsubscribe(self, event, args={}):
         current_time = time.time()
         payload = {
             "cmd": "UNSUBSCRIBE",
@@ -257,9 +257,9 @@ class Client(BaseClient):
             "nonce": '{:.20f}'.format(current_time)
         }
         sent = self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
+        return await self.read_output()
 
-    def get_voice_settings(self):
+    async def get_voice_settings(self):
         current_time = time.time()
         payload = {
             "cmd": "GET_VOICE_SETTINGS",
@@ -267,9 +267,9 @@ class Client(BaseClient):
             "nonce": '{:.20f}'.format(current_time)
         }
         sent = self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
+        return await self.read_output()
 
-    def set_voice_settings(self,_input=None,output=None,mode=None,automatic_gain_control=None,echo_cancellation=None,noise_suppression=None,qos=None,silence_warning=None,deaf=None,mute=None):
+    async def set_voice_settings(self,_input=None,output=None,mode=None,automatic_gain_control=None,echo_cancellation=None,noise_suppression=None,qos=None,silence_warning=None,deaf=None,mute=None):
         current_time = time.time()
         payload = {
             "cmd": "SET_VOICE_SETTINGS",
@@ -289,9 +289,9 @@ class Client(BaseClient):
         }
         payload = remove_none(payload)
         sent = self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
+        return await self.read_output()
 
-    def capture_shortcut(self, action):
+    async def capture_shortcut(self, action):
         current_time = time.time()
         payload = {
             "cmd": "CAPTURE_SHORTCUT",
@@ -301,9 +301,9 @@ class Client(BaseClient):
             "nonce": '{:.20f}'.format(current_time)
         }
         sent = self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
+        return await self.read_output()
 
-    def send_activity_join_invite(self, user_id):
+    async def send_activity_join_invite(self, user_id):
         current_time = time.time()
         payload = {
             "cmd": "SEND_ACTIVITY_JOIN_INVITE",
@@ -313,9 +313,9 @@ class Client(BaseClient):
             "nonce": '{:.20f}'.format(current_time)
         }
         sent = self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
+        return await self.read_output()
 
-    def close_activity_request(self, user_id):
+    async def close_activity_request(self, user_id):
         current_time = time.time()
         payload = {
             "cmd": "CLOSE_ACTIVITY_REQUEST",
@@ -325,16 +325,12 @@ class Client(BaseClient):
             "nonce": '{:.20f}'.format(current_time)
         }
         sent = self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
+        return await self.read_output()
 
     def close(self):
         self.send_data(2, {'v': 1, 'client_id': self.client_id})
         self.sock_writer.close()
         self._closed = True
-        self.loop.close()
 
-    def start(self):
-        self.loop.run_until_complete(self.handshake())
-
-    def read(self):
-        return self.loop.run_until_complete(self.read_output())
+    async def start(self):
+        await self.handshake()
