@@ -32,9 +32,9 @@ class Client(BaseClient):
         del self._events[event]
 
     def on_event(self, data):
-        assert not self.sock_reader._eof, 'feed_data after feed_eof'
+        if self.sock_reader._eof:
+            raise AssertionError('feed_data after feed_eof')
         if not data:
-            print("oof")
             return
         self.sock_reader._buffer.extend(data)
         self.sock_reader._wakeup_waiter()
