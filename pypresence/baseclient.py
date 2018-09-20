@@ -3,6 +3,7 @@ import json
 import os
 import struct
 import sys
+import tempfile
 
 from .exceptions import *
 from .utils import *
@@ -18,15 +19,8 @@ class BaseClient:
         client_id = str(client_id)
         if sys.platform == 'linux' or sys.platform == 'darwin':
             self.ipc_path = (
-                                    os.environ.get(
-                                        'XDG_RUNTIME_DIR',
-                                        None) or os.environ.get(
-                                'TMPDIR',
-                                None) or os.environ.get(
-                                'TMP',
-                                None) or os.environ.get(
-                                'TEMP',
-                                None) or '/tmp') + '/discord-ipc-' + str(pipe)
+                (os.environ.get('XDG_RUNTIME_DIR') or tempfile.gettempdir())
+                + '/discord-ipc-' + str(pipe))
             self.loop = asyncio.get_event_loop()
         elif sys.platform == 'win32':
             self.ipc_path = r'\\?\pipe\discord-ipc-' + str(pipe)
@@ -56,10 +50,9 @@ class BaseClient:
             self._events_on = False
 
     def _err_handle(self, loop, context):
+        result = self.handler(context['exception'], context['future'])
         if inspect.iscoroutinefunction(self.handler):
-            loop.run_until_complete(self.handler(context['exception'], context['future']))
-        else:
-            self.handler(context['exception'], context['future'])
+            loop.run_until_complete(result)
 
     async def read_output(self):
         try:
