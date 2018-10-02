@@ -32,7 +32,6 @@ class Client(BaseClient):
         del self._events[event]
 
     def on_event(self, data):
-        assert not self.sock_reader._eof, 'feed_data after feed_eof'
          if self.sock_reader._eof:
             raise PyPresenceException('feed_data after feed_eof')
         if not data:
