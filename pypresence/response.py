@@ -8,6 +8,21 @@ class Response:
         self.code = code if code is not None else None
         self.properties = list(properties)
 
+    def __repr__(self):
+        def rend(d, l, root=[]):
+            for key,val in d.items():
+                if isinstance(val, dict):
+                    rend(val,l,root+[key])
+                else:
+                    l.append("{par}{key} = {val}".format(par=''.join([parent+'.' for parent in root]), key=key, val=repr(val)))
+
+        l = []
+        rend(self._dict, l)
+        return "<pypresence.Response\n    {}\n>".format('\n    '.join(l))
+
+    def __str__(self):
+        return self.__repr__()
+
     @classmethod
     def from_dict(cls, from_dict, code=None):
 
@@ -18,5 +33,7 @@ class Response:
             if isinstance(value, dict):
                 value = Response.from_dict(value)
             setattr(cls, key, value)
+
+        cls._dict = from_dict
 
         return cls(list(from_dict.keys()), code)
