@@ -11,3 +11,4 @@ crashlytics-build.properties
 dist/
 build/
 nyaaa/
+test.py
