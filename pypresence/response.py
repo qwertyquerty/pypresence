@@ -37,3 +37,9 @@ class Response:
         cls._dict = from_dict
 
         return cls(list(from_dict.keys()), code)
+
+    def __getattr__(self, attr):  # Add shorthand for the payload's data
+        data = getattr(self, 'data', None)
+        if data and attr in self.data:
+            return self.data.attr
+        return self.attr
