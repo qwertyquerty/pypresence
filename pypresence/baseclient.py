@@ -7,6 +7,7 @@ import tempfile
 
 from .exceptions import *
 from .utils import *
+from .response import Response
 
 
 class BaseClient:
@@ -63,7 +64,7 @@ class BaseClient:
         payload = json.loads(data[8:].decode('utf-8'))
         if payload["evt"] == "ERROR":
             raise ServerError(payload["data"]["message"])
-        return payload
+        return Response.from_dict(payload, code=code)
 
     def send_data(self, op: int, payload: dict):
         payload = json.dumps(payload)
