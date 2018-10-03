@@ -9,7 +9,9 @@ class Response:
         self.properties = list(properties)
 
     def __repr__(self):
-        def rend(d, l, root=[]):
+        def rend(d, l, root=None):
+            root = root or []
+
             for key,val in d.items():
                 if isinstance(val, dict):
                     rend(val,l,root+[key])
