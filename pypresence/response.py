@@ -20,7 +20,7 @@ class Response:
 
         l = []
         rend(self._dict, l)
-        return "<pypresence.Response\n    {}\n>".format('\n    '.join(l))
+        return "[pypresence.Response\n    {}\n]".format('\n    '.join(l))
 
     def __str__(self):
         return self.__repr__()
