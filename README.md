@@ -25,6 +25,8 @@ Use this badge in your project's Readme to show you're using pypresence! The mar
 
 > **NOTE**: You need an **authorized app** to do anything besides rich presence!
 
+> **3.0 is here** and with it comes a previous-code breaking change. Responses are now dynamic objects instead of dictionaries
+
 ## Installation
 
 Install pypresence with `pip`:
