@@ -11,4 +11,8 @@ crashlytics-build.properties
 dist/
 build/
 nyaaa/
+*.egg-info/
+.venv/
+venv/
+__pycache__/
 test.py
