@@ -342,6 +342,7 @@ Furthermore, here is a list of repositories that use pypresence. If you wish you
 | [KoDiscord](https://github.com/Tusky/KoDiscord) | Tusky |
 | [Splatnet2-Rich-Presence](https://github.com/Valerokai/Splatnet2-Rich-Presence) | Valerokai |
 | [PoeRP](https://github.com/FollowTM/PoeRPC) | FollowTM |
+| [Astolfo](https://github.com/GhostofGoes/Astolfo) | GhostofGoes |
 
 ----------
 
