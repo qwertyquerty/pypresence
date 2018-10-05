@@ -66,7 +66,7 @@ class Client(BaseClient):
             },
             "nonce": '{:.20f}'.format(current_time)
         }
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
     def authenticate(self, token: str):
@@ -79,7 +79,7 @@ class Client(BaseClient):
             "nonce": '{:.20f}'.format(current_time)
         }
 
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
     def get_guilds(self):
@@ -90,7 +90,7 @@ class Client(BaseClient):
             },
             "nonce": '{:.20f}'.format(current_time)
         }
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
     def get_guild(self, guild_id: str):
@@ -102,7 +102,7 @@ class Client(BaseClient):
             },
             "nonce": '{:.20f}'.format(current_time)
         }
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
     def get_channel(self, channel_id: str):
@@ -114,7 +114,7 @@ class Client(BaseClient):
             },
             "nonce": '{:.20f}'.format(current_time)
         }
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
     def get_channels(self, guild_id: str):
@@ -126,7 +126,7 @@ class Client(BaseClient):
             },
             "nonce": '{:.20f}'.format(current_time)
         }
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
     def set_user_voice_settings(self, user_id: str, pan_left: float = None,
@@ -147,7 +147,7 @@ class Client(BaseClient):
             "nonce": '{:.20f}'.format(current_time)
         }
         payload = remove_none(payload)
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
     def select_voice_channel(self, channel_id: str):
@@ -159,7 +159,7 @@ class Client(BaseClient):
             },
             "nonce": '{:.20f}'.format(current_time)
         }
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
     def get_selected_voice_channel(self):
@@ -170,7 +170,7 @@ class Client(BaseClient):
             },
             "nonce": '{:.20f}'.format(current_time)
         }
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
     def select_text_channel(self, channel_id: str):
@@ -182,7 +182,7 @@ class Client(BaseClient):
             },
             "nonce": '{:.20f}'.format(current_time)
         }
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
     def set_activity(self, pid: int = os.getpid(),
@@ -226,7 +226,7 @@ class Client(BaseClient):
             "nonce": '{:.20f}'.format(current_time)
         }
         payload = remove_none(payload)
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
     def clear_activity(self, pid: int = os.getpid()):
@@ -250,7 +250,7 @@ class Client(BaseClient):
             "evt": event.upper(),
             "nonce": '{:.20f}'.format(current_time)
         }
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
     def unsubscribe(self, event: str, args: dict = {}):
@@ -261,7 +261,7 @@ class Client(BaseClient):
             "evt": event.upper(),
             "nonce": '{:.20f}'.format(current_time)
         }
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
     def get_voice_settings(self):
@@ -271,7 +271,7 @@ class Client(BaseClient):
             "args": {},
             "nonce": '{:.20f}'.format(current_time)
         }
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
     def set_voice_settings(self, _input: dict = None, output: dict = None,
@@ -297,7 +297,7 @@ class Client(BaseClient):
             "nonce": '{:.20f}'.format(current_time)
         }
         payload = remove_none(payload)
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
     def capture_shortcut(self, action: str):
@@ -309,7 +309,7 @@ class Client(BaseClient):
             },
             "nonce": '{:.20f}'.format(current_time)
         }
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
     def send_activity_join_invite(self, user_id: str):
@@ -321,7 +321,7 @@ class Client(BaseClient):
             },
             "nonce": '{:.20f}'.format(current_time)
         }
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
     def close_activity_request(self, user_id: str):
@@ -333,7 +333,7 @@ class Client(BaseClient):
             },
             "nonce": '{:.20f}'.format(current_time)
         }
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
     def close(self):
