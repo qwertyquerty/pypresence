@@ -70,7 +70,7 @@ Closes the connection.
 
 ----------
 
-*`Presence.update(**options)`*
+### `Presence.update(**options)`
 
 Sets the user's presence on Discord. Takes the following as parameters.
 
