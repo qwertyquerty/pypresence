@@ -1,8 +1,8 @@
 import os
 import time
 
-from .utils import *
 from .baseclient import BaseClient
+from .utils import remove_none
 
 
 class Presence(BaseClient):

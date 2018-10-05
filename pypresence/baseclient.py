@@ -1,3 +1,4 @@
+import asyncio
 import inspect
 import json
 import os
@@ -6,7 +7,6 @@ import sys
 import tempfile
 
 from .exceptions import *
-from .utils import *
 from .response import Response
 
 
@@ -38,7 +38,8 @@ class BaseClient:
             if not inspect.isfunction(handler):
                 raise PyPresenceException('Error handler must be a function.')
             args = inspect.getfullargspec(handler).args
-            if args[0] == 'self': args = args[1:]
+            if args[0] == 'self':
+                args = args[1:]
             if len(args) != 2:
                 raise PyPresenceException('Error handler should only accept two arguments.')
 

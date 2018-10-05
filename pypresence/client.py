@@ -6,7 +6,7 @@ from typing import List
 
 from .baseclient import BaseClient
 from .exceptions import *
-from .utils import *
+from .utils import remove_none
 
 
 class Client(BaseClient):

@@ -1,8 +1,8 @@
 class Response:
 
     def __init__(self, properties, code=None):
-        validProps = (list, tuple)
-        if not isinstance(properties, validProps):
+        valid_props = (list, tuple)
+        if not isinstance(properties, valid_props):
             raise ValueError("Argument 'properties' should be type 'list' or 'tuple', not '{}'".format(type(properties)))
 
         self.code = code if code is not None else None
@@ -12,14 +12,14 @@ class Response:
         def rend(d, l, root=None):
             root = root or []
 
-            for key,val in d.items():
+            for key, val in d.items():
                 if isinstance(val, dict):
-                    rend(val,l,root+[key])
+                    rend(val, l, root+[key])
                 else:
                     l.append("{par}{key} = {val}".format(par=''.join([parent+'.' for parent in root]), key=key, val=repr(val)))
 
-        l = []
-        rend(self._dict, l)
+        lst = []
+        rend(self._dict, lst)
         return "[pypresence.Response\n    {}\n]".format('\n    '.join(l))
 
     def __str__(self):
