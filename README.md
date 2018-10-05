@@ -328,21 +328,21 @@ Examples can be found in the [examples](https://github.com/qwertyquerty/pypresen
 
 Furthermore, here is a list of repositories that use pypresence. If you wish you may PR yours in here as well.
 
-| Repository | Author |
-|:---:|:---:|
-| [anime-rpc](https://github.com/cheddar-cheeze/anime-rpc) | cheddar-cheeze |
-| [switchcord](https://github.com/TemTemmie/switchcord) | TemTemmie |
-| [osu-rpc-linux](https://github.com/diamondburned/osu-rpc-linux) | diamondburned |
-| [taiko3-discord-rpc](https://github.com/bui/taiko3-discord-rpc) | bui |
-| [HQMediaPlayer](https://github.com/DAgostinateur/HQMediaPlayer) | DAgonstinateur |
-| [WowDiscordRichPresence](https://github.com/Arwic/WowDiscordRichPresence) | Arwic |
-| [discord-rpc-mpris](https://github.com/RayzrDev/discord-rpc-mpris) | RayzrDev |
-| [ss13rp](https://github.com/qwertyquerty/ss13rp) | qwertyquerty |
-| [DiscordRPGUI](https://github.com/Elliot-Potts/DiscordRPGUI) | Elliot-Potts |
-| [KoDiscord](https://github.com/Tusky/KoDiscord) | Tusky |
-| [Splatnet2-Rich-Presence](https://github.com/Valerokai/Splatnet2-Rich-Presence) | Valerokai |
-| [PoeRP](https://github.com/FollowTM/PoeRPC) | FollowTM |
-| [Astolfo](https://github.com/GhostofGoes/Astolfo) | GhostofGoes |
+| Repository | Author | Repository | Author |
+|:---:|:---:|:---:|:---:|
+| [anime-rpc](https://github.com/cheddar-cheeze/anime-rpc) | cheddar-cheeze | [Astolfo](https://github.com/GhostofGoes/Astolfo) | GhostofGoes |
+| [switchcord](https://github.com/TemTemmie/switchcord) | TemTemmie | [PoeRP](https://github.com/FollowTM/PoeRPC) | FollowTM |
+| [osu-rpc-linux](https://github.com/diamondburned/osu-rpc-linux) | diamondburned | [Splatnet2-Rich-Presence](https://github.com/Valerokai/Splatnet2-Rich-Presence) | Valerokai | [KoDiscord](https://github.com/Tusky/KoDiscord) | Tusky |
+| [taiko3-discord-rpc](https://github.com/bui/taiko3-discord-rpc) | bui | [DiscordRPGUI](https://github.com/Elliot-Potts/DiscordRPGUI) | Elliot-Potts |
+| [HQMediaPlayer](https://github.com/DAgostinateur/HQMediaPlayer) | DAgonstinateur | [ss13rp](https://github.com/qwertyquerty/ss13rp) | qwertyquerty |
+| [WowDiscordRichPresence](https://github.com/Arwic/WowDiscordRichPresence) | Arwic | [discord-rpc-mpris](https://github.com/RayzrDev/discord-rpc-mpris) | RayzrDev |
+
+
+
+
+
+
+
 
 ----------
 
