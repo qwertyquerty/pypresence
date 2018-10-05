@@ -30,8 +30,10 @@ class BaseClient:
         if loop is not None:
             self.loop = loop
 
+
         self.sock_reader = None  # type: asyncio.StreamReader
         self.sock_writer = None  # type: asyncio.StreamWriter
+
         self.client_id = client_id
 
         if handler is not None:

@@ -12,3 +12,4 @@ pypresence.egg-info/PKG-INFO
 pypresence.egg-info/SOURCES.txt
 pypresence.egg-info/dependency_links.txt
 pypresence.egg-info/top_level.txt
+pypresence.egg-info/zip-safe
