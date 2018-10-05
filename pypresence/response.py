@@ -18,8 +18,8 @@ class Response:
                 else:
                     l.append("{par}{key} = {val}".format(par=''.join([parent+'.' for parent in root]), key=key, val=repr(val)))
 
-        lst = []
-        rend(self._dict, lst)
+        l = []
+        rend(self._dict, l)
         return "[pypresence.Response\n    {}\n]".format('\n    '.join(l))
 
     def __str__(self):
