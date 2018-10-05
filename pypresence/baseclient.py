@@ -16,7 +16,7 @@ class BaseClient:
         pipe = kwargs.get('pipe', 0)
         loop = kwargs.get('loop', None)
         handler = kwargs.get('handler', None)
-        async = kwargs.get('async', False)
+        self.async = kwargs.get('async', False)
 
         client_id = str(client_id)
         if sys.platform == 'linux' or sys.platform == 'darwin':
@@ -30,7 +30,6 @@ class BaseClient:
 
         if loop is not None:
             self.loop = loop
-
 
         self.sock_reader = None  # type: asyncio.StreamReader
         self.sock_writer = None  # type: asyncio.StreamWriter
@@ -46,7 +45,15 @@ class BaseClient:
             if len(args) != 2:
                 raise PyPresenceException('Error handler should only accept two arguments.')
 
-            loop.set_exception_handler(self._err_handle)
+            if self.async:
+                if not inspect.iscoroutinefunction(handler):
+                    raise InvalidArgument('Coroutine', 'Subroutine', 'You are running async mode - '
+                                                                     'your error handler should be awaitable.')
+                err_handler = self._async_err_handle
+            else:
+                err_handler = self._err_handle
+
+            loop.set_exception_handler(err_handler)
             self.handler = handler
 
         if getattr(self, "on_event", None):  # Tasty bad code ;^)
@@ -58,6 +65,9 @@ class BaseClient:
         result = self.handler(context['exception'], context['future'])
         if inspect.iscoroutinefunction(self.handler):
             loop.run_until_complete(result)
+
+    async def _async_err_handle(self, loop, context: dict):
+        await self.handler(context['exception'], context['future'])
 
     async def read_output(self):
         try:

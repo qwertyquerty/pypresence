@@ -6,7 +6,7 @@ By: qwertyquerty and LewdNeko
 
 from .baseclient import BaseClient
 from .client import Client
-from .presence import Presence
+from .presence import Presence, AioPresence
 from .exceptions import *
 
 __title__ = 'pypresence'
