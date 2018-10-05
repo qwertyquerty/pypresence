@@ -15,6 +15,12 @@ class InvalidPipe(PyPresenceException):
         super().__init__('Pipe Not Found - Is Discord Running?')
 
 
+class InvalidArgument(PyPresenceException):
+    def __init__(self, expected, received, longdesc: str = None):
+        longdesc = '\n{0}'.format(longdesc) if longdesc else ''
+        super().__init__('Bad argument passed. Expected {0} but got {1} instead{2}'.format(expected, received, longdesc))
+
+
 class ServerError(PyPresenceException):
     def __init__(self, message: str):
         super().__init__(message.replace(']', '').replace('[', '').capitalize())
