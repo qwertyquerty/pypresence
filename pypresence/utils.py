@@ -1,5 +1,9 @@
 """Util functions that are needed but messy."""
 import asyncio
+import json
+import time
+
+from .exceptions import PyPresenceException
 
 
 # Made by https://github.com/LewdNeko ;^)
@@ -15,8 +19,32 @@ def remove_none(d: dict):
     return d
 
 
+def load_payloads(filename):
+    with open(filename, 'r') as fp:
+        f = fp.read()
+
+    payloaddict = {}
+    for line in f.splitlines():
+        name, payload = line.split('||')
+        payloaddict[name] = payload
+
+    return payloaddict
+
+
+def payload_gen(payload_type: str, payload_params: dict):
+    payloads = load_payloads('pllist.NEKO')  # dont like txt files
+    if payload_type.upper() not in payloads:
+        raise PyPresenceException('Payload type not supported or does not exist.')
+    payload_str = payloads[payload_type]
+    for key, value in payload_params.items():
+        payload_str.replace(";;{0};;".format(key), value)
+
+    payload = json.loads(payload_str)
+    payload["nonce"] = payload["nonce"].format(time.time())
+
+
 # This code used to do something. I don't know what, though.
-try: # Thanks, Rapptz :^)
+try:  # Thanks, Rapptz :^)
     create_task = asyncio.ensure_future
 except AttributeError:
     create_task = getattr(asyncio, "async")
