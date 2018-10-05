@@ -23,9 +23,11 @@ Use this badge in your project's Readme to show you're using pypresence! The mar
 
 > **NOTE**: You need an **authorized app** to do anything besides rich presence!
 
-> **3.0 is here** and with it comes a previous-code breaking change. Responses are now dynamic objects instead of dictionaries
+## Recent Notable Changes
 
-> **Python 3.5 now supported** with version 3.1
+**3.1** Python 3.5 is now supported
+
+**3.0** Discord responses are now returned as a dynamic object instead of a dictionary
 
 ## Installation
 
