@@ -19,7 +19,8 @@ def remove_none(d: dict):
     return d
 
 
-def load_payloads(filename):
+# Don't call these. Ever.
+def _load_payloads(filename):
     with open(filename, 'r') as fp:
         f = fp.read()
 
@@ -31,8 +32,8 @@ def load_payloads(filename):
     return payloaddict
 
 
-def payload_gen(payload_type: str, payload_params: dict):
-    payloads = load_payloads('pllist.NEKO')  # dont like txt files
+def _payload_gen(payload_type: str, payload_params: dict):
+    payloads = _load_payloads('pllist.NEKO')  # dont like txt files
     if payload_type.upper() not in payloads:
         raise PyPresenceException('Payload type not supported or does not exist.')
     payload_str = payloads[payload_type]

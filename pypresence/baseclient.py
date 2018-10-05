@@ -5,9 +5,11 @@ import os
 import struct
 import sys
 import tempfile
+from typing import Union
 
 from .exceptions import *
 from .response import Response
+from .payloads import Payload
 
 
 class BaseClient:
@@ -80,7 +82,9 @@ class BaseClient:
             raise ServerError(payload["data"]["message"])
         return Response.from_dict(payload, code=code)
 
-    def send_data(self, op: int, payload: dict):
+    def send_data(self, op: int, payload: Union[dict, Payload]):
+        if isinstance(payload, Payload):
+            payload = payload.data
         payload = json.dumps(payload)
         self.sock_writer.write(
             struct.pack(
