@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: pypresence
-Version: 3.1.0
+Version: 3.1.1
 Summary: Discord RPC client written in Python
 Home-page: https://github.com/qwertyquerty/pypresence
 Author: qwertyquerty
@@ -30,9 +30,11 @@ Description: # pypresence
         
         > **NOTE**: You need an **authorized app** to do anything besides rich presence!
         
-        > **3.0 is here** and with it comes a previous-code breaking change. Responses are now dynamic objects instead of dictionaries
+        ## Recent Notable Changes
         
-        > **Python 3.5 now supported** with version 3.1
+        **3.1.0** Python 3.5 is now supported
+        
+        **3.0.0** Discord responses are now returned as a dynamic object instead of a dictionary
         
         ## Installation
         
