@@ -52,19 +52,19 @@ Creates the class ready for usage.
 
 ----------
 
-`Presence.connect()`
+### `Presence.connect()`
 
 Initializes the connection - must be done in order to make any updates to Rich Presence.
 
 ----------
 
-`Presence.clear(pid=os.getpid())`
+### `Presence.clear(pid=os.getpid())`
 
 Clear the presence.
 
 ----------
 
-`Presence.close()`
+### `Presence.close()`
 
 Closes the connection.
 
@@ -94,7 +94,7 @@ Sets the user's presence on Discord. Takes the following as parameters.
 
 ## RPC Client
 
-`pypresence.Client(client_id, pipe=0)`
+### `pypresence.Client(client_id, pipe=0)`
 
 Construct the Client.
 
@@ -103,19 +103,19 @@ Construct the Client.
 
 ----------
 
-`Client.start()`
+### `Client.start()`
 
 Initializes the connection - must be done in order to run RPC commands.
 
 ----------
 
-`Client.close()`
+### `Client.close()`
 
 Closes the connection.
 
 ----------
 
-`Client.authorize(client_id, scopes, rpc_token=None, username=None)`
+### `Client.authorize(client_id, scopes, rpc_token=None, username=None)`
 
 Used to authenticate a new client with your app. By default this pops up a modal in-app that asks the user to authorize access to your app.
 
@@ -128,7 +128,7 @@ All the different scopes can be found here: [https://discordapp.com/developers/d
 
 ----------
 
-`Client.authenticate(token)`
+### `Client.authenticate(token)`
 
 Used to authenticate an existing client with your app.
 
@@ -136,13 +136,13 @@ Used to authenticate an existing client with your app.
 
 ----------
 
-`Client.get_guilds()`
+### `Client.get_guilds()`
 
 Used to get a list of guilds the client is in.
 
 ----------
 
-`Client.get_guild(guild_id)`
+### `Client.get_guild(guild_id)`
 
 Used to get a guild the client is in.
 
@@ -150,7 +150,7 @@ Used to get a guild the client is in.
 
 ----------
 
-`Client.get_channels(guild_id)`
+### `Client.get_channels(guild_id)`
 
 Used to get a guild's channels the client is in.
 
@@ -158,7 +158,7 @@ Used to get a guild's channels the client is in.
 
 ----------
 
-`Client.get_channel(channel_id)`
+### `Client.get_channel(channel_id)`
 
 Used to get a channel the client is in.
 
@@ -166,7 +166,7 @@ Used to get a channel the client is in.
 
 ----------
 
-`Client.set_user_voice_settings(user_id, pan_left=None, pan_right=None, volume=None, mute=None)`
+### `Client.set_user_voice_settings(user_id, pan_left=None, pan_right=None, volume=None, mute=None)`
 
 Used to change voice settings of users in voice channels.
 
@@ -178,7 +178,7 @@ Used to change voice settings of users in voice channels.
 
 ----------
 
-`Client.select_voice_channel(channel_id)`
+### `Client.select_voice_channel(channel_id)`
 
 Used to join and leave voice channels, group dms, or dms.
 
@@ -186,7 +186,7 @@ Used to join and leave voice channels, group dms, or dms.
 
 ----------
 
-`Client.get_selected_voice_channel()`
+### `Client.get_selected_voice_channel()`
 
 Used to get the client's current voice channel.
 
@@ -200,7 +200,7 @@ Used to join and leave text channels, group dms, or dms.
 
 ----------
 
-`Client.set_activity(pid=os.getpid(), state=None, details=None, start=None, end=None, large_image=None, large_text=None, small_image=None, small_text=None, party_id=None, party_size=None, join=None, spectate=None, match=None, instance=True)`
+### `Client.set_activity(pid=os.getpid(), state=None, details=None, start=None, end=None, large_image=None, large_text=None, small_image=None, small_text=None, party_id=None, party_size=None, join=None, spectate=None, match=None, instance=True)`
 
 Used to set the activity shown on Discord profiles and status of users.
 
@@ -222,13 +222,13 @@ Used to set the activity shown on Discord profiles and status of users.
 
 ----------
 
-`Client.clear_activity(pid=os.getpid())`
+### `Client.clear_activity(pid=os.getpid())`
 
 Clear the activity.
 
 ----------
 
-`Client.subscribe(event,args={})`
+### `Client.subscribe(event,args={})`
 
 Used to subscribe to events.
 
@@ -237,7 +237,7 @@ Used to subscribe to events.
 
 ----------
 
-`Client.unsubscribe(event,args={})`
+### `Client.unsubscribe(event,args={})`
 
 Used to unsubscribe from events.
 
@@ -246,13 +246,13 @@ Used to unsubscribe from events.
 
 ----------
 
-`Client.get_voice_settings()`
+### `Client.get_voice_settings()`
 
 Get the user's voice settings.
 
 ----------
 
-`Client.set_voice_settings(self, _input=None, output=None, mode=None, automatic_gain_control=None, echo_cancellation=None, noise_suppression=None, qos=None, silence_warning=None, deaf=None, mute=None)`
+### `Client.set_voice_settings(self, _input=None, output=None, mode=None, automatic_gain_control=None, echo_cancellation=None, noise_suppression=None, qos=None, silence_warning=None, deaf=None, mute=None)`
 
 Set the user's voice settings.
 
@@ -269,7 +269,7 @@ Set the user's voice settings.
 
 ----------
 
-`Client.capture_shortcut(action)`
+### `Client.capture_shortcut(action)`
 
 Used to capture a keyboard shortcut entered by the user.
 
@@ -277,7 +277,7 @@ Used to capture a keyboard shortcut entered by the user.
 
 ----------
 
-`Client.send_activity_join_invite(user_id)`
+### `Client.send_activity_join_invite(user_id)`
 
 Used to accept an Ask to Join request.
 
@@ -285,7 +285,7 @@ Used to accept an Ask to Join request.
 
 ----------
 
-`Client.close_activity_request(user_id)`
+### `Client.close_activity_request(user_id)`
 
 Used to reject an Ask to Join request.
 
@@ -295,7 +295,7 @@ Used to reject an Ask to Join request.
 
 ## Events
 
-`Client.register_event(event, func, args={})`
+### `Client.register_event(event, func, args={})`
 
 Hook an event to a function. The function will be called whenever Discord sends that event. Will auto subscribe to it.
 
@@ -305,7 +305,7 @@ Hook an event to a function. The function will be called whenever Discord sends 
 
 ----------
 
-`Client.unregister_event(event, args={})`
+### `Client.unregister_event(event, args={})`
 
 Unhook an event from a function. Will auto unsubscribe from the event as well.
 
