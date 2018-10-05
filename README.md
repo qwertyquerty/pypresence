@@ -1,7 +1,7 @@
 
 
 # pypresence
-A Discord RPC library in Python? Wow! Looks like you've come to the right place.
+A Discord RPC library in Python? Looks like you've come to the right place.
 
 [![GitHub stars](https://img.shields.io/github/stars/qwertyquerty/pypresence.svg?style=for-the-badge&label=Stars)](https://github.com/qwertyquerty/pypresence) [![license](https://img.shields.io/github/license/qwertyquerty/pypresence.svg?style=for-the-badge)](https://github.com/qwertyquerty/pypresence/blob/master/LICENSE) ![GitHub last commit](https://img.shields.io/github/last-commit/qwertyquerty/pypresence.svg?style=for-the-badge)
 
@@ -18,7 +18,6 @@ Use this badge in your project's Readme to show you're using pypresence! The mar
 [![pypresence](https://img.shields.io/badge/using-pypresence-00bb88.svg?style=for-the-badge&logo=discord&logoWidth=20)](https://github.com/qwertyquerty/pypresence)
 ```
 
-----------
 ----------
 
 # Documentation
@@ -37,7 +36,6 @@ or
 
 `pip install pypresence`
 
-----------
 ----------
 
 ## Rich Presence Client
@@ -93,7 +91,6 @@ Sets the user's presence on Discord. Takes the following as parameters.
 * `match`: unique hashed string for spectate and join `[string]`
 * `instance`: marks the match as a game session with a specific beginning and end `[bool]`
 
-----------
 ----------
 
 ## RPC Client
@@ -277,7 +274,7 @@ Set the user's voice settings.
 
 Used to capture a keyboard shortcut entered by the user.
 
-* `action`: capture action, either START or STOP `[string]`
+* `action`: capture action, either `'START'` or `'STOP'` `[string]`
 
 ----------
 
@@ -294,8 +291,6 @@ Used to accept an Ask to Join request.
 Used to reject an Ask to Join request.
 
 * `user_id`: user id `[string]`
-
-----------
 
 ----------
 
@@ -317,8 +312,6 @@ Unhook an event from a function. Will auto unsubscribe from the event as well.
 
 * `event`: the event to unhook `[string]`
 * `args`: optional args used in unsubscription `[dict]`
-
-----------
 
 ----------
 
@@ -347,6 +340,3 @@ Furthermore, here is a list of repositories that use pypresence. If you wish you
 ----------
 
 ### Welp, you made it all the way through the docs. If you see any errors or incorrect items, please do make a pull request!
-
-
-![](https://svgur.com/i/7so.svg)
