@@ -25,9 +25,9 @@ Use this badge in your project's Readme to show you're using pypresence! The mar
 
 ## Recent Notable Changes
 
-**3.1** Python 3.5 is now supported
+**3.1.0** Python 3.5 is now supported
 
-**3.0** Discord responses are now returned as a dynamic object instead of a dictionary
+**3.0.0** Discord responses are now returned as a dynamic object instead of a dictionary
 
 ## Installation
 
