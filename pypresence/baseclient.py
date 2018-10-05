@@ -16,6 +16,7 @@ class BaseClient:
         pipe = kwargs.get('pipe', 0)
         loop = kwargs.get('loop', None)
         handler = kwargs.get('handler', None)
+        async = kwargs.get('async', False)
 
         client_id = str(client_id)
         if sys.platform == 'linux' or sys.platform == 'darwin':
