@@ -2,21 +2,20 @@ import inspect
 import json
 import os
 import time
+from typing import List
 
 from .baseclient import BaseClient
 from .exceptions import *
-from .utils import *
+from .utils import remove_none
 
 
 class Client(BaseClient):
     def __init__(self, *args, **kwargs):
-
         super().__init__(*args, **kwargs)
-
         self._closed = False
         self._events = {}
 
-    def register_event(self, event: str, func, args={}):
+    def register_event(self, event: str, func: callable, args: dict = {}):
         if inspect.iscoroutinefunction(func):
             raise NotImplementedError
         elif len(inspect.signature(func).parameters) != 1:
@@ -24,7 +23,7 @@ class Client(BaseClient):
         self.subscribe(event, args)
         self._events[event.lower()] = func
 
-    def unregister_event(self, event: str, args={}):
+    def unregister_event(self, event: str, args: dict = {}):
         event = event.lower()
         if event not in self._events:
             raise EventNotFound
@@ -57,7 +56,7 @@ class Client(BaseClient):
             elif evt == 'error':
                 raise DiscordError(payload["data"]["code"], payload["data"]["message"])
 
-    def authorize(self, client_id,scopes):
+    def authorize(self, client_id: str, scopes: List[str]):
         current_time = time.time()
         payload = {
             "cmd": "AUTHORIZE",
@@ -67,10 +66,10 @@ class Client(BaseClient):
             },
             "nonce": '{:.20f}'.format(current_time)
         }
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def authenticate(self, token):
+    def authenticate(self, token: str):
         current_time = time.time()
         payload = {
             "cmd": "AUTHENTICATE",
@@ -80,7 +79,7 @@ class Client(BaseClient):
             "nonce": '{:.20f}'.format(current_time)
         }
 
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
     def get_guilds(self):
@@ -91,10 +90,10 @@ class Client(BaseClient):
             },
             "nonce": '{:.20f}'.format(current_time)
         }
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def get_guild(self, guild_id):
+    def get_guild(self, guild_id: str):
         current_time = time.time()
         payload = {
             "cmd": "GET_GUILD",
@@ -103,10 +102,10 @@ class Client(BaseClient):
             },
             "nonce": '{:.20f}'.format(current_time)
         }
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def get_channel(self, channel_id):
+    def get_channel(self, channel_id: str):
         current_time = time.time()
         payload = {
             "cmd": "GET_CHANNEL",
@@ -115,10 +114,10 @@ class Client(BaseClient):
             },
             "nonce": '{:.20f}'.format(current_time)
         }
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def get_channels(self, guild_id):
+    def get_channels(self, guild_id: str):
         current_time = time.time()
         payload = {
             "cmd": "GET_CHANNELS",
@@ -127,10 +126,12 @@ class Client(BaseClient):
             },
             "nonce": '{:.20f}'.format(current_time)
         }
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def set_user_voice_settings(self, user_id, pan_left=None, pan_right=None, volume=None, mute=None):
+    def set_user_voice_settings(self, user_id: str, pan_left: float = None,
+                                pan_right: float = None, volume: int = None,
+                                mute: bool = None):
         current_time = time.time()
         payload = {
             "cmd": "SET_USER_VOICE_SETTINGS",
@@ -145,13 +146,11 @@ class Client(BaseClient):
             },
             "nonce": '{:.20f}'.format(current_time)
         }
-
         payload = remove_none(payload)
-
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def select_voice_channel(self, channel_id):
+    def select_voice_channel(self, channel_id: str):
         current_time = time.time()
         payload = {
             "cmd": "SELECT_VOICE_CHANNEL",
@@ -160,7 +159,7 @@ class Client(BaseClient):
             },
             "nonce": '{:.20f}'.format(current_time)
         }
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
     def get_selected_voice_channel(self):
@@ -171,10 +170,10 @@ class Client(BaseClient):
             },
             "nonce": '{:.20f}'.format(current_time)
         }
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def select_text_channel(self, channel_id):
+    def select_text_channel(self, channel_id: str):
         current_time = time.time()
         payload = {
             "cmd": "SELECT_VOICE_CHANNEL",
@@ -183,10 +182,17 @@ class Client(BaseClient):
             },
             "nonce": '{:.20f}'.format(current_time)
         }
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def set_activity(self, pid=os.getpid(), state=None, details=None, start=None, end=None, large_image=None, large_text=None, small_image=None, small_text=None, party_id=None, party_size=None, join=None, spectate=None, match=None, instance=True):
+    def set_activity(self, pid: int = os.getpid(),
+                     state: str = None, details: str = None,
+                     start: int = None, end: int = None,
+                     large_image: str = None, large_text: str = None,
+                     small_image: str = None, small_text: str = None,
+                     party_id: str = None, party_size: list = None,
+                     join: str = None, spectate: str = None,
+                     match: str = None, instance: bool = True):
         current_time = time.time()
         payload = {
             "cmd": "SET_ACTIVITY",
@@ -220,11 +226,10 @@ class Client(BaseClient):
             "nonce": '{:.20f}'.format(current_time)
         }
         payload = remove_none(payload)
-
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def clear_activity(self, pid=os.getpid()):
+    def clear_activity(self, pid: int = os.getpid()):
         current_time = time.time()
         payload = {
             "cmd": "SET_ACTIVITY",
@@ -237,7 +242,7 @@ class Client(BaseClient):
         self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def subscribe(self, event, args={}):
+    def subscribe(self, event: str, args: dict = {}):
         current_time = time.time()
         payload = {
             "cmd": "SUBSCRIBE",
@@ -245,10 +250,10 @@ class Client(BaseClient):
             "evt": event.upper(),
             "nonce": '{:.20f}'.format(current_time)
         }
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def unsubscribe(self, event, args={}):
+    def unsubscribe(self, event: str, args: dict = {}):
         current_time = time.time()
         payload = {
             "cmd": "UNSUBSCRIBE",
@@ -256,7 +261,7 @@ class Client(BaseClient):
             "evt": event.upper(),
             "nonce": '{:.20f}'.format(current_time)
         }
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
     def get_voice_settings(self):
@@ -266,10 +271,14 @@ class Client(BaseClient):
             "args": {},
             "nonce": '{:.20f}'.format(current_time)
         }
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def set_voice_settings(self,_input=None,output=None,mode=None,automatic_gain_control=None,echo_cancellation=None,noise_suppression=None,qos=None,silence_warning=None,deaf=None,mute=None):
+    def set_voice_settings(self, _input: dict = None, output: dict = None,
+                           mode: dict = None, automatic_gain_control: bool = None,
+                           echo_cancellation: bool = None, noise_suppression: bool = None,
+                           qos: bool = None, silence_warning: bool = None,
+                           deaf: bool = None, mute: bool = None):
         current_time = time.time()
         payload = {
             "cmd": "SET_VOICE_SETTINGS",
@@ -288,10 +297,10 @@ class Client(BaseClient):
             "nonce": '{:.20f}'.format(current_time)
         }
         payload = remove_none(payload)
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def capture_shortcut(self, action):
+    def capture_shortcut(self, action: str):
         current_time = time.time()
         payload = {
             "cmd": "CAPTURE_SHORTCUT",
@@ -300,10 +309,10 @@ class Client(BaseClient):
             },
             "nonce": '{:.20f}'.format(current_time)
         }
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def send_activity_join_invite(self, user_id):
+    def send_activity_join_invite(self, user_id: str):
         current_time = time.time()
         payload = {
             "cmd": "SEND_ACTIVITY_JOIN_INVITE",
@@ -312,10 +321,10 @@ class Client(BaseClient):
             },
             "nonce": '{:.20f}'.format(current_time)
         }
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def close_activity_request(self, user_id):
+    def close_activity_request(self, user_id: str):
         current_time = time.time()
         payload = {
             "cmd": "CLOSE_ACTIVITY_REQUEST",
@@ -324,7 +333,7 @@ class Client(BaseClient):
             },
             "nonce": '{:.20f}'.format(current_time)
         }
-        sent = self.send_data(1, payload)
+        self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
     def close(self):

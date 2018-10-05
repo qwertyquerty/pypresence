@@ -1,3 +1,4 @@
+import asyncio
 import inspect
 import json
 import os
@@ -6,13 +7,12 @@ import sys
 import tempfile
 
 from .exceptions import *
-from .utils import *
 from .response import Response
 
 
 class BaseClient:
 
-    def __init__(self, client_id, **kwargs):
+    def __init__(self, client_id: str, **kwargs):
         pipe = kwargs.get('pipe', 0)
         loop = kwargs.get('loop', None)
         handler = kwargs.get('handler', None)
@@ -30,15 +30,18 @@ class BaseClient:
         if loop is not None:
             self.loop = loop
 
-        self.sock_reader = None
-        self.sock_writer = None
+
+        self.sock_reader = None  # type: asyncio.StreamReader
+        self.sock_writer = None  # type: asyncio.StreamWriter
+
         self.client_id = client_id
 
         if handler is not None:
             if not inspect.isfunction(handler):
                 raise PyPresenceException('Error handler must be a function.')
             args = inspect.getfullargspec(handler).args
-            if args[0] == 'self': args = args[1:]
+            if args[0] == 'self':
+                args = args[1:]
             if len(args) != 2:
                 raise PyPresenceException('Error handler should only accept two arguments.')
 
@@ -50,7 +53,7 @@ class BaseClient:
         else:
             self._events_on = False
 
-    def _err_handle(self, loop, context):
+    def _err_handle(self, loop, context: dict):
         result = self.handler(context['exception'], context['future'])
         if inspect.iscoroutinefunction(self.handler):
             loop.run_until_complete(result)

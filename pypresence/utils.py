@@ -1,8 +1,9 @@
+"""Util functions that are needed but messy."""
 import asyncio
-# Util functions that are needed but messy.
 
 
-def remove_none(d: dict): # Made by https://github.com/LewdNeko ;^)
+# Made by https://github.com/LewdNeko ;^)
+def remove_none(d: dict):
     for item in d.copy():
         if isinstance(d[item], dict):
             if len(d[item]):
@@ -12,6 +13,7 @@ def remove_none(d: dict): # Made by https://github.com/LewdNeko ;^)
         elif d[item] is None:
             del d[item]
     return d
+
 
 # This code used to do something. I don't know what, though.
 try: # Thanks, Rapptz :^)

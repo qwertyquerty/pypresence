@@ -1,8 +1,8 @@
 class Response:
 
     def __init__(self, properties, code=None):
-        validProps = (list, tuple)
-        if not isinstance(properties, validProps):
+        valid_props = (list, tuple)
+        if not isinstance(properties, valid_props):
             raise ValueError("Argument 'properties' should be type 'list' or 'tuple', not '{}'".format(type(properties)))
 
         self.code = code if code is not None else None
@@ -12,9 +12,9 @@ class Response:
         def rend(d, l, root=None):
             root = root or []
 
-            for key,val in d.items():
+            for key, val in d.items():
                 if isinstance(val, dict):
-                    rend(val,l,root+[key])
+                    rend(val, l, root+[key])
                 else:
                     l.append("{par}{key} = {val}".format(par=''.join([parent+'.' for parent in root]), key=key, val=repr(val)))
 
@@ -26,7 +26,7 @@ class Response:
         return self.__repr__()
 
     @classmethod
-    def from_dict(cls, from_dict, code=None):
+    def from_dict(cls, from_dict: dict, code=None):
 
         if not isinstance(from_dict, dict):
             raise ValueError("Expected type 'dict' got type '{}' ".format(type(from_dict)))
@@ -40,7 +40,7 @@ class Response:
 
         return cls(list(from_dict.keys()), code)
 
-    def __getattr__(self, attr):  # Add shorthand for the payload's data
+    def __getattr__(self, attr: str):  # Add shorthand for the payload's data
         data = getattr(self, 'data', None)
         if data and attr in self.data:
             return self.data.attr

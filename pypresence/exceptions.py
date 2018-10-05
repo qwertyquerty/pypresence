@@ -1,7 +1,9 @@
 class PyPresenceException(Exception):
-    def __init__(self, message=None):
-        if message is None: message = 'An error has occured within PyPresence'
+    def __init__(self, message: str = None):
+        if message is None:
+            message = 'An error has occured within PyPresence'
         super().__init__(message)
+
 
 class InvalidID(PyPresenceException):
     def __init__(self):
@@ -14,15 +16,16 @@ class InvalidPipe(PyPresenceException):
 
 
 class ServerError(PyPresenceException):
-    def __init__(self, message):
-        super().__init__(message.replace(']','').replace('[','').capitalize())
+    def __init__(self, message: str):
+        super().__init__(message.replace(']', '').replace('[', '').capitalize())
 
 
 class DiscordError(PyPresenceException):
-    def __init__(self, code, message):
+    def __init__(self, code: int, message: str):
         self.code = code
         self.message = message
         super().__init__('Error Code: {0} Message: {1}'.format(code, message))
+
 
 class ArgumentError(PyPresenceException):
     def __init__(self):
