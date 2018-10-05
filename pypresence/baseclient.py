@@ -12,7 +12,7 @@ from .response import Response
 
 class BaseClient:
 
-    def __init__(self, client_id, **kwargs):
+    def __init__(self, client_id: str, **kwargs):
         pipe = kwargs.get('pipe', 0)
         loop = kwargs.get('loop', None)
         handler = kwargs.get('handler', None)
@@ -50,7 +50,7 @@ class BaseClient:
         else:
             self._events_on = False
 
-    def _err_handle(self, loop, context):
+    def _err_handle(self, loop, context: dict):
         result = self.handler(context['exception'], context['future'])
         if inspect.iscoroutinefunction(self.handler):
             loop.run_until_complete(result)

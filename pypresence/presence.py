@@ -8,10 +8,16 @@ from .baseclient import BaseClient
 class Presence(BaseClient):
 
     def __init__(self, *args, **kwargs):
-
         super().__init__(*args, **kwargs)
 
-    def update(self,pid=os.getpid(),state=None,details=None,start=None,end=None,large_image=None,large_text=None,small_image=None,small_text=None,party_id=None,party_size=None,join=None,spectate=None,match=None,instance=True):
+    def update(self, pid: int = os.getpid(),
+               state: str = None, details: str = None,
+               start: int = None, end: int = None,
+               large_image: str = None, large_text: str = None,
+               small_image: str = None, small_text: str = None,
+               party_id: str = None, party_size: list = None,
+               join: str = None, spectate: str = None,
+               match: str = None, instance: bool = True):
         current_time = time.time()
         payload = {
             "cmd": "SET_ACTIVITY",
@@ -39,17 +45,16 @@ class Presence(BaseClient):
                         "spectate": spectate,
                         "match": match
                     },
-                    "instance": instance,
-                },
+                    "instance": instance
+                }
             },
             "nonce": '{:.20f}'.format(current_time)
         }
         payload = remove_none(payload)
-
         self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def clear(self,pid=os.getpid()):
+    def clear(self, pid: int = os.getpid()):
         current_time = time.time()
         payload = {
             "cmd": "SET_ACTIVITY",
