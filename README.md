@@ -25,6 +25,8 @@ Use this badge in your project's Readme to show you're using pypresence! The mar
 
 > **3.0 is here** and with it comes a previous-code breaking change. Responses are now dynamic objects instead of dictionaries
 
+> **Python 3.5 now supported** with version 3.1
+
 ## Installation
 
 Install pypresence with `pip`:
@@ -77,12 +79,12 @@ Sets the user's presence on Discord. Takes the following as parameters.
 * `pid`: the process id of your game `[int]`
 * `state`: the user's current status `[string]`
 * `details`: what the player is currently doing`[string]`
-* `start`: seconds for game start `[int]` 
-* `end`: seconds for game end `[int]` 
-* `large_image`: name of the uploaded image for the large profile artwork `[string]` 
-* `large_text`: tooltip for the large image `[string]` 
+* `start`: seconds for game start `[int]`
+* `end`: seconds for game end `[int]`
+* `large_image`: name of the uploaded image for the large profile artwork `[string]`
+* `large_text`: tooltip for the large image `[string]`
 * `small_image`: name of the uploaded image for the small profile artwork `[string]`
-* `small_text`: tootltip for the small image `[string]` 
+* `small_text`: tootltip for the small image `[string]`
 * `party_id`: id of the player's party, lobby, or group `[string]`
 * `party_size`: current size of the player's party, lobby, or group, and the max in this format: `[1,4]` `[list]`
 * `join`: unique hashed string for chat invitations and ask to join `[string]`
@@ -207,12 +209,12 @@ Used to set the activity shown on Discord profiles and status of users. Takes th
 * `pid`: the process id of your game `[int]`
 * `state`: the user's current status `[string]`
 * `details`: what the player is currently doing`[string]`
-* `start`: seconds for game start `[int]` 
-* `end`: seconds for game end `[int]` 
-* `large_image`: name of the uploaded image for the large profile artwork `[string]` 
-* `large_text`: tooltip for the large image `[string]` 
+* `start`: seconds for game start `[int]`
+* `end`: seconds for game end `[int]`
+* `large_image`: name of the uploaded image for the large profile artwork `[string]`
+* `large_text`: tooltip for the large image `[string]`
 * `small_image`: name of the uploaded image for the small profile artwork `[string]`
-* `small_text`: tootltip for the small image `[string]` 
+* `small_text`: tootltip for the small image `[string]`
 * `party_id`: id of the player's party, lobby, or group `[string]`
 * `party_size`: current size of the player's party, lobby, or group, and the max in this format: `[1,4]` `[list]`
 * `join`: unique hashed string for chat invitations and ask to join `[string]`
@@ -259,12 +261,12 @@ Set the user's voice settings.
 * `_input`: input settings `[dict]`
 * `output`: output settings `[dict]`
 * `mode`: voice mode settings`[dict]`
-* `automatic_gain_control`: state of automatic gain control `[bool]` 
-* `echo_cancellation`: state of echo cancellation `[bool]` 
-* `noise_suppression`: state of noise suppression `[bool]` 
-* `qos`: state of voice quality of service `[bool]` 
+* `automatic_gain_control`: state of automatic gain control `[bool]`
+* `echo_cancellation`: state of echo cancellation `[bool]`
+* `noise_suppression`: state of noise suppression `[bool]`
+* `qos`: state of voice quality of service `[bool]`
 * `silence_warning`: state of silence warning notice `[bool]`
-* `deaf`: state of self-deafen `[bool]` 
+* `deaf`: state of self-deafen `[bool]`
 * `mute`: state of self-mute `[bool]`
 
 ----------
