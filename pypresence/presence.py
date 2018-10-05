@@ -19,25 +19,38 @@ class Presence(BaseClient):
                party_id: str = None, party_size: list = None,
                join: str = None, spectate: str = None,
                match: str = None, instance: bool = True):
-
-        payload_dict = {
-            "pid": pid,
-            "state": state,
-            "details": details,
-            "start": start,
-            "end": end,
-            "large_image": large_image,
-            "large_text": large_text,
-            "small_image": small_image,
-            "small_text": small_text,
-            "party_id": party_id,
-            "party_size": party_size,
-            "join": join,
-            "spectate": spectate,
-            "match": match,
-            "instance": instance,
+        current_time = time.time()
+        payload = {
+            "cmd": "SET_ACTIVITY",
+            "args": {
+                "pid": pid,
+                "activity": {
+                    "state": state,
+                    "details": details,
+                    "timestamps": {
+                        "start": start,
+                        "end": end
+                    },
+                    "assets": {
+                        "large_image": large_image,
+                        "large_text": large_text,
+                        "small_image": small_image,
+                        "small_text": small_text
+                    },
+                    "party": {
+                        "id": party_id,
+                        "size": party_size
+                    },
+                    "secrets": {
+                        "join": join,
+                        "spectate": spectate,
+                        "match": match
+                    },
+                    "instance": instance
+                }
+            },
+            "nonce": '{:.20f}'.format(current_time)
         }
-        payload = payload_gen('set_activity', payload_dict)
         payload = remove_none(payload)
         self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
