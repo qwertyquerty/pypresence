@@ -28,7 +28,9 @@ class Payload:
                      small_image: str = None, small_text: str = None,
                      party_id: str = None, party_size: list = None,
                      join: str = None, spectate: str = None,
-                     match: str = None, instance: bool = True, activity: Union[bool, None] = True):
+                     match: str = None, instance: bool = True,
+                     activity: Union[bool, None] = True,
+                     _rn: bool = None):
         if activity is None:
             act_details = None
             clear = False
@@ -67,7 +69,8 @@ class Payload:
             },
             "nonce": '{:.20f}'.format(cls.time())
         }
-
+        if _rn is not None:
+            clear = _rn
         return cls(payload, clear)
 
     @classmethod

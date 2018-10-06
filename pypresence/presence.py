@@ -19,10 +19,14 @@ class Presence(BaseClient):
                      small_image: str = None, small_text: str = None,
                      party_id: str = None, party_size: list = None,
                      join: str = None, spectate: str = None,
-                     match: str = None, instance: bool = True):
-        payload = Payload.set_activity(pid, state, details, start, end, large_image, large_text,
-                                       small_image, small_text, party_id, party_size, join, spectate,
-                                       match, instance, activity=True)
+                     match: str = None, instance: bool = True,
+                     _donotuse=True):
+        if _donotuse is True:
+            payload = Payload.set_activity(pid, state, details, start, end, large_image, large_text,
+                                           small_image, small_text, party_id, party_size, join, spectate,
+                                           match, instance, activity=True)
+        else:
+            payload = _donotuse
         self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 

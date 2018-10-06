@@ -25,6 +25,16 @@ class Response:
     def __str__(self):
         return self.__repr__()
 
+    def to_dict(self):
+        fdict = {}
+        for p in self.properties:
+            prop = getattr(self, p)
+            if isinstance(prop, Response):
+                fdict[p] = prop.to_dict()
+            else:
+                fdict[p] = getattr(self, p)
+        return fdict
+
     @classmethod
     def from_dict(cls, from_dict: dict, code=None):
 
