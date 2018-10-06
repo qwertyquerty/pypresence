@@ -24,13 +24,13 @@ class Activity:
             raise NotImplementedError
         self.client = client
 
-    def __setattr__(self, name, value, recur=True):
+    def __setattr__(self, name, value):
         if name in self.response.properties:
             setattr(self.response, name, value)
             payload = self.response.to_dict()
             self.client.update(_donotuse=payload)
-        elif recur:
-            setattr(self, name, value, False)
+        else:
+            self.__setitem__(name, value)
             
     def __getattr__(self, name):
         if name in self.response.properties:
