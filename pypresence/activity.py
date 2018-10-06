@@ -26,7 +26,7 @@ class Activity:
 
     def __setattr__(self, name, value):
         if name in self.response.properties:
-            self.response.__setattr(name, value)
+            self.response.__setattr__(name, value)
             payload = self.response.to_dict()
             self.client.update(_donotuse=payload)
         else:
