@@ -31,13 +31,6 @@ class Activity:
             self.client.update(_donotuse=payload)
         else:
             self.__setitem__(name, value)
-            
-    def __getattribute__(self, name):
-        pp = self.__getattr__('response')
-        if name in pp.properties:
-            return getattr(pp, 'name')
-        else:
-            return self.name
 
 # This SHOULD work, but is untested. Currently unsure if how I've done
 # this is "right"... When you do Activity.state = 'my state here', it
