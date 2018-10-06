@@ -27,11 +27,11 @@ class Activity:
     def __setattr__(self, name, value):
         p = getattr(self, 'response', None)
         if p and name in p.properties:
-            self.response.__setattr__(name, value)
+            setattr(p, name, value)
             payload = self.response.to_dict()
             self.client.update(_donotuse=payload)
         else:
-            setattr(self, name, value)
+            self.__dict__[name] = value
 
 # This SHOULD work, but is untested. Currently unsure if how I've done
 # this is "right"... When you do Activity.state = 'my state here', it
