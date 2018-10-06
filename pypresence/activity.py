@@ -33,9 +33,9 @@ class Activity:
             self.__setitem__(name, value)
             
     def __getattr__(self, name):
-        pp = self.__getitem__('response').properties
-        if name in pp:
-            return self.response.__getattr__(name)
+        pp = self.__getitem__('response')
+        if name in pp.properties:
+            return getattr(pp, 'name')
         else:
             return self.name
 
