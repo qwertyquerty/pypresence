@@ -34,7 +34,7 @@ class Activity:
             
     def __getattr__(self, name):
         if name in self.response.properties:
-            return getattr(self.response, name)
+            self.response.__getattr__(name)
         else:
             return self.name
 
