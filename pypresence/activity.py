@@ -30,6 +30,7 @@ class Activity:
         r = getattr(self, 'response', None)
         if p and name in p:
             setattr(r, name, value)
+            print(r)
             payload = self.response.to_dict()
             self.client.update(_donotuse=payload)
         else:
