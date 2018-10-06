@@ -19,15 +19,17 @@ class Activity:
         self.payload = Payload.set_activity(pid, state, details, start, end, large_image, large_text,
                                             small_image, small_text, party_id, party_size, join, spectate,
                                             match, instance, _rn=False)
+        self.p_properties = ('pid', 'state', 'details', 'start', 'end', 'large_image', 'large_text', 'small_image', 'small_text', 'party_id', 'party_size', 'join', 'spectate', 'match', 'instance')
         self.response = Response.from_dict(self.payload.data)
         if not isinstance(client, Presence):
             raise NotImplementedError
         self.client = client
 
     def __setattr__(self, name, value):
-        p = getattr(self, 'response', None)
-        if p and name in p.properties:
-            setattr(p, name, value)
+        p = getattr(self, 'p_properties', None)
+        r = getattr(self, 'response')
+        if p and name in p:
+            setattr(r, name, value)
             payload = self.response.to_dict()
             self.client.update(_donotuse=payload)
         else:
