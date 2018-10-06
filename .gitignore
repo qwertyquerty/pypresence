@@ -14,5 +14,6 @@ nyaaa/
 .venv/
 venv/
 __pycache__/
+pypresence/__pycache__/
 test.py
 .mypy_cache/
