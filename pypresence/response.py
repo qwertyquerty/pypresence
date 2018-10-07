@@ -70,7 +70,7 @@ class Response:
             if n == name:
                 return getattr(self,name)
                 break
-            elif type(getattr(self, n)) == Response:
+            elif isinstance(getattr(self, n), Response):
                 r = getattr(self, n).get_prop(name)
                 if r != None:
                     return r
