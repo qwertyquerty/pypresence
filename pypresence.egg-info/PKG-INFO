@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: pypresence
-Version: 3.1.1
+Version: 3.2.0
 Summary: Discord RPC client written in Python
 Home-page: https://github.com/qwertyquerty/pypresence
 Author: qwertyquerty
@@ -8,6 +8,10 @@ License: MIT
 Description: # pypresence
         
         A Discord RPC library in Python? Looks like you've come to the right place.
+        
+        Written by: Qwerty and Neko
+        
+        Notable Contributors: Gio, GhostofGoes
         
         [![GitHub stars](https://img.shields.io/github/stars/qwertyquerty/pypresence.svg?style=for-the-badge&label=Stars)](https://github.com/qwertyquerty/pypresence) [![license](https://img.shields.io/github/license/qwertyquerty/pypresence.svg?style=for-the-badge)](https://github.com/qwertyquerty/pypresence/blob/master/LICENSE) ![GitHub last commit](https://img.shields.io/github/last-commit/qwertyquerty/pypresence.svg?style=for-the-badge)
         
@@ -351,7 +355,7 @@ Description: # pypresence
         
         ### Welp, you made it all the way through the docs. If you see any errors or incorrect items, please do make a pull request!
         
-Keywords: discord rich presence pypresence rpc gamers chat irc
+Keywords: discord rich presence pypresence rpc api wrapper gamers chat irc
 Platform: Windows
 Platform: Linux
 Platform: OSX

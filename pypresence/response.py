@@ -61,7 +61,7 @@ class Response:
             if n == name:
                 setattr(self,name,value)
                 break
-            elif type(getattr(self, n)) == Response:
+            elif isinstance(getattr(self, n), Response):
                 getattr(self, n).set_prop(name,value)
 
 

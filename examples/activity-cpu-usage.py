@@ -7,7 +7,7 @@ client_id = '64567352374564'  # Fake ID, put your real one here
 
 RPC = Presence(client_id)  # Initialize the client class
 RPC.connect() # Start the handshake loop
-ac = Activity(RPC)
+ac = Activity(RPC) # Make the activity
 
 ac.start = int(time.time())
 

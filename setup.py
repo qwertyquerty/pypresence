@@ -8,7 +8,7 @@ with open('README.md') as f:
 setup(name='pypresence',
       author='qwertyquerty',
       url='https://github.com/qwertyquerty/pypresence',
-      version='3.1.1',
+      version='3.2.0',
       packages=['pypresence'],
       python_requires='>=3.5',
       platforms=['Windows', 'Linux', 'OSX'],
@@ -18,7 +18,7 @@ setup(name='pypresence',
       long_description=long_description,
       # PEP 566, PyPI Warehouse, setuptools>=38.6.0 make markdown possible
       long_description_content_type='text/markdown',
-      keywords='discord rich presence pypresence rpc gamers chat irc',
+      keywords='discord rich presence pypresence rpc api wrapper gamers chat irc',
 
       # Used by PyPI to classify the project and make it searchable
       # Full list: https://pypi.org/pypi?%3Aaction=list_classifiers
@@ -44,3 +44,9 @@ setup(name='pypresence',
             'Framework :: AsyncIO',
       ]
 )
+
+print("""
+___  _   _ ___  ____ ____ ____ ____ _  _ ____ ____
+|__]  \_/  |__] |__/ |___ [__  |___ |\ | |    |___
+|      |   |    |  \ |___ ___] |___ | \| |___ |___
+""")
