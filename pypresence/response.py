@@ -55,3 +55,11 @@ class Response:
         if data and attr in self.data:
             return self.data.attr
         return self.attr
+
+    def set_prop(self, name, value):
+        for n in self.properties:
+            if n == name:
+                setattr(self,name,value)
+                break
+            elif type(getattr(self, n)) == Response:
+                getattr(self, n).set_prop(name,value)

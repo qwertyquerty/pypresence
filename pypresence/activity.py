@@ -3,6 +3,7 @@ import os
 from .payloads import Payload
 from .presence import Presence
 from .response import Response
+from .utils import remove_none
 
 
 class Activity:
@@ -29,9 +30,10 @@ class Activity:
         p = getattr(self, 'p_properties', None)
         r = getattr(self, 'response', None)
         if p and name in p:
-            setattr(r, name, value)
-            print(r)
-            payload = self.response.to_dict()
+            r.set_prop(name,value)
+
+            payload = remove_none(self.response.to_dict())
+
             self.client.update(_donotuse=payload)
         else:
             self.__dict__[name] = value

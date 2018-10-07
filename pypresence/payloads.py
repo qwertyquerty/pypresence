@@ -33,7 +33,7 @@ class Payload:
                      _rn: bool = None):
         if activity is None:
             act_details = None
-            clear = False
+            clear = True
         else:
             act_details = {
                     "state": state,
@@ -59,7 +59,7 @@ class Payload:
                     },
                     "instance": instance
                 }
-            clear = True
+            clear = False
 
         payload = {
             "cmd": "SET_ACTIVITY",
