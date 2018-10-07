@@ -20,8 +20,10 @@ class Activity:
         self.payload = Payload.set_activity(pid, state, details, start, end, large_image, large_text,
                                             small_image, small_text, party_id, party_size, join, spectate,
                                             match, instance, _rn=False)
+
         self.p_properties = ('pid', 'state', 'details', 'start', 'end', 'large_image', 'large_text', 'small_image', 'small_text', 'party_id', 'party_size', 'join', 'spectate', 'match', 'instance')
         self.response = Response.from_dict(self.payload.data)
+
         if not isinstance(client, Presence):
             raise NotImplementedError
         self.client = client
@@ -37,6 +39,15 @@ class Activity:
             self.client.update(_donotuse=payload)
         else:
             self.__dict__[name] = value
+
+
+    def __getattr__(self, name):
+        p = object.__getattribute__(self, 'p_properties')
+        r = object.__getattribute__(self, 'response')
+        if p and name in p:
+            return r.get_prop(name)
+
+        return getattr(self, name, None)
 
 # This SHOULD work, but is untested. Currently unsure if how I've done
 # this is "right"... When you do Activity.state = 'my state here', it

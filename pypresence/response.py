@@ -63,3 +63,14 @@ class Response:
                 break
             elif type(getattr(self, n)) == Response:
                 getattr(self, n).set_prop(name,value)
+
+
+    def get_prop(self, name):
+        for n in self.properties:
+            if n == name:
+                return getattr(self,name)
+                break
+            elif type(getattr(self, n)) == Response:
+                r = getattr(self, n).get_prop(name)
+                if r != None:
+                    return r
