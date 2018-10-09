@@ -181,7 +181,7 @@ class Client(BaseClient):
 
 class AioClient(BaseClient):
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs, async=True)
+        super().__init__(*args, **kwargs, isasync=True)
         self._closed = False
         self._events = {}
 
