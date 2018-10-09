@@ -53,7 +53,7 @@ class Activity:
     def end_in(self, time_until_end: int):
         if time_until_end < 0:
             raise PyPresenceException('Must be a positive amount of seconds')
-        self.end = time.time()+time_until_end
+        self.end = int(time())+time_until_end
 
 # This SHOULD work, but is untested. Currently unsure if how I've done
 # this is "right"... When you do Activity.state = 'my state here', it
