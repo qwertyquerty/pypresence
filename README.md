@@ -51,7 +51,7 @@ or
 
 Examples for this can be found in the examples folder.
 
-`pypresence.Presence(client_id, pipe=0, loop=None, handler=None)`
+### `pypresence.Presence(client_id, pipe=0, loop=None, handler=None)`
 
 Creates the class ready for usage.
 
