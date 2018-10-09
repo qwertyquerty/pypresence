@@ -51,8 +51,8 @@ class Activity:
         return getattr(self, name, None)
     
     def end_in(self, time_until_end: int):
-        if time_until_end < 0:
-            raise PyPresenceException('Must be a positive amount of seconds')
+        if time_until_end < 0 or not isinstance(time_until_end, int):
+            raise PyPresenceException('Must be a positive integer of how many seconds the activity will end in.')
         self.end = int(time())+time_until_end
 
 # This SHOULD work, but is untested. Currently unsure if how I've done
