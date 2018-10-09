@@ -37,6 +37,56 @@
             
   <div class="section" id="activity">
 <h1>Activity()<a class="headerlink" href="#activity" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="Presence">
+<em class="property">class </em><code class="descname">Presence</code><span class="sig-paren">(</span><em>client</em>, <em>**options</em><span class="sig-paren">)</span><a class="headerlink" href="#Presence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the Activity ready for usage.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>client</strong> (<em>pypresence.Presence</em>) – An instance of a Presence client, for the Activity to use</li>
+<li><strong>pid</strong> (<em>int</em>) – the process id of your game</li>
+<li><strong>state</strong> (<em>str</em>) – the user’s current status</li>
+<li><strong>details</strong> (<em>str</em>) – what the player is currently doing</li>
+<li><strong>start</strong> (<em>int</em>) – epoch time for game start</li>
+<li><strong>end</strong> (<em>int</em>) – epoch time for game end</li>
+<li><strong>large_image</strong> (<em>str</em>) – name of the uploaded image for the large profile artwork</li>
+<li><strong>large_text</strong> (<em>str</em>) – tooltip for the large image</li>
+<li><strong>small_image</strong> (<em>str</em>) – name of the uploaded image for the small profile artwork</li>
+<li><strong>small_text</strong> (<em>str</em>) – tootltip for the small image</li>
+<li><strong>party_id</strong> (<em>str</em>) – id of the player’s party, lobby, or group</li>
+<li><strong>party_size</strong> (<em>list</em>) – current size of the player’s party, lobby, or group, and the max in this format: <code class="docutils literal notranslate"><span class="pre">[1,4]</span></code></li>
+<li><strong>join</strong> (<em>str</em>) – unique hashed string for chat invitations and ask to join</li>
+<li><strong>spectate</strong> (<em>str</em>) – unique hashed string for spectate button</li>
+<li><strong>match</strong> (<em>str</em>) – unique hashed string for spectate and join</li>
+<li><strong>instance</strong> (<em>bool</em>) – marks the match as a game session with a specific beginning and end</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Upon initialization, the Activity will update the rich presence. Editing any of the parameters later on will also cause the Activity to auto-update the rich presence.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pypresence</span> <span class="kn">import</span> <span class="n">Presence</span><span class="p">,</span> <span class="n">Activity</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">client_id</span> <span class="o">=</span> <span class="s1">&#39;5834659349&#39;</span>  <span class="c1"># Fake ID, put your real one here</span>
+<span class="n">RPC</span> <span class="o">=</span> <span class="n">Presence</span><span class="p">(</span><span class="n">client_id</span><span class="p">)</span>  <span class="c1"># Initialize the client class</span>
+<span class="n">RPC</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="c1"># Start the handshake loop</span>
+
+<span class="n">ac</span> <span class="o">=</span> <span class="n">Activity</span><span class="p">(</span><span class="n">RPC</span><span class="p">)</span> <span class="c1"># Make the activity</span>
+
+<span class="n">ac</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span> <span class="c1"># Setting the start time, auto updates the presence</span>
+
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>  <span class="c1"># The presence will stay on as long as the program is running</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span> <span class="c1"># Can only update rich presence every 15 seconds</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p><br /></p>
 </div>
 
 
