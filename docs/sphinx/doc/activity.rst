@@ -6,7 +6,7 @@ Activity()
    <br />
 
 
-.. py:class:: Presence(client, **options)
+.. py:class:: Activity(client, **options)
 
    Creates the Activity ready for usage.
 
