@@ -27,6 +27,8 @@ Use this badge in your project's Readme to show you're using pypresence! The mar
 
 > **NOTE**: You need an **authorized app** to do anything besides rich presence!
 
+> You can view our new (currently WIP) docs at [https://qwertyquerty.github.io/pypresence](https://qwertyquerty.github.io/pypresence/html/index.html)
+
 ## Recent Notable Changes
 
 **3.1.0** Python 3.5 is now supported
