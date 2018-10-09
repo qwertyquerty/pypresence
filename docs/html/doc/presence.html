@@ -9,6 +9,7 @@
     <title>Presence() &#8212; pypresence 3.2.0 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
@@ -36,6 +37,111 @@
             
   <div class="section" id="presence">
 <h1>Presence()<a class="headerlink" href="#presence" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="Presence">
+<em class="property">class </em><code class="descname">Presence</code><span class="sig-paren">(</span><em>client_id</em>, <em>pipe=0</em>, <em>loop=None</em>, <em>handler=None</em><span class="sig-paren">)</span><a class="headerlink" href="#Presence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the Presence client ready for usage.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>client_id</strong> (<em>str</em>) – OAuth2 App ID (found at <a class="reference external" href="https://discordapp.com/developers/applications/me">https://discordapp.com/developers/applications/me</a>)</li>
+<li><strong>pipe</strong> (<em>int</em>) – Pipe that should be used to connect to the Discord client. Defaults to 0, can be 0-9</li>
+<li><strong>loop</strong> (<em>asyncio.BaseEventLoop</em>) – Your own event loop (if you have one) that PyPresence should use. One will be created if not supplied. Information at <a class="reference external" href="https://docs.python.org/3/library/asyncio-eventloop.html">https://docs.python.org/3/library/asyncio-eventloop.html</a></li>
+<li><strong>handler</strong> (<em>function</em>) – The exception handler pypresence should send asynchronous errors to. This can be a coroutine or standard function as long as it takes two arguments (exception, future). Exception will be the exception to handle and future will be an instance of asyncio.Future</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p><br /></p>
+<blockquote>
+<div><dl class="function">
+<dt id="connect">
+<code class="descname">connect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes the connection - must be done in order to make any updates to Rich Presence.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pypresence.Response</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p><br /></p>
+<dl class="function">
+<dt id="clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><em>pid=os.getpid()</em><span class="sig-paren">)</span><a class="headerlink" href="#clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears the presence.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pid</strong> (<em>int</em>) – the process id of your game</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">pypresence.Response</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p><br /></p>
+<dl class="function">
+<dt id="close">
+<code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Closes the connection.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pypresence.Response</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p><br /></p>
+<dl class="function">
+<dt id="update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>**options</em><span class="sig-paren">)</span><a class="headerlink" href="#update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears the presence.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>pid</strong> (<em>int</em>) – the process id of your game</li>
+<li><strong>state</strong> (<em>str</em>) – the user’s current status</li>
+<li><strong>details</strong> (<em>str</em>) – what the player is currently doing</li>
+<li><strong>start</strong> (<em>int</em>) – epoch time for game start</li>
+<li><strong>end</strong> (<em>int</em>) – epoch time for game end</li>
+<li><strong>large_image</strong> (<em>str</em>) – name of the uploaded image for the large profile artwork</li>
+<li><strong>large_text</strong> (<em>str</em>) – tooltip for the large image</li>
+<li><strong>small_image</strong> (<em>str</em>) – name of the uploaded image for the small profile artwork</li>
+<li><strong>small_text</strong> (<em>str</em>) – tootltip for the small image</li>
+<li><strong>party_id</strong> (<em>str</em>) – id of the player’s party, lobby, or group</li>
+<li><strong>party_size</strong> (<em>list</em>) – current size of the player’s party, lobby, or group, and the max in this format: <code class="docutils literal notranslate"><span class="pre">[1,4]</span></code></li>
+<li><strong>join</strong> (<em>str</em>) – unique hashed string for chat invitations and ask to join</li>
+<li><strong>spectate</strong> (<em>str</em>) – unique hashed string for spectate button</li>
+<li><strong>match</strong> (<em>str</em>) – unique hashed string for spectate and join</li>
+<li><strong>instance</strong> (<em>bool</em>) – marks the match as a game session with a specific beginning and end</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">pypresence.Response</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p><br /></p>
+</div></blockquote>
 </div>
 
 

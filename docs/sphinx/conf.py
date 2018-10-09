@@ -16,6 +16,8 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
+import sys
+import os
 
 # -- Project information -----------------------------------------------------
 
@@ -24,10 +26,14 @@ copyright = '2018, qwertyquerty'
 author = 'qwertyquerty, LewdNeko'
 
 # The short X.Y version
+
 version = '3.2'
 # The full version, including alpha/beta/rc tags
 release = '3.2.0'
 
+
+
+sys.path.append('/../../pypresence/')
 
 # -- General configuration ---------------------------------------------------
 
@@ -176,3 +182,10 @@ epub_exclude_files = ['search.html']
 
 
 # -- Extension configuration -------------------------------------------------
+
+extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode', 'sphinx.ext.autodoc']
+
+
+html_context = {
+    'css_files': ['_static/custom.css'],
+}
