@@ -3,7 +3,7 @@ import time
 import psutil
 
 
-client_id = '64567352374564'  # Fake ID, put your real one here
+client_id = '440289271580983308'  # Fake ID, put your real one here
 
 RPC = Presence(client_id)  # Initialize the client class
 RPC.connect() # Start the handshake loop
@@ -11,6 +11,8 @@ ac = Activity(RPC) # Make the activity
 
 ac.start = int(time.time())
 
+
+print(ac.start)
 while True:  # The presence will stay on as long as the program is running
     cpu_per = round(psutil.cpu_percent(),1) # Get CPU Usage
     mem_per = round(psutil.virtual_memory().percent,1) #Get Mem Usage

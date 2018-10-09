@@ -8,7 +8,7 @@ from .utils import remove_none
 
 class Payload:
 
-    def __init__(self, data, clear_none=False):
+    def __init__(self, data, clear_none=True):
         if clear_none:
             data = remove_none(data)
         self.data = data
@@ -30,7 +30,7 @@ class Payload:
                      join: str = None, spectate: str = None,
                      match: str = None, instance: bool = True,
                      activity: Union[bool, None] = True,
-                     _rn: bool = None):
+                     _rn: bool = True):
         if activity is None:
             act_details = None
             clear = True
@@ -69,7 +69,7 @@ class Payload:
             },
             "nonce": '{:.20f}'.format(cls.time())
         }
-        if _rn is not None:
+        if _rn:
             clear = _rn
         return cls(payload, clear)
 

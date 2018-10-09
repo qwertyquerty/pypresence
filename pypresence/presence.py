@@ -21,6 +21,7 @@ class Presence(BaseClient):
                      join: str = None, spectate: str = None,
                      match: str = None, instance: bool = True,
                      _donotuse=True):
+
         if _donotuse is True:
             payload = Payload.set_activity(pid, state, details, start, end, large_image, large_text,
                                            small_image, small_text, party_id, party_size, join, spectate,
