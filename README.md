@@ -13,6 +13,7 @@ Notable Contributors: Gio, GhostofGoes
 
 ----------
 
+
 Use this badge in your project's Readme to show you're using pypresence! The markdown code is below.
 
 [![pypresence](https://img.shields.io/badge/using-pypresence-00bb88.svg?style=for-the-badge&logo=discord&logoWidth=20)](https://github.com/qwertyquerty/pypresence)
