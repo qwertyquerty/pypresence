@@ -3,7 +3,7 @@ import time
 import psutil
 
 
-client_id = '440289271580983308'  # Fake ID, put your real one here
+client_id = '532533523424234'  # Fake ID, put your real one here
 
 RPC = Presence(client_id)  # Initialize the client class
 RPC.connect() # Start the handshake loop
