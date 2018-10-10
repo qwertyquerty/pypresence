@@ -20,7 +20,7 @@ Quickstart
 - Right under the name of your application, locate your Client ID. You will need this later.
 - Lastly, save your application.
 
-**Next, you need to install pypresence. You will need python ``3.5`` - ``3.7`` installed. Here are the steps:**
+**Next, you need to install pypresence. You will need python 3.5 - 3.7 installed. Here are the steps:**
 
 - Open command prompt
 - Type ``pip3 install pypresence`` and hit enter
@@ -46,7 +46,7 @@ Quickstart
 
  RPC.connect() # Start the handshake loop
 
-**Now we need to actually set our rich presence. We can use the ``update()`` function for this. There are many options we can use, but for this we will use ``state``:**
+**Now we need to actually set our rich presence. We can use the update() function for this. There are many options we can use, but for this we will use state:**
 
 .. code-block:: python
 
