@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: pypresence
-Version: 3.2.1
+Version: 3.2.2
 Summary: Discord RPC client written in Python
 Home-page: https://github.com/qwertyquerty/pypresence
 Author: qwertyquerty
@@ -34,6 +34,8 @@ Description: # pypresence
         
         > **NOTE**: You need an **authorized app** to do anything besides rich presence!
         
+        > You can view our new (currently WIP) docs at [https://qwertyquerty.github.io/pypresence](https://qwertyquerty.github.io/pypresence/html/index.html)
+        
         ## Recent Notable Changes
         
         **3.1.0** Python 3.5 is now supported
@@ -56,7 +58,7 @@ Description: # pypresence
         
         Examples for this can be found in the examples folder.
         
-        `pypresence.Presence(client_id, pipe=0, loop=None, handler=None)`
+        ### `pypresence.Presence(client_id, pipe=0, loop=None, handler=None)`
         
         Creates the class ready for usage.
         
