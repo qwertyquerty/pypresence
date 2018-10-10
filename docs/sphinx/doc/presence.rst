@@ -47,7 +47,7 @@ Presence()
 
   .. py:function:: update(**options)
 
-   Clears the presence.
+   Sets the user's presence on Discord.
 
    :param int pid: the process id of your game
    :param str state: the user's current status

@@ -31,10 +31,6 @@ version = '3.2'
 # The full version, including alpha/beta/rc tags
 release = '3.2.0'
 
-
-
-sys.path.append('/../../pypresence/')
-
 # -- General configuration ---------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
@@ -83,6 +79,10 @@ pygments_style = None
 # a list of builtin themes.
 #
 html_theme = 'alabaster'
+
+html_theme_options = {
+    'logo': './logosmall.svg',
+}
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
