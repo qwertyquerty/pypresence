@@ -10,7 +10,6 @@ Notable Contributors: Gio, GhostofGoes
 
 ### [Discord Server](https://discord.gg/JF3kg77) | [Qwerty's Patreon](https://www.patreon.com/qwertyquerty)
 
-
 ----------
 
 
