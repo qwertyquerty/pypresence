@@ -202,7 +202,7 @@ Used to get the client's current voice channel.
 
 ----------
 
-`Client.select_text_channel(channel_id)`
+### `Client.select_text_channel(channel_id)`
 
 Used to join and leave text channels, group dms, or dms.
 
