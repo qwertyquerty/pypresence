@@ -1,4 +1,5 @@
 import os
+from time import time
 
 from .payloads import Payload
 from .presence import Presence
@@ -48,6 +49,11 @@ class Activity:
             return r.get_prop(name)
 
         return getattr(self, name, None)
+    
+    def end_in(self, time_until_end: int):
+        if time_until_end < 0 or not isinstance(time_until_end, int):
+            raise PyPresenceException('Must be a positive integer of how many seconds the activity will end in.')
+        self.end = int(time())+time_until_end
 
 # This SHOULD work, but is untested. Currently unsure if how I've done
 # this is "right"... When you do Activity.state = 'my state here', it
