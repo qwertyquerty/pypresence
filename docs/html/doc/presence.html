@@ -46,7 +46,7 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>client_id</strong> (<em>str</em>) – OAuth2 App ID (found at <a class="reference external" href="https://discordapp.com/developers/applications/me">https://discordapp.com/developers/applications/me</a>)</li>
+<li><strong>client_id</strong> (<em>str</em>) – OAuth2 App ID (found <a class="reference external" href="https://discordapp.com/developers/applications/me">here</a>)</li>
 <li><strong>pipe</strong> (<em>int</em>) – Pipe that should be used to connect to the Discord client. Defaults to 0, can be 0-9</li>
 <li><strong>loop</strong> (<em>asyncio.BaseEventLoop</em>) – Your own event loop (if you have one) that PyPresence should use. One will be created if not supplied. Information at <a class="reference external" href="https://docs.python.org/3/library/asyncio-eventloop.html">https://docs.python.org/3/library/asyncio-eventloop.html</a></li>
 <li><strong>handler</strong> (<em>function</em>) – The exception handler pypresence should send asynchronous errors to. This can be a coroutine or standard function as long as it takes two arguments (exception, future). Exception will be the exception to handle and future will be an instance of asyncio.Future</li>
