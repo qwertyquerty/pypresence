@@ -49,3 +49,11 @@ Activity()
 
 
 |br|
+
+  .. py:function:: end_in(time_until_end)
+
+     Specify how long until the countdown reaches 0 on your Rich Presence.
+
+     :param int time_until_end: How long (in seconds) it will take before the countdown reaches 0.
+
+|br|
