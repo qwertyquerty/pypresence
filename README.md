@@ -8,10 +8,10 @@ Notable Contributors: Gio, GhostofGoes
 
 [![GitHub stars](https://img.shields.io/github/stars/qwertyquerty/pypresence.svg?style=for-the-badge&label=Stars)](https://github.com/qwertyquerty/pypresence) [![license](https://img.shields.io/github/license/qwertyquerty/pypresence.svg?style=for-the-badge)](https://github.com/qwertyquerty/pypresence/blob/master/LICENSE) ![GitHub last commit](https://img.shields.io/github/last-commit/qwertyquerty/pypresence.svg?style=for-the-badge)
 
-### [My Discord Server](https://discordapp.com/invite/uV5y7RY) | [My Patreon](https://www.patreon.com/qwertyquerty)
-
+### [Discord Server](https://discord.gg/JF3kg77) | [Qwerty's Patreon](https://www.patreon.com/qwertyquerty)
 
 ----------
+
 
 Use this badge in your project's Readme to show you're using pypresence! The markdown code is below.
 
@@ -202,7 +202,7 @@ Used to get the client's current voice channel.
 
 ----------
 
-`Client.select_text_channel(channel_id)`
+### `Client.select_text_channel(channel_id)`
 
 Used to join and leave text channels, group dms, or dms.
 
