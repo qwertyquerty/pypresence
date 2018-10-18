@@ -18,7 +18,7 @@ class BaseClient:
         pipe = kwargs.get('pipe', 0)
         loop = kwargs.get('loop', None)
         handler = kwargs.get('handler', None)
-        self.async = kwargs.get('isasync', False)
+        self.asynce = kwargs.get('isasync', False)
 
         client_id = str(client_id)
         if sys.platform == 'linux' or sys.platform == 'darwin':
@@ -47,7 +47,7 @@ class BaseClient:
             if len(args) != 2:
                 raise PyPresenceException('Error handler should only accept two arguments.')
 
-            if self.async:
+            if self.asynce:
                 if not inspect.iscoroutinefunction(handler):
                     raise InvalidArgument('Coroutine', 'Subroutine', 'You are running async mode - '
                                                                      'your error handler should be awaitable.')
