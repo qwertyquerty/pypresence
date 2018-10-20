@@ -1,4 +1,5 @@
 from pypresence import Presence
+
 """
 You need to upload your image(s) here:
 https://discordapp.com/developers/applications/<APP ID>/rich-presence/assets
