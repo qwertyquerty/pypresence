@@ -1,12 +1,14 @@
 # pypresence
 
-A Discord RPC library in Python? Looks like you've come to the right place.
+> A Discord RPC library in Python? Looks like you've come to the right place.
 
 Written by: Qwerty and Neko
 
 Notable Contributors: Gio, GhostofGoes
 
 [![GitHub stars](https://img.shields.io/github/stars/qwertyquerty/pypresence.svg?style=for-the-badge&label=Stars)](https://github.com/qwertyquerty/pypresence) [![license](https://img.shields.io/github/license/qwertyquerty/pypresence.svg?style=for-the-badge)](https://github.com/qwertyquerty/pypresence/blob/master/LICENSE) ![GitHub last commit](https://img.shields.io/github/last-commit/qwertyquerty/pypresence.svg?style=for-the-badge)
+
+
 
 ### [Discord Server](https://discord.gg/JF3kg77) | [Qwerty's Patreon](https://www.patreon.com/qwertyquerty)
 
@@ -40,11 +42,11 @@ or
 
 > **NOTE**: You need an **authorized app** to do anything besides rich presence!
 
-### [pypresence Documentation](https://qwertyquerty.github.io/pypresence/html/index.html)
-### [Discord Rich Presence Documentation](https://discordapp.com/developers/docs/rich-presence/how-to)
-### [Discord RPC Documentation](https://discordapp.com/developers/docs/topics/rpc)
-### [pyresence Discord Support Server](https://discord.gg/JF3kg77)
-### [Discord API Support Server](https://discord.gg/discord-api)
+#### [pypresence Documentation](https://qwertyquerty.github.io/pypresence/html/index.html)
+#### [Discord Rich Presence Documentation](https://discordapp.com/developers/docs/rich-presence/how-to)
+#### [Discord RPC Documentation](https://discordapp.com/developers/docs/topics/rpc)
+#### [pyresence Discord Support Server](https://discord.gg/JF3kg77)
+#### [Discord API Support Server](https://discord.gg/discord-api)
 
 ----------
 
