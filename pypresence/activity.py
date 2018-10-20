@@ -49,12 +49,12 @@ class Activity:
             return r.get_prop(name)
 
         return getattr(self, name, None)
-    
+
     def started_at(self, seconds_ago: int):
         if seconds_ago < 0 or not isinstance(seconds_ago, int):
             raise PyPresenceException('Must be a positive integer of how many seconds it has been since the start of the activity.')
         self.start = int(time()) - seconds_ago
-    
+
     def end_in(self, time_until_end: int):
         if time_until_end < 0 or not isinstance(time_until_end, int):
             raise PyPresenceException('Must be a positive integer of how many seconds the activity will end in.')

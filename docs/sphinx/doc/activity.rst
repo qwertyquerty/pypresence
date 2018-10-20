@@ -57,3 +57,11 @@ Activity()
      :param int time_until_end: How long (in seconds) it will take before the countdown reaches 0.
 
 |br|
+
+ .. py:function:: started_at(seconds_ago)
+
+   Specify how many seconds the timer on your Rich Presence should be at.
+
+   :param int seconds_ago: How long (in seconds) that the program has been running / number of seconds to be on the timer
+
+|br|
