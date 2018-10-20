@@ -2,9 +2,9 @@
 
 > A Discord RPC library in Python? Looks like you've come to the right place.
 
-Written by: Qwerty and Neko
+Written by: [Qwerty](https://github.com/qwertyquerty) and [Neko](https://github.com/lewdneko)
 
-Notable Contributors: Gio, GhostofGoes
+Notable Contributors: Gio, [GhostofGoes](https://github.com/GhostofGoes)
 
 [![GitHub stars](https://img.shields.io/github/stars/qwertyquerty/pypresence.svg?style=for-the-badge&label=Stars)](https://github.com/qwertyquerty/pypresence) [![license](https://img.shields.io/github/license/qwertyquerty/pypresence.svg?style=for-the-badge)](https://github.com/qwertyquerty/pypresence/blob/master/LICENSE) ![GitHub last commit](https://img.shields.io/github/last-commit/qwertyquerty/pypresence.svg?style=for-the-badge)
 
