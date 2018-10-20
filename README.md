@@ -27,11 +27,13 @@ Notable Contributors: Gio, GhostofGoes
 
 # Installation
 
-Install pypresence with `pip`:
+Install pypresence with **`pip`**
+
+For the latest development version:
 
 ### `pip install https://github.com/qwertyquerty/pypresence/archive/master.zip`
 
-or
+For the latest stable version:
 
 ### `pip install pypresence`
 
