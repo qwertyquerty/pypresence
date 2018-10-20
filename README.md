@@ -10,7 +10,7 @@ Notable Contributors: Gio, [GhostofGoes](https://github.com/GhostofGoes)
 
 
 
-### [Documentation](https://qwertyquerty.github.io/pypresence/html/index.html) | [Discord Server](https://discord.gg/JF3kg77) | [Qwerty's Patreon](https://www.patreon.com/qwertyquerty)
+### [Documentation](https://qwertyquerty.github.io/pypresence/html/index.html), [Discord Server](https://discord.gg/JF3kg77), [Qwerty's Patreon](https://www.patreon.com/qwertyquerty)
 
 ----------
 
@@ -44,11 +44,11 @@ For the latest stable version:
 
 > **NOTE**: You need an **authorized app** to do anything besides rich presence!
 
-#### [pypresence Documentation](https://qwertyquerty.github.io/pypresence/html/index.html)
-#### [Discord Rich Presence Documentation](https://discordapp.com/developers/docs/rich-presence/how-to)
-#### [Discord RPC Documentation](https://discordapp.com/developers/docs/topics/rpc)
-#### [pyresence Discord Support Server](https://discord.gg/JF3kg77)
-#### [Discord API Support Server](https://discord.gg/discord-api)
+#### - [pypresence Documentation](https://qwertyquerty.github.io/pypresence/html/index.html)
+#### - [Discord Rich Presence Documentation](https://discordapp.com/developers/docs/rich-presence/how-to)
+#### - [Discord RPC Documentation](https://discordapp.com/developers/docs/topics/rpc)
+#### - [pyresence Discord Support Server](https://discord.gg/JF3kg77)
+#### - [Discord API Support Server](https://discord.gg/discord-api)
 
 ----------
 
