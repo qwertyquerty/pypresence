@@ -29,11 +29,11 @@ Notable Contributors: Gio, GhostofGoes
 
 Install pypresence with `pip`:
 
-`pip install https://github.com/qwertyquerty/pypresence/archive/master.zip`
+### `pip install https://github.com/qwertyquerty/pypresence/archive/master.zip`
 
 or
 
-`pip install pypresence`
+### `pip install pypresence`
 
 ----------
 
