@@ -22,9 +22,13 @@ class BaseClient:
 
         client_id = str(client_id)
         if sys.platform == 'linux' or sys.platform == 'darwin':
-            self.ipc_path = (
-                (os.environ.get('XDG_RUNTIME_DIR') or tempfile.gettempdir())
-                + '/discord-ipc-' + str(pipe))
+            tempdir = (os.environ.get('XDG_RUNTIME_DIR') or tempfile.gettempdir())
+            snap_path = f'{tempdir}/snap.discord'
+            pipe_file = f'discord-ipc-{pipe}'
+            if os.path.isdir(snap_path):
+                self.ipc_path = f'{snap_path}/{pipe_file}'
+            else:
+                self.ipc_path = f'{tempdir}/{pipe_file}'
             self.loop = asyncio.get_event_loop()
         elif sys.platform == 'win32':
             self.ipc_path = r'\\?\pipe\discord-ipc-' + str(pipe)
