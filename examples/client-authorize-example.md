@@ -1,3 +1,5 @@
+*copy pasted from Qweko Dev Discord - check pins*
+
 Client Authorization Example (For using Client's methods)
 ```py
 import pypresence
