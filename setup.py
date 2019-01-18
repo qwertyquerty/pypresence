@@ -8,7 +8,7 @@ with open('README.md') as f:
 setup(name='pypresence',
       author='qwertyquerty',
       url='https://github.com/qwertyquerty/pypresence',
-      version='3.3.0',
+      version='3.3.1',
       packages=['pypresence'],
       python_requires='>=3.5',
       platforms=['Windows', 'Linux', 'OSX'],
