@@ -31,6 +31,14 @@ class Payload:
                      match: str = None, instance: bool = True,
                      activity: Union[bool, None] = True,
                      _rn: bool = True):
+
+        # They should already be an int because we give typehints, but some people are fucking stupid and use
+        # IDLE or some other stupid shit.
+        if start:
+            start = int(start)
+        if end:
+            end = int(end)
+
         if activity is None:
             act_details = None
             clear = True
