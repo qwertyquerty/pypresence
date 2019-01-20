@@ -35,6 +35,10 @@ class Payload:
             act_details = None
             clear = True
         else:
+            if start != None:
+                start = int(start)
+            if end != None:
+                end = int(end)
             act_details = {
                     "state": state,
                     "details": details,
