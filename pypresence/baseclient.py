@@ -24,7 +24,7 @@ class BaseClient:
         if sys.platform == 'linux' or sys.platform == 'darwin':
             tempdir = (os.environ.get('XDG_RUNTIME_DIR') or tempfile.gettempdir())
             snap_path = '{0}/snap.discord'.format(tempdir)
-            pipe_file = 'discord-ipc-{0}'.fomrat(pipe)
+            pipe_file = 'discord-ipc-{0}'.format(pipe)
             if os.path.isdir(snap_path):
                 self.ipc_path = '{0}/{1}'.format(snap_path, pipe_file)
             else:
