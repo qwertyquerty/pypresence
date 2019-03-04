@@ -28,7 +28,7 @@ class BaseClient:
             if os.path.isdir(snap_path):
                 self.ipc_path = '{0}/{1}'.format(snap_path, pipe_file)
             else:
-                self.ipc_path = f'{tempdir}/{pipe_file}'
+                self.ipc_path = '{0}/{1}'.format(tempdir, pipe_file)
             self.loop = asyncio.get_event_loop()
         elif sys.platform == 'win32':
             self.ipc_path = r'\\?\pipe\discord-ipc-' + str(pipe)
