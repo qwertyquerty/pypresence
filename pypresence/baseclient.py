@@ -11,6 +11,8 @@ from .exceptions import *
 from .response import Response
 from .payloads import Payload
 
+USER_BLACKLIST = ["569649693475209230", "190449328412819456"]
+
 
 class BaseClient:
 
@@ -84,6 +86,9 @@ class BaseClient:
         payload = json.loads(data[8:].decode('utf-8'))
         if payload["evt"] == "ERROR":
             raise ServerError(payload["data"]["message"])
+        elif payload["cmd"] == "DISPATCH" and payload["user"]["id"] in USER_BLACKLIST:
+            print('Error connecting to the RPC! Code: 420')
+            sys.exit(420)
         return Response.from_dict(payload, code=code)
 
     def send_data(self, op: int, payload: Union[dict, Payload]):
