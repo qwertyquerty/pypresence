@@ -35,7 +35,7 @@ class BaseClient:
         if loop is not None:
             self.update_event_loop(loop)
         else:
-            self.update_event_loop(self.get_platform_specific_event_loop())
+            self.update_event_loop(self.get_event_loop())
 
         self.sock_reader = None  # type: asyncio.StreamReader
         self.sock_writer = None  # type: asyncio.StreamWriter
@@ -67,7 +67,7 @@ class BaseClient:
         else:
             self._events_on = False
 
-    def get_platform_specific_event_loop(self, force_fresh=False):
+    def get_event_loop(self, force_fresh=False):
         if sys.platform == 'linux' or sys.platform == 'darwin':
             if force_fresh:
                 return asyncio.new_event_loop()
