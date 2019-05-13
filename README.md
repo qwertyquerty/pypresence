@@ -1,5 +1,7 @@
 ![https://qwertyquerty.github.io/pypresence/html/_static/logosmall.svg  =650x](https://qwertyquerty.github.io/pypresence/html/_static/logosmall.svg)
 
+<img src="https://qwertyquerty.github.io/pypresence/html/_static/logosmall.svg" width="100%">
+
 > A Discord RPC library in Python? Looks like you've come to the right place.
 
 Written by: [Qwerty](https://github.com/qwertyquerty) and [Neko](https://github.com/lewdneko)
