@@ -1,4 +1,4 @@
-# pypresence
+![https://qwertyquerty.github.io/pypresence/html/_static/logosmall.svg](https://qwertyquerty.github.io/pypresence/html/_static/logosmall.svg)
 
 > A Discord RPC library in Python? Looks like you've come to the right place.
 
