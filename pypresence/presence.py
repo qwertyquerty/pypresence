@@ -37,6 +37,7 @@ class Presence(BaseClient):
         return self.loop.run_until_complete(self.read_output())
 
     def connect(self):
+        self.update_event_loop(self.get_event_loop())
         self.loop.run_until_complete(self.handshake())
 
     def close(self):
@@ -70,6 +71,7 @@ class AioPresence(BaseClient):
         return await self.read_output()
 
     async def connect(self):
+        self.update_event_loop(self.get_event_loop())
         await self.handshake()
 
     def close(self):

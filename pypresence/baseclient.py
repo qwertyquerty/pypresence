@@ -29,13 +29,13 @@ class BaseClient:
                 self.ipc_path = '{0}/{1}'.format(snap_path, pipe_file)
             else:
                 self.ipc_path = '{0}/{1}'.format(tempdir, pipe_file)
-            self.loop = asyncio.get_event_loop()
         elif sys.platform == 'win32':
             self.ipc_path = r'\\?\pipe\discord-ipc-' + str(pipe)
-            self.loop = asyncio.ProactorEventLoop()
 
         if loop is not None:
-            self.loop = loop
+            self.update_event_loop(loop)
+        else:
+            self.update_event_loop(self.get_event_loop())
 
         self.sock_reader = None  # type: asyncio.StreamReader
         self.sock_writer = None  # type: asyncio.StreamWriter
@@ -66,6 +66,26 @@ class BaseClient:
             self._events_on = True
         else:
             self._events_on = False
+
+    def get_event_loop(self, force_fresh=False):
+        if sys.platform == 'linux' or sys.platform == 'darwin':
+            if force_fresh:
+                return asyncio.new_event_loop()
+            loop = asyncio.get_event_loop()
+            if loop.is_closed():
+                return asyncio.new_event_loop()
+            return loop
+        elif sys.platform == 'win32':
+            if force_fresh:
+                return asyncio.ProactorEventLoop()
+            loop = asyncio.get_event_loop()
+            if isinstance(loop, asyncio.ProactorEventLoop) and not loop.is_closed():
+                return loop
+            return asyncio.ProactorEventLoop()
+
+    def update_event_loop(self, loop):
+        self.loop = loop
+        asyncio.set_event_loop(self.loop)
 
     def _err_handle(self, loop, context: dict):
         result = self.handler(context['exception'], context['future'])
