@@ -36,7 +36,7 @@ class Response:
         return fdict
 
     @classmethod
-    def from_dict(cls, from_dict: dict, code=None):
+    def from_dict(cls, from_dict: dict, status_code=None):
 
         if not isinstance(from_dict, dict):
             raise ValueError("Expected type 'dict' got type '{}' ".format(type(from_dict)))
@@ -48,7 +48,7 @@ class Response:
 
         cls._dict = from_dict
 
-        return cls(list(from_dict.keys()), code)
+        return cls(list(from_dict.keys()), status_code)
 
     def __getattr__(self, attr: str):  # Add shorthand for the payload's data
         data = getattr(self, 'data', None)
