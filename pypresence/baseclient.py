@@ -100,11 +100,11 @@ class BaseClient:
             data = await self.sock_reader.read(1024)
         except BrokenPipeError:
             raise InvalidID
-        code, length = struct.unpack('<II', data[:8])
+        status_code, length = struct.unpack('<II', data[:8])
         payload = json.loads(data[8:].decode('utf-8'))
         if payload["evt"] == "ERROR":
             raise ServerError(payload["data"]["message"])
-        return Response.from_dict(payload, code=code)
+        return Response.from_dict(payload, status_code=status_code)
 
     def send_data(self, op: int, payload: Union[dict, Payload]):
         if isinstance(payload, Payload):
