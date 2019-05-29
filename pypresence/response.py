@@ -1,11 +1,11 @@
 class Response:
 
-    def __init__(self, properties, code=None):
+    def __init__(self, properties, status_code=None):
         valid_props = (list, tuple)
         if not isinstance(properties, valid_props):
             raise ValueError("Argument 'properties' should be type 'list' or 'tuple', not '{}'".format(type(properties)))
 
-        self.code = code if code is not None else None
+        self.status_code = status_code if status_code is not None else None
         self.properties = list(properties)
 
     def __repr__(self):
