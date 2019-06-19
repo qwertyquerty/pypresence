@@ -1,6 +1,7 @@
 import os
 from time import time
 
+from .exceptions import PyPresenceException
 from .payloads import Payload
 from .presence import Presence
 from .response import Response
