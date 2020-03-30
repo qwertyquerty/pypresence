@@ -45,5 +45,4 @@ Documentation
   :maxdepth: 2
 
   doc/presence
-  doc/activity
   doc/client

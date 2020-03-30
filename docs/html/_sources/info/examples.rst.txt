@@ -27,10 +27,4 @@ Rich Presence to loop through quotes:
 
 |br|
 
-CPU usage done with ``Activity()``:
-
-.. literalinclude:: ../../../examples/activity-cpu-usage.py
-
-|br|
-
 **Furthermore, the following is a list of repositories which use pypresence**

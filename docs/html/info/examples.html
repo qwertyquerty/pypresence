@@ -102,33 +102,6 @@
 </pre></div>
 </div>
 <p><br /></p>
-<p>CPU usage done with <code class="docutils literal notranslate"><span class="pre">Activity()</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pypresence</span> <span class="k">import</span> <span class="n">Presence</span><span class="p">,</span> <span class="n">Activity</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">import</span> <span class="nn">psutil</span>
-
-
-<span class="n">client_id</span> <span class="o">=</span> <span class="s1">&#39;532533523424234&#39;</span>  <span class="c1"># Fake ID, put your real one here</span>
-
-<span class="n">RPC</span> <span class="o">=</span> <span class="n">Presence</span><span class="p">(</span><span class="n">client_id</span><span class="p">)</span>  <span class="c1"># Initialize the client class</span>
-<span class="n">RPC</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="c1"># Start the handshake loop</span>
-<span class="n">ac</span> <span class="o">=</span> <span class="n">Activity</span><span class="p">(</span><span class="n">RPC</span><span class="p">)</span> <span class="c1"># Make the activity</span>
-
-<span class="n">ac</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
-
-
-<span class="nb">print</span><span class="p">(</span><span class="n">ac</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
-<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>  <span class="c1"># The presence will stay on as long as the program is running</span>
-    <span class="n">cpu_per</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">psutil</span><span class="o">.</span><span class="n">cpu_percent</span><span class="p">(),</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># Get CPU Usage</span>
-    <span class="n">mem_per</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">psutil</span><span class="o">.</span><span class="n">virtual_memory</span><span class="p">()</span><span class="o">.</span><span class="n">percent</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="c1">#Get Mem Usage</span>
-
-    <span class="n">ac</span><span class="o">.</span><span class="n">details</span> <span class="o">=</span> <span class="s2">&quot;RAM: </span><span class="si">{}</span><span class="s2">%&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mem_per</span><span class="p">)</span> <span class="c1"># Setting attrs of an activity will auto update the presence</span>
-    <span class="n">ac</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="s2">&quot;CPU: </span><span class="si">{}</span><span class="s2">%&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cpu_per</span><span class="p">)</span>
-
-    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span> <span class="c1"># Can only update rich presence every 15 seconds</span>
-</pre></div>
-</div>
-<p><br /></p>
 <p><strong>Furthermore, the following is a list of repositories which use pypresence</strong></p>
 </div>
 
@@ -162,7 +135,6 @@
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../doc/presence.html">Presence()</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../doc/activity.html">Activity()</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../doc/client.html">Client()</a></li>
 </ul>
 

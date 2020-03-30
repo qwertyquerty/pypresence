@@ -4,7 +4,6 @@ Python RPC Client for Discord
 By: qwertyquerty and LewdNeko
 """
 
-from .activity import Activity
 from .baseclient import BaseClient
 from .client import Client, AioClient
 from .exceptions import *

@@ -14,7 +14,7 @@ class Payload:
         self.data = data
 
     def __str__(self):
-        return json.dumps(self.data)
+        return json.dumps(self.data, indent=2)
 
     @staticmethod
     def time():

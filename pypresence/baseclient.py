@@ -8,7 +8,6 @@ import tempfile
 from typing import Union
 
 from .exceptions import *
-from .response import Response
 from .payloads import Payload
 
 
@@ -104,7 +103,7 @@ class BaseClient:
         payload = json.loads(data[8:].decode('utf-8'))
         if payload["evt"] == "ERROR":
             raise ServerError(payload["data"]["message"])
-        return Response.from_dict(payload, status_code=status_code)
+        return payload
 
     def send_data(self, op: int, payload: Union[dict, Payload]):
         if isinstance(payload, Payload):

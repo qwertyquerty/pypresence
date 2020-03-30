@@ -1,20 +1,22 @@
 Metadata-Version: 2.1
 Name: pypresence
-Version: 3.3.2
+Version: 4.0.0
 Summary: Discord RPC client written in Python
 Home-page: https://github.com/qwertyquerty/pypresence
 Author: qwertyquerty
 License: MIT
-Description: # pypresence
+Description: <img src="https://qwertyquerty.github.io/pypresence/html/_static/logosmall.svg" width="100%">
         
         > A Discord RPC library in Python? Looks like you've come to the right place.
         
-        Written by: [Qwerty](https://github.com/qwertyquerty) and [Neko](https://github.com/lewdneko)
+        Written by: [qwertyquerty](https://github.com/qwertyquerty) and [LewdNeko](https://github.com/lewdneko)
         
-        Notable Contributors: Gio, [GhostofGoes](https://github.com/GhostofGoes)
+        Notable Contributors: [GiovanniMCMXCIX](https://github.com/GiovanniMCMXCIX), [GhostofGoes](https://github.com/GhostofGoes)
         
-        [![GitHub stars](https://img.shields.io/github/stars/qwertyquerty/pypresence.svg?style=for-the-badge&label=Stars)](https://github.com/qwertyquerty/pypresence) [![license](https://img.shields.io/github/license/qwertyquerty/pypresence.svg?style=for-the-badge)](https://github.com/qwertyquerty/pypresence/blob/master/LICENSE) ![GitHub last commit](https://img.shields.io/github/last-commit/qwertyquerty/pypresence.svg?style=for-the-badge)
+        [![GitHub stars](https://img.shields.io/github/stars/qwertyquerty/pypresence.svg?style=for-the-badge&label=Stars)](https://github.com/qwertyquerty/pypresence) [![license](https://img.shields.io/github/license/qwertyquerty/pypresence.svg?style=for-the-badge)](https://github.com/qwertyquerty/pypresence/blob/master/LICENSE) ![GitHub last commit](https://img.shields.io/github/last-commit/qwertyquerty/pypresence.svg?style=for-the-badge) ![GitHub top language](https://img.shields.io/github/languages/top/qwertyquerty/pypresence.svg?style=for-the-badge) ![PyPI](https://img.shields.io/pypi/v/pypresence.svg?style=for-the-badge)
         
+        
+        ## NOTICE: Activity() class has been removed in 4.0.0
         
         
         ### [Documentation](https://qwertyquerty.github.io/pypresence/html/index.html), [Discord Server](https://discord.gg/JF3kg77), [Qwerty's Patreon](https://www.patreon.com/qwertyquerty)
@@ -62,18 +64,6 @@ Description: # pypresence
         # Examples
         
         Examples can be found in the [examples](https://github.com/qwertyquerty/pypresence/tree/master/examples) directory, and you can contribute your own examples if you wish, just read [examples.md](https://github.com/qwertyquerty/pypresence/blob/master/examples/examples.md)!
-        
-        Here are just a few of the repos using PyPresence. Feel free to check them out and see how they use it.
-        
-        | Repository | Author | Repository | Author |
-        |:---:|:---:|:---:|:---:|
-        | [anime-rpc](https://github.com/cheddar-cheeze/anime-rpc) | cheddar-cheeze | [Astolfo](https://github.com/GhostofGoes/Astolfo) | GhostofGoes |
-        | [discord-application-presence](https://github.com/Mehvix/discord-application-presence) | Mehvix | [PoeRP](https://github.com/FollowTM/PoeRPC) | FollowTM |
-        | [osu-rpc-linux](https://github.com/diamondburned/osu-rpc-linux) | diamondburned | [Splatnet2-Rich-Presence](https://github.com/Valerokai/Splatnet2-Rich-Presence) | Valerokai | [KoDiscord](https://github.com/Tusky/KoDiscord) | Tusky |
-        | [taiko3-discord-rpc](https://github.com/bui/taiko3-discord-rpc) | bui | [DiscordRPGUI](https://github.com/Elliot-Potts/DiscordRPGUI) | Elliot-Potts |
-        | [HQMediaPlayer](https://github.com/DAgostinateur/HQMediaPlayer) | DAgonstinateur | [ss13rp](https://github.com/qwertyquerty/ss13rp) | qwertyquerty |
-        | [WowDiscordRichPresence](https://github.com/Arwic/WowDiscordRichPresence) | Arwic | [discord-rpc-mpris](https://github.com/RayzrDev/discord-rpc-mpris) | RayzrDev |
-        
         
 Keywords: discord rich presence pypresence rpc api wrapper gamers chat irc
 Platform: Windows
