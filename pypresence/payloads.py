@@ -10,7 +10,7 @@ class Payload:
 
     def __init__(self, data, clear_none=True):
         if clear_none:
-            data = remove_none(data)
+            remove_none(data)
         self.data = data
 
     def __str__(self):
@@ -32,16 +32,16 @@ class Payload:
                      activity: Union[bool, None] = True,
                      _rn: bool = True):
 
-        # They should already be an int because we give typehints, but some people are fucking stupid and use
+        # These should already be an int because we give typehints, but some people are fucking stupid and use
         # IDLE or some other stupid shit.
-        if start:
+        if type(start) == str:
             start = int(start)
-        if end:
+        if type(end) == str:
             end = int(end)
 
         if activity is None:
             act_details = None
-            clear = True
+            _rn = True
         else:
             act_details = {
                     "state": state,
@@ -67,7 +67,6 @@ class Payload:
                     },
                     "instance": instance
                 }
-            clear = False
 
         payload = {
             "cmd": "SET_ACTIVITY",
@@ -77,9 +76,7 @@ class Payload:
             },
             "nonce": '{:.20f}'.format(cls.time())
         }
-        if _rn:
-            clear = _rn
-        return cls(payload, clear)
+        return cls(payload, _rn)
 
     @classmethod
     def authorize(cls, client_id: str, scopes: List[str]):

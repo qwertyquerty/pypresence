@@ -1,5 +1,5 @@
-"""Util functions that are needed but messy."""
-import asyncio
+"""Util functions that are messy but needed."""
+# import asyncio
 import json
 import time
 
@@ -8,32 +8,32 @@ from .exceptions import PyPresenceException
 
 # Made by https://github.com/LewdNeko ;^)
 def remove_none(d: dict):
-    for item in d.copy():
-        if isinstance(d[item], dict):
-            if len(d[item]):
-                d[item] = remove_none(d[item])
+    for key in d.keys():
+        if isinstance(d[key], dict):
+            if d[key]:
+                remove_none(d[key])
             else:
-                del d[item]
-        elif d[item] is None:
-            del d[item]
-    return d
+                del d[key]
+        elif d[key] is None:
+            del d[key]
 
 
 # Don't call these. Ever.
 def _load_payloads(filename):
     with open(filename, 'r') as fp:
-        f = fp.read()
+        lines = fp.read().splitlines()
 
-    payloaddict = {}
-    for line in f.splitlines():
+    payload_dict = {}
+    for line in lines:
         name, payload = line.split('||')
-        payloaddict[name] = payload
+        payload_dict[name] = payload
 
-    return payloaddict
+    return payload_dict
 
 
 def _payload_gen(payload_type: str, payload_params: dict):
-    payloads = _load_payloads('pllist.NEKO')  # dont like txt files
+    # why not use a JSON file?
+    payloads = _load_payloads('pllist.NEKO')  # don't like txt files
     if payload_type.upper() not in payloads:
         raise PyPresenceException('Payload type not supported or does not exist.')
     payload_str = payloads[payload_type]
@@ -45,8 +45,8 @@ def _payload_gen(payload_type: str, payload_params: dict):
 
 
 # This code used to do something. I don't know what, though.
-try:  # Thanks, Rapptz :^)
-    create_task = asyncio.ensure_future
-except AttributeError:
-    create_task = getattr(asyncio, "async")
+# try:  # Thanks, Rapptz :^)
+#     create_task = asyncio.ensure_future
+# except AttributeError:
+#     create_task = getattr(asyncio, "async")
     # No longer crashes Python 3.7

@@ -13,11 +13,8 @@ from .payloads import Payload
 
 class BaseClient:
 
-    def __init__(self, client_id: str, **kwargs):
-        pipe = kwargs.get('pipe', 0)
-        loop = kwargs.get('loop', None)
-        handler = kwargs.get('handler', None)
-        self.isasync = kwargs.get('isasync', False)
+    def __init__(self, client_id: str, pipe=0, loop=None, handler=None, isasync=False):
+        self.is_async = isasync
 
         client_id = str(client_id)
         if sys.platform == 'linux' or sys.platform == 'darwin':
@@ -50,7 +47,7 @@ class BaseClient:
             if len(args) != 2:
                 raise PyPresenceException('Error handler should only accept two arguments.')
 
-            if self.isasync:
+            if self.is_async:
                 if not inspect.iscoroutinefunction(handler):
                     raise InvalidArgument('Coroutine', 'Subroutine', 'You are running async mode - '
                                                                      'your error handler should be awaitable.')
@@ -66,7 +63,8 @@ class BaseClient:
         else:
             self._events_on = False
 
-    def get_event_loop(self, force_fresh=False):
+    @staticmethod
+    def get_event_loop(force_fresh=False):
         if sys.platform == 'linux' or sys.platform == 'darwin':
             if force_fresh:
                 return asyncio.new_event_loop()
