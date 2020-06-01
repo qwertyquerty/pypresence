@@ -12,7 +12,7 @@ Notable Contributors: [GiovanniMCMXCIX](https://github.com/GiovanniMCMXCIX), [Gh
 ## NOTICE: Activity() class has been removed in 4.0.0
 
 
-### [Documentation](https://qwertyquerty.github.io/pypresence/html/index.html), [Discord Server](https://discord.gg/JF3kg77), [Qwerty's Patreon](https://www.patreon.com/qwertyquerty)
+### [Documentation](https://qwertyquerty.github.io/pypresence/html/index.html), [Discord Server](https://discord.gg/JF3kg77), [Patreon](https://www.patreon.com/qwertyquerty)
 
 ----------
 
