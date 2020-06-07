@@ -198,7 +198,7 @@ class Payload:
     @classmethod
     def select_text_channel(cls, channel_id: str):
         payload = {
-            "cmd": "SELECT_VOICE_CHANNEL",
+            "cmd": "SELECT_TEXT_CHANNEL",
             "args": {
                 "channel_id": str(channel_id),
             },
