@@ -1,0 +1,4 @@
+crayons
+pypresence
+tkinter
+cx_Freeze
