@@ -2,13 +2,12 @@
 # import asyncio
 import json
 import time
-
 from .exceptions import PyPresenceException
 
 
 # Made by https://github.com/LewdNeko ;^)
 def remove_none(d: dict):
-    for key in d.keys():
+    for key in d.copy():
         if isinstance(d[key], dict):
             if d[key]:
                 remove_none(d[key])

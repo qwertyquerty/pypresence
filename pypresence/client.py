@@ -55,11 +55,6 @@ class Client(BaseClient):
         del self._events[event]
 
     def on_event(self, data):
-        """
-        TODO
-        :param data:
-        :return:
-        """
         if self.sock_reader._eof:
             raise PyPresenceException('feed_data after feed_eof')
         if not data:
