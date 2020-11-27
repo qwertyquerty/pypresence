@@ -99,11 +99,12 @@ class BaseClient:
 
     async def read_output(self):
         try:
-            data = await self.sock_reader.read(1024)
+            preamble = await self.sock_reader.read(8)
+            status_code, length = struct.unpack('<II', preamble[:8])
+            data = await self.sock_reader.read(length)
         except BrokenPipeError:
             raise InvalidID
-        status_code, length = struct.unpack('<II', data[:8])
-        payload = json.loads(data[8:].decode('utf-8'))
+        payload = json.loads(data.decode('utf-8'))
         if payload["evt"] == "ERROR":
             raise ServerError(payload["data"]["message"])
         return payload
@@ -131,7 +132,8 @@ class BaseClient:
             except FileNotFoundError:
                 raise InvalidPipe
         self.send_data(0, {'v': 1, 'client_id': self.client_id})
-        data = await self.sock_reader.read(1024)
-        code, length = struct.unpack('<ii', data[:8])
+        preamble = await self.sock_reader.read(8)
+        code, length = struct.unpack('<ii', preamble)
+        data = await self.sock_reader.read(length)
         if self._events_on:
             self.sock_reader.feed_data = self.on_event
