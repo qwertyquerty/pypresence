@@ -28,7 +28,7 @@ class Payload:
                      small_image: str = None, small_text: str = None,
                      party_id: str = None, party_size: list = None,
                      join: str = None, spectate: str = None,
-                     match: str = None, instance: bool = True,
+                     match: str = None, instance: bool = True,buttons: str =None
                      activity: Union[bool, None] = True,
                      _rn: bool = True):
 
@@ -65,6 +65,7 @@ class Payload:
                         "spectate": spectate,
                         "match": match
                     },
+                    "buttons": buttons
                     "instance": instance
                 }
             clear = False
