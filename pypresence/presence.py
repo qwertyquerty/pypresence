@@ -18,7 +18,7 @@ class Presence(BaseClient):
                      large_image: str = None, large_text: str = None,
                      small_image: str = None, small_text: str = None,
                      party_id: str = None, party_size: list = None,
-                     join: str = None, spectate: str = None,
+                     join: str = None, spectate: str = None, buttons: str = None
                      match: str = None, instance: bool = True,
                      _donotuse=True):
 
@@ -57,11 +57,11 @@ class AioPresence(BaseClient):
                      large_image: str = None, large_text: str = None,
                      small_image: str = None, small_text: str = None,
                      party_id: str = None, party_size: list = None,
-                     join: str = None, spectate: str = None,
+                     join: str = None, spectate: str = None,buttons: str = None
                      match: str = None, instance: bool = True):
         payload = Payload.set_activity(pid, state, details, start, end, large_image, large_text,
                                        small_image, small_text, party_id, party_size, join, spectate,
-                                       match, instance, activity=True)
+                                       match, instance,buttons activity=True)
         self.send_data(1, payload)
         return await self.read_output()
 
