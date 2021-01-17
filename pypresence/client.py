@@ -283,7 +283,7 @@ class AioClient(BaseClient):
                            start: int = None, end: int = None,
                            large_image: str = None, large_text: str = None,
                            small_image: str = None, small_text: str = None,
-                           party_id: str = None, party_size: list = None,
+                           party_id: str = None, party_size: list = None,buttons: str = None
                            join: str = None, spectate: str = None,
                            match: str = None, instance: bool = True):
         payload = Payload.set_activity(pid, state, details, start, end, large_image, large_text,
