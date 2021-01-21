@@ -27,7 +27,7 @@ class Presence(BaseClient):
             payload = Payload.set_activity(pid=pid, state=state, details=details, start=start, end=end, large_image=large_image, large_text=large_text,
                                        small_image=small_image, small_text=small_text, party_id=party_id, party_size=party_size, join=join, spectate=spectate,
                                        match=match, buttons=buttons, instance=instance, activity=True)
-            print(payload)
+
         else:
             payload = _donotuse
         self.send_data(1, payload)
