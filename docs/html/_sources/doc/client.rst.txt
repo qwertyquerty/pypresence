@@ -153,6 +153,7 @@ Client()
    :param str join: unique hashed string for chat invitations and ask to join
    :param str spectate: unique hashed string for spectate button
    :param str match: unique hashed string for spectate and join
+   :param list buttons: list of dicts for buttons on your profile in the format ``[{"label": "My Website", "url": "https://qtqt.cf"}, ...]``, can list up to two buttons
    :param bool instance: marks the match as a game session with a specific beginning and end
    :rtype: pypresence.Response
 
