@@ -113,6 +113,9 @@ class BaseClient:
         if isinstance(payload, Payload):
             payload = payload.data
         payload = json.dumps(payload)
+
+        assert self.sock_writer is not None, "You must connect your client before sending events!"
+
         self.sock_writer.write(
             struct.pack(
                 '<II',
