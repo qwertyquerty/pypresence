@@ -47,12 +47,13 @@ class Client(BaseClient):
             else:
                 self.sock_reader._paused = True
         
-        length = 0
+        end = 0
         chunks = []
-        while length+8 < len(data):
-            start = length+8
-            status_code, length=struct.unpack('<II',data[length:start])
-            chunks.append(data[start:start+length].decode('utf-8'))
+        while end < len(data):
+            start = end+8
+            status_code, length=struct.unpack('<II',data[end:start])
+            end = length+start
+            chunks.append(data[start:end].decode('utf-8'))
         
         for chunk in chunks:
             payload = json.loads(chunk)
