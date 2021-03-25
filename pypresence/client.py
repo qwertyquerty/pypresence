@@ -1,4 +1,5 @@
 import inspect
+import struct
 import json
 import os
 from typing import List
@@ -45,15 +46,23 @@ class Client(BaseClient):
                 self.sock_reader._transport = None
             else:
                 self.sock_reader._paused = True
+        
+        length = 0
+        chunks = []
+        while length+8 < len(data):
+            start = length+8
+            status_code, length=struct.unpack('<II',data[length:start])
+            chunks.append(data[start:start+length].decode('utf-8'))
+        
+        for chunk in chunks:
+            payload = json.loads(chunk)
 
-        payload = json.loads(data[8:].decode('utf-8'))
-
-        if payload["evt"] is not None:
-            evt = payload["evt"].lower()
-            if evt in self._events:
-                self._events[evt](payload["data"])
-            elif evt == 'error':
-                raise DiscordError(payload["data"]["code"], payload["data"]["message"])
+            if payload["evt"] is not None:
+                evt = payload["evt"].lower()
+                if evt in self._events:
+                    self._events[evt](payload["data"])
+                elif evt == 'error':
+                    raise DiscordError(payload["data"]["code"], payload["data"]["message"])
 
     def authorize(self, client_id: str, scopes: List[str]):
         payload = Payload.authorize(client_id, scopes)
