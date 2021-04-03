@@ -80,7 +80,8 @@ class BaseClient:
         elif sys.platform == 'win32':
             if force_fresh:
                 return asyncio.ProactorEventLoop()
-            loop = asyncio.get_event_loop()
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
             if isinstance(loop, asyncio.ProactorEventLoop) and not loop.is_closed():
                 return loop
             return asyncio.ProactorEventLoop()
