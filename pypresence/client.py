@@ -50,13 +50,11 @@ class Client(BaseClient):
         end = 0
         chunks = []
         while end < len(data):
+            # While chunks are available in data
             start = end+8
             status_code, length=struct.unpack('<II',data[end:start])
             end = length+start
-            chunks.append(data[start:end].decode('utf-8'))
-        
-        for chunk in chunks:
-            payload = json.loads(chunk)
+            payload = json.loads(data[start:end].decode('utf-8'))
 
             if payload["evt"] is not None:
                 evt = payload["evt"].lower()
