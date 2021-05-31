@@ -48,7 +48,6 @@ class Client(BaseClient):
                 self.sock_reader._paused = True
         
         end = 0
-        chunks = []
         while end < len(data):
             # While chunks are available in data
             start = end+8
