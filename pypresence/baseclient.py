@@ -137,7 +137,7 @@ class BaseClient:
         self.send_data(0, {'v': 1, 'client_id': self.client_id})
         preamble = await self.sock_reader.read(8)
         code, length = struct.unpack('<ii', preamble)
-        data = await self.sock_reader.read(length)
+        data = json.loads(await self.sock_reader.read(length))
         if 'code' in data:
             raise DiscordError(data['code'],data['message'])
         if self._events_on:
