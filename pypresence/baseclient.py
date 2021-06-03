@@ -63,6 +63,7 @@ class BaseClient:
             self._events_on = False
 
     def update_event_loop(self, loop):
+        # noinspection PyAttributeOutsideInit
         self.loop = loop
         asyncio.set_event_loop(self.loop)
 
@@ -71,6 +72,7 @@ class BaseClient:
         if inspect.iscoroutinefunction(self.handler):
             loop.run_until_complete(result)
 
+    # noinspection PyUnusedLocal
     async def _async_err_handle(self, loop, context: dict):
         await self.handler(context['exception'], context['future'])
 
@@ -116,6 +118,6 @@ class BaseClient:
         code, length = struct.unpack('<ii', preamble)
         data = json.loads(await self.sock_reader.read(length))
         if 'code' in data:
-            raise DiscordError(data['code'],data['message'])
+            raise DiscordError(data['code'], data['message'])
         if self._events_on:
             self.sock_reader.feed_data = self.on_event
