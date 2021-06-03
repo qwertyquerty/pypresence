@@ -10,7 +10,7 @@ from typing import Union, Optional
 # TODO: Get rid of this import * lol
 from .exceptions import *
 from .payloads import Payload
-from .utils import get_ipc_path
+from .utils import get_ipc_path, get_event_loop
 
 
 class BaseClient:
@@ -30,7 +30,7 @@ class BaseClient:
         if loop is not None:
             self.update_event_loop(loop)
         else:
-            self.update_event_loop(self.get_event_loop())
+            self.update_event_loop(get_event_loop())
 
         self.sock_reader: Optional[asyncio.StreamReader] = None
         self.sock_writer: Optional[asyncio.StreamWriter] = None
@@ -61,22 +61,6 @@ class BaseClient:
             self._events_on = True
         else:
             self._events_on = False
-
-    def get_event_loop(self, force_fresh=False):
-        if sys.platform == 'linux' or sys.platform == 'darwin':
-            if force_fresh:
-                return asyncio.new_event_loop()
-            loop = asyncio.get_event_loop()
-            if loop.is_closed():
-                return asyncio.new_event_loop()
-            return loop
-        elif sys.platform == 'win32':
-            if force_fresh:
-                return asyncio.ProactorEventLoop()
-            loop = asyncio.get_event_loop()
-            if isinstance(loop, asyncio.ProactorEventLoop) and not loop.is_closed():
-                return loop
-            return asyncio.ProactorEventLoop()
 
     def update_event_loop(self, loop):
         self.loop = loop

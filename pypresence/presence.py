@@ -4,7 +4,7 @@ import time
 
 from .baseclient import BaseClient
 from .payloads import Payload
-from .utils import remove_none
+from .utils import remove_none, get_event_loop
 
 
 class Presence(BaseClient):
@@ -39,7 +39,7 @@ class Presence(BaseClient):
         return self.loop.run_until_complete(self.read_output())
 
     def connect(self):
-        self.update_event_loop(self.get_event_loop())
+        self.update_event_loop(get_event_loop())
         self.loop.run_until_complete(self.handshake())
 
     def close(self):
@@ -75,7 +75,7 @@ class AioPresence(BaseClient):
         return await self.read_output()
 
     async def connect(self):
-        self.update_event_loop(self.get_event_loop())
+        self.update_event_loop(get_event_loop())
         await self.handshake()
 
     def close(self):
