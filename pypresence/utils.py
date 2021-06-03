@@ -12,7 +12,7 @@ def remove_none(d: dict):
         if isinstance(d[item], dict):
             if len(d[item]):
                 d[item] = remove_none(d[item])
-            else:
+            if not len(d[item]):
                 del d[item]
         elif d[item] is None:
             del d[item]

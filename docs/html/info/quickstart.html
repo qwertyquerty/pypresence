@@ -1,20 +1,18 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quickstart &#8212; pypresence 3.2.0 documentation</title>
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Examples" href="examples.html" />
@@ -37,28 +35,28 @@
             
   <div class="section" id="quickstart">
 <h1>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h1>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="100%" />
+<col style="width: 100%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>This page exists for if you have literally no clue what you’re doing, or you just need a quick start. (For rich presence)</td>
+<tbody>
+<tr class="row-odd"><td><p>This page exists for if you have literally no clue what you’re doing, or you just need a quick start. (For rich presence)</p></td>
 </tr>
 </tbody>
 </table>
 <p><strong>The first thing youll want to do is create a Discord RPC app. Here are the steps:</strong></p>
 <ul class="simple">
-<li>Navigate to <a class="reference external" href="https://discordapp.com/developers/">https://discordapp.com/developers/</a></li>
-<li>Click “Create an Application.”</li>
-<li>Setup the application how you want, give it the name you want, and give it a good image.</li>
-<li>Right under the name of your application, locate your Client ID. You will need this later.</li>
-<li>Lastly, save your application.</li>
+<li><p>Navigate to <a class="reference external" href="https://discordapp.com/developers/">https://discordapp.com/developers/</a></p></li>
+<li><p>Click “Create an Application.”</p></li>
+<li><p>Setup the application how you want, give it the name you want, and give it a good image.</p></li>
+<li><p>Right under the name of your application, locate your Client ID. You will need this later.</p></li>
+<li><p>Lastly, save your application.</p></li>
 </ul>
 <p><strong>Next, you need to install pypresence. You will need python 3.5 - 3.7 installed. Here are the steps:</strong></p>
 <ul class="simple">
-<li>Open command prompt</li>
-<li>Type <code class="docutils literal notranslate"><span class="pre">pip3</span> <span class="pre">install</span> <span class="pre">pypresence</span></code> and hit enter</li>
-<li>It should say something near the end that says something like <code class="docutils literal notranslate"><span class="pre">&quot;Successfully</span> <span class="pre">installed</span> <span class="pre">pypresence&quot;</span></code>.</li>
+<li><p>Open command prompt</p></li>
+<li><p>Type <code class="docutils literal notranslate"><span class="pre">pip3</span> <span class="pre">install</span> <span class="pre">pypresence</span></code> and hit enter</p></li>
+<li><p>It should say something near the end that says something like <code class="docutils literal notranslate"><span class="pre">&quot;Successfully</span> <span class="pre">installed</span> <span class="pre">pypresence&quot;</span></code>.</p></li>
 </ul>
 <p><strong>Now you will need to create the program to set your rich presence. First we need to import what we need, like so:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pypresence</span> <span class="kn">import</span> <span class="n">Presence</span> <span class="c1"># The simple rich presence client in pypresence</span>
@@ -79,12 +77,12 @@
 </pre></div>
 </div>
 <p><strong>Now we need our program to run forever, so we use a while loop.</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">while</span> <span class="bp">True</span><span class="p">:</span>  <span class="c1"># The presence will stay on as long as the program is running</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>  <span class="c1"># The presence will stay on as long as the program is running</span>
     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span> <span class="c1"># Can only update rich presence every 15 seconds</span>
 </pre></div>
 </div>
 <p><strong>Now when you run your program, it should look something like this!</strong></p>
-<div class="figure">
+<div class="figure align-default">
 <a class="reference internal image-reference" href="../_images/quickstart-final.png"><img alt="Finished Presence" src="../_images/quickstart-final.png" style="width: 370.5px; height: 354.0px;" /></a>
 </div>
 </div>
@@ -132,17 +130,15 @@
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
 
 
 
@@ -159,7 +155,7 @@
       &copy;2018, qwertyquerty.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

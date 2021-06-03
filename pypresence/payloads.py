@@ -28,8 +28,8 @@ class Payload:
                      small_image: str = None, small_text: str = None,
                      party_id: str = None, party_size: list = None,
                      join: str = None, spectate: str = None,
-                     match: str = None, instance: bool = True,
-                     activity: Union[bool, None] = True,
+                     match: str = None, buttons: list = None,
+                     instance: bool = True, activity: Union[bool, None] = True,
                      _rn: bool = True):
 
         # They should already be an int because we give typehints, but some people are fucking stupid and use
@@ -65,6 +65,7 @@ class Payload:
                         "spectate": spectate,
                         "match": match
                     },
+                    "buttons": buttons,
                     "instance": instance
                 }
             clear = False
