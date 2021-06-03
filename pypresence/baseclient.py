@@ -7,6 +7,7 @@ import sys
 import tempfile
 from typing import Union
 
+# TODO: Get rid of this import * lol
 from .exceptions import *
 from .payloads import Payload
 from .utils import get_ipc_path
@@ -22,6 +23,9 @@ class BaseClient:
 
         client_id = str(client_id)
         self.ipc_path = get_ipc_path(pipe)
+
+        if not self.ipc_path:
+            raise DiscordNotFound
 
         if loop is not None:
             self.update_event_loop(loop)
