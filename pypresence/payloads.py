@@ -209,7 +209,9 @@ class Payload:
         return cls(payload)
 
     @classmethod
-    def subscribe(cls, event: str, args: dict = {}):
+    def subscribe(cls, event: str, args=None):
+        if args is None:
+            args = {}
         payload = {
             "cmd": "SUBSCRIBE",
             "args": args,
@@ -220,7 +222,9 @@ class Payload:
         return cls(payload)
 
     @classmethod
-    def unsubscribe(cls, event: str, args: dict = {}):
+    def unsubscribe(cls, event: str, args=None):
+        if args is None:
+            args = {}
         payload = {
             "cmd": "UNSUBSCRIBE",
             "args": args,
