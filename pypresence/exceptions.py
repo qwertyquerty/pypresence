@@ -23,7 +23,9 @@ class InvalidPipe(PyPresenceException):
 class InvalidArgument(PyPresenceException):
     def __init__(self, expected, received, description: str = None):
         description = '\n{0}'.format(description) if description else ''
-        super().__init__('Bad argument passed. Expected {0} but got {1} instead{2}'.format(expected, received, description))
+        super().__init__('Bad argument passed. Expected {0} but got {1} instead{2}'.format(expected, received,
+                                                                                           description)
+                         )
 
 
 class ServerError(PyPresenceException):
