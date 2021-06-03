@@ -5,7 +5,7 @@ import os
 import struct
 import sys
 import tempfile
-from typing import Union
+from typing import Union, Optional
 
 # TODO: Get rid of this import * lol
 from .exceptions import *
@@ -32,8 +32,8 @@ class BaseClient:
         else:
             self.update_event_loop(self.get_event_loop())
 
-        self.sock_reader = None  # type: asyncio.StreamReader
-        self.sock_writer = None  # type: asyncio.StreamWriter
+        self.sock_reader: Optional[asyncio.StreamReader] = None
+        self.sock_writer: Optional[asyncio.StreamWriter] = None
 
         self.client_id = client_id
 
