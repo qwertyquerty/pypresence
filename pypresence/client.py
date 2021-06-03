@@ -15,7 +15,9 @@ class Client(BaseClient):
         self._closed = False
         self._events = {}
 
-    def register_event(self, event: str, func: callable, args: dict = {}):
+    def register_event(self, event: str, func: callable, args=None):
+        if args is None:
+            args = {}
         if inspect.iscoroutinefunction(func):
             raise NotImplementedError
         elif len(inspect.signature(func).parameters) != 1:
@@ -23,13 +25,16 @@ class Client(BaseClient):
         self.subscribe(event, args)
         self._events[event.lower()] = func
 
-    def unregister_event(self, event: str, args: dict = {}):
+    def unregister_event(self, event: str, args=None):
+        if args is None:
+            args = {}
         event = event.lower()
         if event not in self._events:
             raise EventNotFound
         self.unsubscribe(event, args)
         del self._events[event]
 
+    # noinspection PyProtectedMember
     def on_event(self, data):
         if self.sock_reader._eof:
             raise PyPresenceException('feed_data after feed_eof')
@@ -50,9 +55,9 @@ class Client(BaseClient):
         end = 0
         while end < len(data):
             # While chunks are available in data
-            start = end+8
-            status_code, length=struct.unpack('<II',data[end:start])
-            end = length+start
+            start = end + 8
+            status_code, length = struct.unpack('<II', data[end:start])
+            end = length + start
             payload = json.loads(data[start:end].decode('utf-8'))
 
             if payload["evt"] is not None:
@@ -123,9 +128,11 @@ class Client(BaseClient):
                      join: str = None, spectate: str = None,
                      match: str = None, buttons: list = None,
                      instance: bool = True):
-        payload = Payload.set_activity(pid=pid, state=state, details=details, start=start, end=end, large_image=large_image, large_text=large_text,
-                                       small_image=small_image, small_text=small_text, party_id=party_id, party_size=party_size, join=join, spectate=spectate,
-                                       match=match, buttons=buttons, instance=instance, activity=True)
+        payload = Payload.set_activity(pid=pid, state=state, details=details, start=start, end=end,
+                                       large_image=large_image, large_text=large_text, small_image=small_image,
+                                       small_text=small_text, party_id=party_id, party_size=party_size, join=join,
+                                       spectate=spectate, match=match, buttons=buttons, instance=instance,
+                                       activity=True)
         
         self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
@@ -135,12 +142,16 @@ class Client(BaseClient):
         self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def subscribe(self, event: str, args: dict = {}):
+    def subscribe(self, event: str, args=None):
+        if args is None:
+            args = {}
         payload = Payload.subscribe(event, args)
         self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def unsubscribe(self, event: str, args: dict = {}):
+    def unsubscribe(self, event: str, args=None):
+        if args is None:
+            args = {}
         payload = Payload.unsubscribe(event, args)
         self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
@@ -194,7 +205,9 @@ class AioClient(BaseClient):
         self._closed = False
         self._events = {}
 
-    async def register_event(self, event: str, func: callable, args: dict = {}):
+    async def register_event(self, event: str, func: callable, args=None):
+        if args is None:
+            args = {}
         if not inspect.iscoroutinefunction(func):
             raise InvalidArgument('Coroutine', 'Subroutine', 'Event function must be a coroutine')
         elif len(inspect.signature(func).parameters) != 1:
@@ -202,13 +215,16 @@ class AioClient(BaseClient):
         await self.subscribe(event, args)
         self._events[event.lower()] = func
 
-    async def unregister_event(self, event: str, args: dict = {}):
+    async def unregister_event(self, event: str, args=None):
+        if args is None:
+            args = {}
         event = event.lower()
         if event not in self._events:
             raise EventNotFound
         await self.unsubscribe(event, args)
         del self._events[event]
 
+    # noinspection PyProtectedMember
     async def on_event(self, data):
         if self.sock_reader._eof:
             raise PyPresenceException('feed_data after feed_eof')
@@ -294,10 +310,11 @@ class AioClient(BaseClient):
                            small_image: str = None, small_text: str = None,
                            party_id: str = None, party_size: list = None,
                            join: str = None, spectate: str = None,
+                           buttons: list = None,
                            match: str = None, instance: bool = True):
         payload = Payload.set_activity(pid, state, details, start, end, large_image, large_text,
                                        small_image, small_text, party_id, party_size, join, spectate,
-                                       match, instance, activity=True)
+                                       match, buttons, instance, activity=True)
         self.send_data(1, payload)
         return await self.read_output()
 
@@ -306,12 +323,16 @@ class AioClient(BaseClient):
         self.send_data(1, payload)
         return await self.read_output()
 
-    async def subscribe(self, event: str, args: dict = {}):
+    async def subscribe(self, event: str, args=None):
+        if args is None:
+            args = {}
         payload = Payload.subscribe(event, args)
         self.send_data(1, payload)
         return await self.read_output()
 
-    async def unsubscribe(self, event: str, args: dict = {}):
+    async def unsubscribe(self, event: str, args=None):
+        if args is None:
+            args = {}
         payload = Payload.unsubscribe(event, args)
         self.send_data(1, payload)
         return await self.read_output()
