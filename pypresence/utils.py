@@ -2,6 +2,8 @@
 import asyncio
 import json
 import time
+import os
+import sys
 
 from .exceptions import PyPresenceException
 
@@ -17,6 +19,29 @@ def remove_none(d: dict):
         elif d[item] is None:
             del d[item]
     return d
+
+
+# Returns on first IPC pipe matching Discord's
+def get_ipc_path(pipe=None):
+    ipc = 'discord-ipc-'
+    if pipe:
+        ipc = f"{ipc}{pipe}"
+
+    if sys.platform == 'linux' or sys.platform == 'darwin':
+        tempdir = (os.environ.get('XDG_RUNTIME_DIR') or tempfile.gettempdir())
+        paths = ['.','snap.discord','app/com.discordapp.Discord']
+    elif sys.platform == 'win32':
+        tempdir = r'\\?\pipe'
+        paths = ['.']
+    
+    for path in paths:
+        full_path = os.path.abspath(os.path.join(tempdir,path))
+        if sys.platform == 'win32' or os.path.isdir(full_path):
+            for entry in os.scandir(full_path):
+                if entry.name.startswith(ipc):
+                    return entry.path
+    
+    return None
 
 
 # Don't call these. Ever.
