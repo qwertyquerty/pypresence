@@ -42,7 +42,7 @@ class Presence(BaseClient):
 
     def connect(self):
         self.update_event_loop(get_event_loop())
-        self.loop.run_until_complete(self.handshake())
+        return self.loop.run_until_complete(self.handshake())
 
     def close(self):
         self.send_data(2, {'v': 1, 'client_id': self.client_id})
@@ -79,7 +79,7 @@ class AioPresence(BaseClient):
 
     async def connect(self):
         self.update_event_loop(get_event_loop())
-        await self.handshake()
+        return await self.handshake()
 
     def close(self):
         self.send_data(2, {'v': 1, 'client_id': self.client_id})

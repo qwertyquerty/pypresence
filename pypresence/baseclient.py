@@ -113,11 +113,17 @@ class BaseClient:
                 self.sock_writer, _ = await self.loop.create_pipe_connection(lambda: reader_protocol, self.ipc_path)
             except FileNotFoundError:
                 raise InvalidPipe
+
         self.send_data(0, {'v': 1, 'client_id': self.client_id})
+
         preamble = await self.sock_reader.read(8)
         code, length = struct.unpack('<ii', preamble)
-        data = json.loads(await self.sock_reader.read(length))
+        data = json.loads((await self.sock_reader.read(length)).decode('utf-8'))
         if 'code' in data:
             raise DiscordError(data['code'], data['message'])
+
         if self._events_on:
             self.sock_reader.feed_data = self.on_event
+
+        # return user info (or None if failed)
+        return data.get('data',None)

@@ -193,7 +193,7 @@ class Client(BaseClient):
         self.loop.close()
 
     def start(self):
-        self.loop.run_until_complete(self.handshake())
+        return self.loop.run_until_complete(self.handshake())
 
     def read(self):
         return self.loop.run_until_complete(self.read_output())
@@ -374,7 +374,7 @@ class AioClient(BaseClient):
         self.loop.close()
 
     async def start(self):
-        await self.handshake()
+        return await self.handshake()
 
     async def read(self):
         return await self.read_output()
