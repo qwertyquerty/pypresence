@@ -1,11 +1,23 @@
 """Util functions that are needed but messy."""
 import asyncio
 import json
+from enum import Enum
 import time
 import os
 import sys
 
 from .exceptions import PyPresenceException
+
+
+PremiumType = Enum('PremiumType', {'None': 0, 'Nitro Classic': 1, 'Nitro': 2})
+
+
+class UserFlags:
+    pass
+
+
+class PartialUser:
+    pass
 
 
 # Made by https://github.com/LewdNeko ;^)

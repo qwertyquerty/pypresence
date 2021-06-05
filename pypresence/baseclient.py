@@ -10,7 +10,7 @@ from typing import Union, Optional
 # TODO: Get rid of this import * lol
 from .exceptions import *
 from .payloads import Payload
-from .utils import get_ipc_path, get_event_loop
+from .utils import get_ipc_path, get_event_loop, PartialUser
 
 
 class BaseClient:
@@ -23,6 +23,8 @@ class BaseClient:
 
         client_id = str(client_id)
         self.ipc_path = get_ipc_path(pipe)
+
+        self._user = None
 
         if not self.ipc_path:
             raise DiscordNotFound
@@ -121,3 +123,8 @@ class BaseClient:
             raise DiscordError(data['code'], data['message'])
         if self._events_on:
             self.sock_reader.feed_data = self.on_event
+
+    @property
+    def user(self) -> PartialUser:
+        """Returns an object representation of the user whose Discord client the RPC has connected to."""
+        return self._user
