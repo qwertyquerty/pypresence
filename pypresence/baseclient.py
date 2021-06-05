@@ -118,9 +118,10 @@ class BaseClient:
         self.send_data(0, {'v': 1, 'client_id': self.client_id})
         preamble = await self.sock_reader.read(8)
         code, length = struct.unpack('<ii', preamble)
-        data = json.loads(await self.sock_reader.read(length))
+        data = json.loads((await self.sock_reader.read(length)).decode('utf-8'))
         if 'code' in data:
             raise DiscordError(data['code'], data['message'])
+        self._user = PartialUser(data['data']['user'])
         if self._events_on:
             self.sock_reader.feed_data = self.on_event
 
