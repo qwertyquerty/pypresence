@@ -175,15 +175,17 @@ class Payload:
 
     @classmethod
     def select_voice_channel(cls, channel_id: str):
+        if channel_id is not None:
+                channel_id = str(channel_id)
         payload = {
             "cmd": "SELECT_VOICE_CHANNEL",
             "args": {
-                "channel_id": str(channel_id),
+                "channel_id": channel_id,
             },
             "nonce": '{:.20f}'.format(cls.time())
         }
 
-        return cls(payload)
+        return cls(payload, False)
 
     @classmethod
     def get_selected_voice_channel(cls):
