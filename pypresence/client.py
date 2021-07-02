@@ -288,8 +288,8 @@ class AioClient(BaseClient):
         self.send_data(1, payload)
         return await self.read_output()
 
-    async def select_voice_channel(self, channel_id: str):
-        payload = Payload.select_voice_channel(channel_id)
+    async def select_voice_channel(self, channel_id: str, force: bool = False):
+        payload = Payload.select_voice_channel(channel_id, force)
         self.send_data(1, payload)
         return await self.read_output()
 
