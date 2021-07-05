@@ -29,9 +29,17 @@ class ActivityProperty:
 
 
 class Activity:
-    def __init__(self, client: Optional[BaseClient] = None):
+    def __init__(self, client_id: str = None,  client: BaseClient = None):
+        if client_id is None and client is None:
+            raise ValueError('You must pass either `client_id` or `client` to create an Activity class')
+        if client_id and client is None:
+            client = Client(client_id)
+            client.start()
         self._client: Optional[BaseClient] = client
-        self._excluded_methods = ['json', 'update', 'attach']
+        self._excluded_methods = ['to_json', 'from_json', 'update', 'attach']
+
+    def _is_public_attr(self, attr: str) -> bool:
+        return not attr.startswith('_') and attr not in self._excluded_methods
 
     pid: int = ActivityProperty(os.getpid())
     state: str = ActivityProperty()
@@ -50,18 +58,25 @@ class Activity:
     buttons: List[Dict[str, str]] = ActivityProperty()
     instance: bool = ActivityProperty(True)
 
-    def json(self):
+    def to_json(self):
         return {
             attr: getattr(self, attr, None)
             for attr in dir(self)
-            if not attr.startswith('_')
-            and attr not in self._excluded_methods
+            if self._is_public_attr(attr)
         }
+
+    @classmethod
+    def from_json(cls, client_id: str = None, client: BaseClient = None, **kwargs):
+        c = cls(client_id=client_id, client=client)
+        for k, v in kwargs.items():
+            if c._is_public_attr(k):
+                setattr(c, k, v)
+        return c
 
     def update(self):
         if not self._client:
             return
-        kwargs = self.json()
+        kwargs = self.to_json()
         if isinstance(self._client, (AioClient, AioPresence)):
             _future = self._client.set_activity(**kwargs) if isinstance(self._client, AioClient) else \
                 self._client.update(**kwargs)
