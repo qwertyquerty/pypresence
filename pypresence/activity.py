@@ -21,22 +21,25 @@ class ActivityProperty:
 
     def __set__(self, instance, value):
         setattr(instance, self.private_name, value)
-        instance.update()
+        if instance.autoupdate:
+            instance.update()
 
     def __delete__(self, instance):
         setattr(instance, self.private_name, None)
-        instance.update()
+        if instance.autoupdate:
+            instance.update()
 
 
 class Activity:
-    def __init__(self, client_id: str = None,  client: BaseClient = None):
+    def __init__(self, client_id: str = None, client: BaseClient = None, autoupdate: bool = True):
         if client_id is None and client is None:
             raise ValueError('You must pass either `client_id` or `client` to create an Activity class')
         if client_id and client is None:
             client = Client(client_id)
             client.start()
         self._client: Optional[BaseClient] = client
-        self._excluded_methods = ['to_json', 'from_json', 'update', 'attach']
+        self._excluded_methods = ['to_json', 'from_json', 'update', 'attach', 'autoupdate']
+        self.autoupdate = autoupdate
 
     def _is_public_attr(self, attr: str) -> bool:
         return not attr.startswith('_') and attr not in self._excluded_methods
