@@ -9,7 +9,7 @@ from .presence import Presence, AioPresence
 
 # TODO: In-line documentation
 
-class InvalidActivityWarning(warning):
+class InvalidActivityWarning(UserWarning):
     pass
 
 class ActivityProperty:
