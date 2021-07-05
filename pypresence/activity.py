@@ -76,6 +76,10 @@ class Activity:
     def update(self):
         if not self._client:
             return
+        # if not self.state:
+            # return
+            # raise RuntimeError('A valid activity requires that the state parameter be set! Make sure that the state is '
+            #                    'set before anything else, or Discord won\'t allow the Rich Presence to show!')
         kwargs = self.to_json()
         if isinstance(self._client, (AioClient, AioPresence)):
             _future = self._client.set_activity(**kwargs) if isinstance(self._client, AioClient) else \
