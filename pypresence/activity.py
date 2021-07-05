@@ -1,5 +1,6 @@
 from typing import Optional, List, Dict
 import os
+import warnings
 
 from .baseclient import BaseClient
 from .client import Client, AioClient
@@ -8,6 +9,8 @@ from .presence import Presence, AioPresence
 
 # TODO: In-line documentation
 
+class InvalidActivityWarning(warning):
+    pass
 
 class ActivityProperty:
     def __init__(self, default=None):
@@ -76,10 +79,10 @@ class Activity:
     def update(self):
         if not self._client:
             return
-        # if not self.state:
-            # return
-            # raise RuntimeError('A valid activity requires that the state parameter be set! Make sure that the state is '
-            #                    'set before anything else, or Discord won\'t allow the Rich Presence to show!')
+        if not self.state:
+            warnings.warn('A valid activity requires that the state parameter be set! Make sure that the state is '
+                          'set first, or Discord won\'t allow the Rich Presence to show!', InvalidActivityWarning)
+            return
         kwargs = self.to_json()
         if isinstance(self._client, (AioClient, AioPresence)):
             _future = self._client.set_activity(**kwargs) if isinstance(self._client, AioClient) else \
