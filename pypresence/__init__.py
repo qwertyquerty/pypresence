@@ -8,6 +8,7 @@ from .baseclient import BaseClient
 from .client import Client, AioClient
 from .exceptions import *
 from .presence import Presence, AioPresence
+from .activity import Activity, InvalidActivityWarning
 
 
 __title__ = 'pypresence'
