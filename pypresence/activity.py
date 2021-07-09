@@ -7,8 +7,6 @@ from .client import Client, AioClient
 from .presence import Presence, AioPresence
 
 
-# TODO: In-line documentation
-
 class InvalidActivityWarning(UserWarning):
     pass
 
@@ -35,7 +33,23 @@ class ActivityProperty:
 
 
 class Activity:
+    r"""The Activity class is an ease-of-use beginner-friendly interface,
+    capable of being attached to any instance of :class:`BaseClient`.
+    """
+
     def __init__(self, client_id: str = None, client: BaseClient = None, autoupdate: bool = True):
+        """
+        You must pass either `client_id` or `client`. Passing both will prioritise the `client` param.
+
+        Parameters
+        -----------
+        client_id: Optional[:class:`str`]
+            The Discord Client ID of the Application that we are connecting as
+        client: Optional[:class:`BaseClient`]
+            Any instance of BaseClient (Client, AioClient, Presence, AioPresence)
+        autoupdate: Optional[:class:`bool`]
+            Whether updating the attributes of the Activity class cause an update to Discord.
+        """
         if client_id is None and client is None:
             raise ValueError('You must pass either `client_id` or `client` to create an Activity class')
         if client_id and client is None:
@@ -66,7 +80,14 @@ class Activity:
     buttons: List[Dict[str, str]] = ActivityProperty()
     instance: bool = ActivityProperty(True)
 
-    def to_json(self):
+    def to_json(self) -> dict:
+        """Converts the class to a :class:`dict` that can be passed to the client for updating the presence.
+
+        Returns
+        --------
+        :class:`dict`
+            The dictionary representation of this class
+        """
         return {
             attr: getattr(self, attr, None)
             for attr in dir(self)
@@ -81,7 +102,10 @@ class Activity:
                 setattr(c, k, v)
         return c
 
-    def update(self):
+    def update(self) -> None:
+        """
+        Updates the bound client with the data that has been assigned to this instance.
+        """
         if not self._client:
             return
         if not self.state:
@@ -100,16 +124,37 @@ class Activity:
         else:
             raise ValueError('Unexpected client type found')
 
-    def attach(self, client: BaseClient):
+    def attach(self, client: BaseClient) -> None:
+        """
+        Attaches this class to a Client and binds it for auto-updating.
+
+        Parameters
+        -----------
+        client: :class:`BaseClient`
+            Any instance of BaseClient (Client, AioClient, Presence, AioPresence)
+        """
         self._client = client
         self.update()
 
-    def add_button(self, label: str, url: str):
+    def add_button(self, label: str, url: str) -> None:
+        """
+        Attaches this class to a Client and binds it for auto-updating.
+
+        Parameters
+        -----------
+        label: :class:`str`
+            The label that shows on the button as text.
+        url: :class:`str`
+            The URL that clicking the button will take you to. Buttons are only clickable for other users.
+        """
         data = {"label": label, "url": url}
         if isinstance(self.buttons, list) and len(self.buttons) < 2:
             self.buttons.append(data)
         else:
             self.buttons = [data]
 
-    def clear_buttons(self):
+    def clear_buttons(self) -> None:
+        """
+        Clears the buttons on the presence. Alias for `del activity.buttons`
+        """
         self.buttons = []
