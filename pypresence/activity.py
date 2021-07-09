@@ -1,5 +1,6 @@
 from typing import Optional, List, Dict
 import os
+import warnings
 
 from .baseclient import BaseClient
 from .client import Client, AioClient
@@ -7,6 +8,9 @@ from .presence import Presence, AioPresence
 
 
 # TODO: In-line documentation
+
+class InvalidActivityWarning(UserWarning):
+    pass
 
 
 class ActivityProperty:
@@ -21,22 +25,26 @@ class ActivityProperty:
 
     def __set__(self, instance, value):
         setattr(instance, self.private_name, value)
-        instance.update()
+        if instance.autoupdate:
+            instance.update()
 
     def __delete__(self, instance):
         setattr(instance, self.private_name, None)
-        instance.update()
+        if instance.autoupdate:
+            instance.update()
 
 
 class Activity:
-    def __init__(self, client_id: str = None,  client: BaseClient = None):
+    def __init__(self, client_id: str = None, client: BaseClient = None, autoupdate: bool = True):
         if client_id is None and client is None:
             raise ValueError('You must pass either `client_id` or `client` to create an Activity class')
         if client_id and client is None:
             client = Client(client_id)
             client.start()
         self._client: Optional[BaseClient] = client
-        self._excluded_methods = ['to_json', 'from_json', 'update', 'attach', 'add_button', 'clear_buttons']
+        self._excluded_methods = ['to_json', 'from_json', 'update', 'attach', 'add_button', 'clear_buttons',
+                                  'autoupdate']
+        self.autoupdate = autoupdate
 
     def _is_public_attr(self, attr: str) -> bool:
         return not attr.startswith('_') and attr not in self._excluded_methods
@@ -76,10 +84,10 @@ class Activity:
     def update(self):
         if not self._client:
             return
-        # if not self.state:
-            # return
-            # raise RuntimeError('A valid activity requires that the state parameter be set! Make sure that the state is '
-            #                    'set before anything else, or Discord won\'t allow the Rich Presence to show!')
+        if not self.state:
+            warnings.warn('A valid activity requires that the state parameter be set! Make sure that the state is '
+                          'set first, or Discord won\'t allow the Rich Presence to show!', InvalidActivityWarning)
+            return
         kwargs = self.to_json()
         if isinstance(self._client, (AioClient, AioPresence)):
             _future = self._client.set_activity(**kwargs) if isinstance(self._client, AioClient) else \
