@@ -36,7 +36,7 @@ class Activity:
             client = Client(client_id)
             client.start()
         self._client: Optional[BaseClient] = client
-        self._excluded_methods = ['to_json', 'from_json', 'update', 'attach']
+        self._excluded_methods = ['to_json', 'from_json', 'update', 'attach', 'add_button', 'clear_buttons']
 
     def _is_public_attr(self, attr: str) -> bool:
         return not attr.startswith('_') and attr not in self._excluded_methods
@@ -95,3 +95,13 @@ class Activity:
     def attach(self, client: BaseClient):
         self._client = client
         self.update()
+
+    def add_button(self, label: str, url: str):
+        data = {"label": label, "url": url}
+        if isinstance(self.buttons, list) and len(self.buttons) < 2:
+            self.buttons.append(data)
+        else:
+            self.buttons = [data]
+
+    def clear_buttons(self):
+        self.buttons = []
