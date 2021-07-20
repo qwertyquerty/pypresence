@@ -138,7 +138,7 @@ class Activity:
 
     def add_button(self, label: str, url: str) -> None:
         """
-        Attaches this class to a Client and binds it for auto-updating.
+        Adds a button to the presence.
 
         Parameters
         -----------
@@ -148,7 +148,10 @@ class Activity:
             The URL that clicking the button will take you to. Buttons are only clickable for other users.
         """
         data = {"label": label, "url": url}
-        if isinstance(self.buttons, list) and len(self.buttons) < 2:
+        if len(self.buttons) >= 2:
+            raise ValueError('A Rich Presence only allows up to 2 buttons')
+        
+        if isinstance(self.buttons, list):
             self.buttons.append(data)
         else:
             self.buttons = [data]
