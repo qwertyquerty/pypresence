@@ -1,9 +1,10 @@
 """Util functions that are needed but messy."""
 import asyncio
 import json
-import time
 import os
 import sys
+import tempfile
+import time
 
 from .exceptions import PyPresenceException
 
@@ -27,7 +28,7 @@ def get_ipc_path(pipe=None):
     if pipe:
         ipc = f"{ipc}{pipe}"
 
-    if sys.platform == 'linux' or sys.platform == 'darwin':
+    if sys.platform in ('linux', 'darwin'):
         tempdir = (os.environ.get('XDG_RUNTIME_DIR') or tempfile.gettempdir())
         paths = ['.', 'snap.discord', 'app/com.discordapp.Discord']
     elif sys.platform == 'win32':
@@ -45,7 +46,7 @@ def get_ipc_path(pipe=None):
 
 
 def get_event_loop(force_fresh=False):
-    if sys.platform == 'linux' or sys.platform == 'darwin':
+    if sys.platform in ('linux', 'darwin'):
         if force_fresh:
             return asyncio.new_event_loop()
         loop = asyncio.get_event_loop()
