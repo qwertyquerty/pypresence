@@ -10,9 +10,8 @@ jobs:
       - run: pip install bandit black codespell flake8 isort mypy pytest pyupgrade safety
       - run: bandit --recursive --skip B101,B311 .
       - run: black --check . || true
-      - run: codespell --ignore-words-list="wee" --skip="*.js" || true
-      - run: flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-      - run: flake8 . --count --exit-zero --max-complexity=10 --max-line-length=156 --show-source --statistics
+      - run: codespell --ignore-words-list="wee" --skip="*.css,*.js" || true
+      - run: flake8 . --count --ignore=E12,E2,F40,W29 --max-complexity=10 --max-line-length=156 --show-source --statistics
       - run: isort --check-only --profile black . || true
       - run: pip install psutil
       - run: pip install -e .
