@@ -16,7 +16,10 @@ quotes = [
     "Eighty percent of success is showing up.",
     "Life is what happens to you while you’re busy making other plans.",
     "Strive not to be a success, but rather to be of value.",
-    "The best time to plant a tree was 20 years ago. The second best time is now.",
+    (
+        "The best time to plant a tree was 20 years ago." 
+        "The second best time is now."
+    ),
     "Everything you’ve ever wanted is on the other side of fear."
 ]  # The quotes to choose from
 

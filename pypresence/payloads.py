@@ -58,30 +58,31 @@ class Payload:
 
         else:
             act_details = {
-                    "state": state,
-                    "details": details,
-                    "timestamps": {
-                        "start": start,
-                        "end": end
-                    },
-                    "assets": {
-                        "large_image": large_image,
-                        "large_text": large_text,
-                        "small_image": small_image,
-                        "small_text": small_text
-                    },
-                    "party": {
-                        "id": party_id,
-                        "size": party_size
-                    },
-                    "secrets": {
-                        "join": join,
-                        "spectate": spectate,
-                        "match": match
-                    },
-                    "buttons": buttons,
-                    "instance": instance
-                }
+                "state": state,
+                "details": details,
+                "timestamps": {
+                    "start": start,
+                    "end": end
+                },
+                "assets": {
+                    "large_image": large_image,
+                    "large_text": large_text,
+                    "small_image": small_image,
+                    "small_text": small_text
+                },
+                "party": {
+                    "id": party_id,
+                    "size": party_size
+                },
+                "secrets": {
+                    "join": join,
+                    "spectate": spectate,
+                    "match": match
+                },
+                "buttons": buttons,
+                "instance": instance
+            }
+
             clear = False
 
         payload = {
@@ -191,7 +192,7 @@ class Payload:
             "nonce": '{:.20f}'.format(cls.time())
         }
 
-        return cls(payload, True)
+        return cls(payload)
 
     @classmethod
     def select_voice_channel(cls, channel_id: str):
@@ -296,7 +297,7 @@ class Payload:
             "nonce": '{:.20f}'.format(cls.time())
         }
 
-        return cls(payload, True)
+        return cls(payload)
 
     @classmethod
     def capture_shortcut(cls, action: str):

@@ -1,10 +1,8 @@
-import json
 import os
-import time
 
 from .baseclient import BaseClient
 from .payloads import Payload
-from .utils import remove_none, get_event_loop
+from .utils import get_event_loop
 
 
 class Presence(BaseClient):
@@ -30,10 +28,10 @@ class Presence(BaseClient):
         match: str = None,
         buttons: list = None,
         instance: bool = True,
-        _donotuse=True
+        _do_not_use=True
     ):
 
-        if _donotuse is True:
+        if _do_not_use is True:
             payload = Payload.set_activity(
                 pid=pid,
                 state=state,
@@ -51,11 +49,10 @@ class Presence(BaseClient):
                 match=match,
                 buttons=buttons,
                 instance=instance,
-                activity=True
             )
 
         else:
-            payload = _donotuse
+            payload = _do_not_use
 
         self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
@@ -110,13 +107,12 @@ class AioPresence(BaseClient):
             small_image=small_image,
             small_text=small_text,
             party_id=party_id,
-             party_size=party_size,
+            party_size=party_size,
             join=join,
             spectate=spectate,
             match=match,
             buttons=buttons,
-            instance=instance,
-            activity=True
+            instance=instance
         )
 
         self.send_data(1, payload)

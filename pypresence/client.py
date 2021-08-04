@@ -183,8 +183,7 @@ class Client(BaseClient):
             spectate=spectate,
             match=match,
             buttons=buttons,
-            instance=instance,
-            activity=True
+            instance=instance
         )
         
         self.send_data(1, payload)
@@ -436,8 +435,7 @@ class AioClient(BaseClient):
             spectate,
             match,
             buttons,
-            instance,
-            activity=True
+            instance
         )
 
         self.send_data(1, payload)

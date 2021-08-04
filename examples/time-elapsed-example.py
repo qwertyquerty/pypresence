@@ -10,7 +10,8 @@ client_id = "client_id"  # Enter your Application ID here.
 RPC = Presence(client_id=client_id)
 RPC.connect()
 
-# Make sure you are using the same name that you used when uploading the image
+# Make sure you are using the same name that you used
+# when uploading the image
 
 # Using the time that we imported at the start. start_time equals time.
 start_time = time.time()

@@ -10,7 +10,8 @@ client_id = "64567352374564"  # Enter your Application ID here.
 RPC = Presence(client_id=client_id)
 RPC.connect()
 
-# Make sure you are using the same name that you used when uploading the image
+# Make sure you are using the same name that you used
+# when uploading the image
 RPC.update(
     large_image="big-image",
     large_text="Large Text Here!",
