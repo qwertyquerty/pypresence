@@ -1,14 +1,20 @@
 import asyncio
 import inspect
 import json
-import os
 import struct
 import sys
-import tempfile
 from typing import Union, Optional
 
-# TODO: Get rid of this import * lol
-from .exceptions import *
+from . import (
+    DiscordNotFound,
+    PyPresenceException,
+    InvalidArgument,
+    InvalidPipe,
+    DiscordError,
+    InvalidID,
+    ServerError
+)
+
 from .payloads import Payload
 from .utils import get_ipc_path, get_event_loop
 
@@ -19,7 +25,7 @@ class BaseClient:
         pipe = kwargs.get('pipe', None)
         loop = kwargs.get('loop', None)
         handler = kwargs.get('handler', None)
-        self.isasync = kwargs.get('isasync', False)
+        self.is_async = kwargs.get('is_async', False)
 
         client_id = str(client_id)
         self.ipc_path = get_ipc_path(pipe)
@@ -52,7 +58,7 @@ class BaseClient:
                     'Error handler should only accept two arguments.'
                 )
 
-            if self.isasync:
+            if self.is_async:
                 if not inspect.iscoroutinefunction(handler):
                     raise InvalidArgument(
                         'Coroutine',
