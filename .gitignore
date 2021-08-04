@@ -1,20 +1,30 @@
-*.iml
-.idea/
-*.ipr
-*.iws
-/out/
+# IDE Configuration Files
+.idea
 .idea_modules/
-atlassian-ide-plugin.xml
-com_crashlytics_export_strings.xml
-crashlytics.properties
-crashlytics-build.properties
-build/
-nyaaa/
-*.egg-info/
+.vscode
+
+# Python Environment Files
 .venv/
 venv/
 __pycache__/
 pypresence/__pycache__/
-test.py
-.mypy_cache/
+
+# Packaging
+build/
+nyaaa/
+
 *.egg-info/
+.mypy_cache/
+
+# xmk and properties
+atlassian-ide-plugin.xml
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+
+# Other
+*.iml
+*.ipr
+*.iws
+/out/
+test.py
