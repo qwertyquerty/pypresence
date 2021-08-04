@@ -7,7 +7,9 @@ class PyPresenceException(Exception):
 
 class DiscordNotFound(PyPresenceException):
     def __init__(self):
-        super().__init__('Could not find Discord installed and running on this machine.')
+        super().__init__(
+            'Could not find Discord installed and running on this machine.'
+        )
 
 
 class InvalidID(PyPresenceException):
@@ -23,14 +25,18 @@ class InvalidPipe(PyPresenceException):
 class InvalidArgument(PyPresenceException):
     def __init__(self, expected, received, description: str = None):
         description = '\n{0}'.format(description) if description else ''
-        super().__init__('Bad argument passed. Expected {0} but got {1} instead{2}'.format(expected, received,
-                                                                                           description)
-                         )
+        super().__init__(
+            'Bad argument passed. Expected {0} but got {1} instead{2}'.format(
+                expected, received, description
+            )
+        )
 
 
 class ServerError(PyPresenceException):
     def __init__(self, message: str):
-        super().__init__(message.replace(']', '').replace('[', '').capitalize())
+        super().__init__(
+            message.replace(']', '').replace('[', '').capitalize()
+        )
 
 
 class DiscordError(PyPresenceException):

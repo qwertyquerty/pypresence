@@ -21,6 +21,10 @@ quotes = [
 ]  # The quotes to choose from
 
 
-while True:  # The presence will stay on as long as the program is running
-    RPC.update(details="Famous Quote:", state=random.choice(quotes)) #Set the presence, picking a random quote
-    time.sleep(60) #Wait a wee bit
+while True:
+    # The presence will stay on as long as the program is running
+
+    # Set the presence, picking a random quote
+    RPC.update(details="Famous Quote:", state=random.choice(quotes))
+
+    time.sleep(60)  # Wait a wee bit

@@ -7,7 +7,6 @@ client_id = os.environ["PYPRESENCE_CLIENT_ID"]
 RPC = Presence(client_id)  # Initialize the Presence class
 RPC.connect()  # Start the handshake loop
 
-
 quotes = [
     "If you can dream it, you can achieve it.",
     "Either write something worth reading or do something worth writing.",
@@ -22,5 +21,6 @@ quotes = [
 ]  # The quotes to choose from
 
 for i in range(3):
-    RPC.update(details="Famous Quote:",
-               state=random.choice(quotes))
+    RPC.update(
+        details="Famous Quote:", state=random.choice(quotes)
+    )

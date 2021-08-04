@@ -27,7 +27,13 @@ def on_new_message(data):
 
 
 # Watch for new messages created on channel 444444444444444444
-c.register_event('MESSAGE_CREATE', on_new_message, args={'channel_id': '444444444444444444'})
-# Find other event types here: https://discord.com/developers/docs/topics/rpc#commands-and-events-rpc-events
+c.register_event(
+    'MESSAGE_CREATE',
+    on_new_message,
+    args={'channel_id': '444444444444444444'}
+)
+
+# Find other event types here:
+# https://discord.com/developers/docs/topics/rpc#commands-and-events-rpc-events
 
 loop.run_forever()

@@ -21,27 +21,41 @@ class Payload:
         return time.time()
 
     @classmethod
-    def set_activity(cls, pid: int = os.getpid(),
-                     state: str = None, details: str = None,
-                     start: int = None, end: int = None,
-                     large_image: str = None, large_text: str = None,
-                     small_image: str = None, small_text: str = None,
-                     party_id: str = None, party_size: list = None,
-                     join: str = None, spectate: str = None,
-                     match: str = None, buttons: list = None,
-                     instance: bool = True, activity: Union[bool, None] = True,
-                     _rn: bool = True):
-
-        # They should already be an int because we give typehints, but some people are fucking stupid and use
+    def set_activity(
+        cls,
+        pid: int = os.getpid(),
+        state: str = None,
+        details: str = None,
+        start: int = None,
+        end: int = None,
+        large_image: str = None,
+        large_text: str = None,
+        small_image: str = None,
+        small_text: str = None,
+        party_id: str = None,
+        party_size: list = None,
+        join: str = None,
+        spectate: str = None,
+        match: str = None,
+        buttons: list = None,
+        instance: bool = True,
+        activity: Union[bool, None] = True,
+         _rn: bool = True
+    ):
+        # They should already be an int because we give typehints,
+        # but some people are fucking stupid and use
         # IDLE or some other stupid shit.
+
         if start:
             start = int(start)
+
         if end:
             end = int(end)
 
         if activity is None:
             act_details = None
             clear = True
+
         else:
             act_details = {
                     "state": state,
@@ -78,6 +92,7 @@ class Payload:
             },
             "nonce": '{:.20f}'.format(cls.time())
         }
+
         if _rn:
             clear = _rn
         return cls(payload, clear)
@@ -154,9 +169,14 @@ class Payload:
         return cls(payload)
 
     @classmethod
-    def set_user_voice_settings(cls, user_id: str, pan_left: float = None,
-                                pan_right: float = None, volume: int = None,
-                                mute: bool = None):
+    def set_user_voice_settings(
+        cls,
+        user_id: str,
+        pan_left: float = None,
+        pan_right: float = None,
+        volume: int = None,
+        mute: bool = None
+    ):
         payload = {
             "cmd": "SET_USER_VOICE_SETTINGS",
             "args": {
@@ -246,11 +266,19 @@ class Payload:
         return cls(payload)
 
     @classmethod
-    def set_voice_settings(cls, _input: dict = None, output: dict = None,
-                           mode: dict = None, automatic_gain_control: bool = None,
-                           echo_cancellation: bool = None, noise_suppression: bool = None,
-                           qos: bool = None, silence_warning: bool = None,
-                           deaf: bool = None, mute: bool = None):
+    def set_voice_settings(
+        cls,
+        _input: dict = None,
+        output: dict = None,
+        mode: dict = None,
+        automatic_gain_control: bool = None,
+        echo_cancellation: bool = None,
+        noise_suppression: bool = None,
+        qos: bool = None,
+        silence_warning: bool = None,
+        deaf: bool = None,
+        mute: bool = None
+    ):
         payload = {
             "cmd": "SET_VOICE_SETTINGS",
             "args": {

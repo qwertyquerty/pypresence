@@ -14,10 +14,13 @@ def remove_none(d: dict):
         if isinstance(d[item], dict):
             if len(d[item]):
                 d[item] = remove_none(d[item])
+
             if not len(d[item]):
                 del d[item]
+
         elif d[item] is None:
             del d[item]
+
     return d
 
 
@@ -28,11 +31,16 @@ def get_ipc_path(pipe=None):
         ipc = f"{ipc}{pipe}"
 
     if sys.platform == 'linux' or sys.platform == 'darwin':
-        tempdir = (os.environ.get('XDG_RUNTIME_DIR') or tempfile.gettempdir())
+        tempdir = (
+                os.environ.get('XDG_RUNTIME_DIR') or tempfile.gettempdir()
+        )
+
         paths = ['.', 'snap.discord', 'app/com.discordapp.Discord']
+
     elif sys.platform == 'win32':
         tempdir = r'\\?\pipe'
         paths = ['.']
+
     else:
         return
     
@@ -49,13 +57,16 @@ def get_event_loop(force_fresh=False):
         if force_fresh:
             return asyncio.new_event_loop()
         loop = asyncio.get_event_loop()
+
         if loop.is_closed():
             return asyncio.new_event_loop()
         return loop
+
     elif sys.platform == 'win32':
         if force_fresh:
             return asyncio.ProactorEventLoop()
         loop = asyncio.get_event_loop()
+
         if isinstance(loop, asyncio.ProactorEventLoop) and not loop.is_closed():
             return loop
         return asyncio.ProactorEventLoop()
@@ -64,6 +75,7 @@ def get_event_loop(force_fresh=False):
 # This code used to do something. I don't know what, though.
 try:  # Thanks, Rapptz :^)
     create_task = asyncio.ensure_future
+
 except AttributeError:
     create_task = getattr(asyncio, "async")
     # No longer crashes Python 3.7
