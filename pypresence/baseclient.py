@@ -5,7 +5,7 @@ import struct
 import sys
 from typing import Union, Optional
 
-from . import (
+from .exceptions import (
     DiscordNotFound,
     PyPresenceException,
     InvalidArgument,
@@ -75,11 +75,7 @@ class BaseClient:
             loop.set_exception_handler(err_handler)
             self.handler = handler
 
-        if getattr(self, "on_event", None):  # Tasty bad code ;^)
-            self._events_on = True
-
-        else:
-            self._events_on = False
+        self._events_on = bool(getattr(self, "on_event", None))
 
     def update_event_loop(self, loop):
         # noinspection PyAttributeOutsideInit
@@ -125,12 +121,12 @@ class BaseClient:
         )
 
     async def handshake(self):
-        if sys.platform == 'linux' or sys.platform == 'darwin':
+        if sys.platform in ['linux', 'darwin']:
             self.sock_reader, self.sock_writer = (
                 await asyncio.open_unix_connection(self.ipc_path, loop=self.loop)
             )
 
-        elif sys.platform == 'win32' or sys.platform == 'win64':
+        elif sys.platform in ['win32', 'win64']:
             self.sock_reader = asyncio.StreamReader(loop=self.loop)
             reader_protocol = asyncio.StreamReaderProtocol(
                 self.sock_reader, loop=self.loop)
