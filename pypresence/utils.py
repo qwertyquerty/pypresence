@@ -2,7 +2,7 @@
 import asyncio
 import os
 import sys
-
+import tempfile
 
 # Made by https://github.com/LewdNeko ;^)
 def remove_none(d: dict):
