@@ -40,7 +40,7 @@ class Payload:
         buttons: list = None,
         instance: bool = True,
         activity: Union[bool, None] = True,
-         _rn: bool = True
+        _rn: bool = True
     ):
         # They should already be an int because we give typehints,
         # but some people are fucking stupid and use

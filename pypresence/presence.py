@@ -76,7 +76,7 @@ class Presence(BaseClient):
 class AioPresence(BaseClient):
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs, isasync=True)
+        super().__init__(*args, **kwargs, is_async=True)
 
     async def update(
         self, pid: int = os.getpid(),
