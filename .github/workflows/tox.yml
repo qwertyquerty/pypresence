@@ -11,8 +11,7 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python }}
-      - run: brew install discord
-      - run: pip install tox
+      - run: pip install discord.py tox
       - run: tox -e py
         env:
           PYPRESENCE_CLIENT_ID: ${{ github.PYPRESENCE_CLIENT_ID }}
