@@ -1,4 +1,5 @@
 from setuptools import setup
+import pypresence
 
 # Use README for the PyPI page
 with open('README.md') as f:
@@ -8,7 +9,7 @@ with open('README.md') as f:
 setup(name='pypresence',
       author='qwertyquerty',
       url='https://github.com/qwertyquerty/pypresence',
-      version='4.2.1',
+      version=pypresence.__version__,
       packages=['pypresence'],
       python_requires='>=3.5',
       platforms=['Windows', 'Linux', 'OSX'],
