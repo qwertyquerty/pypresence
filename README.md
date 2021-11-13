@@ -1,5 +1,3 @@
-<img src="https://qwertyquerty.github.io/pypresence/html/_static/logosmall.svg" width="100%">
-
 > A Discord RPC library in Python? Looks like you've come to the right place.
 
 Written by: [qwertyquerty](https://github.com/qwertyquerty)
