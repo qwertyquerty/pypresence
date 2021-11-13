@@ -1,4 +1,4 @@
-> A Discord RPC library in Python? Looks like you've come to the right place.
+> A Discord Rich Presence Client in Python? Looks like you've come to the right place.
 
 Written by: [qwertyquerty](https://github.com/qwertyquerty)
 
