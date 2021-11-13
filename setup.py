@@ -34,6 +34,7 @@ setup(name='pypresence',
             'Programming Language :: Python :: 3.8',
             'Programming Language :: Python :: 3.9',
             'Programming Language :: Python :: 3.10',
+
             'Programming Language :: Python :: 3 :: Only',
             'Programming Language :: Python :: Implementation :: CPython',
 
@@ -45,7 +46,7 @@ setup(name='pypresence',
       ]
 )
 
-print("""
+print(r"""
 ___  _   _ ___  ____ ____ ____ ____ _  _ ____ ____
 |__]  \_/  |__] |__/ |___ [__  |___ |\ | |    |___
 |      |   |    |  \ |___ ___] |___ | \| |___ |___

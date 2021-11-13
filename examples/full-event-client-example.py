@@ -16,7 +16,7 @@ Implement the API found here for code/token exchange:
 https://discord.com/developers/docs/topics/oauth2#authorization-code-grant-access-token-exchange-example
 (NOTE: Redirect URI is needed and should be what's set in your Dev Application's OAuth2 screen)
 '''
-token = exchange_code(code_grant) 
+token = exchange_code(code_grant)  # noqa: F821
 
 # Now authenticate with the token we got (Save to skip authorization later)
 c.authenticate(token['access_token'])
