@@ -1,7 +1,7 @@
 import inspect
-import struct
 import json
 import os
+import struct
 from typing import List
 
 from .baseclient import BaseClient
@@ -37,35 +37,39 @@ class Client(BaseClient):
     # noinspection PyProtectedMember
     def on_event(self, data):
         if self.sock_reader._eof:
-            raise PyPresenceException('feed_data after feed_eof')
+            raise PyPresenceException("feed_data after feed_eof")
         if not data:
             return
         self.sock_reader._buffer.extend(data)
         self.sock_reader._wakeup_waiter()
-        if (self.sock_reader._transport is not None and
-                not self.sock_reader._paused and
-                len(self.sock_reader._buffer) > 2 * self.sock_reader._limit):
+        if (
+            self.sock_reader._transport is not None
+            and not self.sock_reader._paused
+            and len(self.sock_reader._buffer) > 2 * self.sock_reader._limit
+        ):
             try:
                 self.sock_reader._transport.pause_reading()
             except NotImplementedError:
                 self.sock_reader._transport = None
             else:
                 self.sock_reader._paused = True
-        
+
         end = 0
         while end < len(data):
             # While chunks are available in data
             start = end + 8
-            status_code, length = struct.unpack('<II', data[end:start])
+            status_code, length = struct.unpack("<II", data[end:start])
             end = length + start
-            payload = json.loads(data[start:end].decode('utf-8'))
+            payload = json.loads(data[start:end].decode("utf-8"))
 
             if payload["evt"] is not None:
                 evt = payload["evt"].lower()
                 if evt in self._events:
                     self._events[evt](payload["data"])
-                elif evt == 'error':
-                    raise DiscordError(payload["data"]["code"], payload["data"]["message"])
+                elif evt == "error":
+                    raise DiscordError(
+                        payload["data"]["code"], payload["data"]["message"]
+                    )
 
     def authorize(self, client_id: str, scopes: List[str]):
         payload = Payload.authorize(client_id, scopes)
@@ -97,10 +101,17 @@ class Client(BaseClient):
         self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def set_user_voice_settings(self, user_id: str, pan_left: float = None,
-                                pan_right: float = None, volume: int = None,
-                                mute: bool = None):
-        payload = Payload.set_user_voice_settings(user_id, pan_left, pan_right, volume, mute)
+    def set_user_voice_settings(
+        self,
+        user_id: str,
+        pan_left: float = None,
+        pan_right: float = None,
+        volume: int = None,
+        mute: bool = None,
+    ):
+        payload = Payload.set_user_voice_settings(
+            user_id, pan_left, pan_right, volume, mute
+        )
         self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
@@ -119,21 +130,45 @@ class Client(BaseClient):
         self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def set_activity(self, pid: int = os.getpid(),
-                     state: str = None, details: str = None,
-                     start: int = None, end: int = None,
-                     large_image: str = None, large_text: str = None,
-                     small_image: str = None, small_text: str = None,
-                     party_id: str = None, party_size: list = None,
-                     join: str = None, spectate: str = None,
-                     match: str = None, buttons: list = None,
-                     instance: bool = True):
-        payload = Payload.set_activity(pid=pid, state=state, details=details, start=start, end=end,
-                                       large_image=large_image, large_text=large_text, small_image=small_image,
-                                       small_text=small_text, party_id=party_id, party_size=party_size, join=join,
-                                       spectate=spectate, match=match, buttons=buttons, instance=instance,
-                                       activity=True)
-        
+    def set_activity(
+        self,
+        pid: int = os.getpid(),
+        state: str = None,
+        details: str = None,
+        start: int = None,
+        end: int = None,
+        large_image: str = None,
+        large_text: str = None,
+        small_image: str = None,
+        small_text: str = None,
+        party_id: str = None,
+        party_size: list = None,
+        join: str = None,
+        spectate: str = None,
+        match: str = None,
+        buttons: list = None,
+        instance: bool = True,
+    ):
+        payload = Payload.set_activity(
+            pid=pid,
+            state=state,
+            details=details,
+            start=start,
+            end=end,
+            large_image=large_image,
+            large_text=large_text,
+            small_image=small_image,
+            small_text=small_text,
+            party_id=party_id,
+            party_size=party_size,
+            join=join,
+            spectate=spectate,
+            match=match,
+            buttons=buttons,
+            instance=instance,
+            activity=True,
+        )
+
         self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
@@ -161,13 +196,31 @@ class Client(BaseClient):
         self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def set_voice_settings(self, _input: dict = None, output: dict = None,
-                           mode: dict = None, automatic_gain_control: bool = None,
-                           echo_cancellation: bool = None, noise_suppression: bool = None,
-                           qos: bool = None, silence_warning: bool = None,
-                           deaf: bool = None, mute: bool = None):
-        payload = Payload.set_voice_settings(_input, output, mode, automatic_gain_control, echo_cancellation,
-                                             noise_suppression, qos, silence_warning, deaf, mute)
+    def set_voice_settings(
+        self,
+        _input: dict = None,
+        output: dict = None,
+        mode: dict = None,
+        automatic_gain_control: bool = None,
+        echo_cancellation: bool = None,
+        noise_suppression: bool = None,
+        qos: bool = None,
+        silence_warning: bool = None,
+        deaf: bool = None,
+        mute: bool = None,
+    ):
+        payload = Payload.set_voice_settings(
+            _input,
+            output,
+            mode,
+            automatic_gain_control,
+            echo_cancellation,
+            noise_suppression,
+            qos,
+            silence_warning,
+            deaf,
+            mute,
+        )
         self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
@@ -187,7 +240,7 @@ class Client(BaseClient):
         return self.loop.run_until_complete(self.read_output())
 
     def close(self):
-        self.send_data(2, {'v': 1, 'client_id': self.client_id})
+        self.send_data(2, {"v": 1, "client_id": self.client_id})
         self.sock_writer.close()
         self._closed = True
         self.loop.close()
@@ -209,7 +262,9 @@ class AioClient(BaseClient):
         if args is None:
             args = {}
         if not inspect.iscoroutinefunction(func):
-            raise InvalidArgument('Coroutine', 'Subroutine', 'Event function must be a coroutine')
+            raise InvalidArgument(
+                "Coroutine", "Subroutine", "Event function must be a coroutine"
+            )
         elif len(inspect.signature(func).parameters) != 1:
             raise ArgumentError
         await self.subscribe(event, args)
@@ -227,14 +282,16 @@ class AioClient(BaseClient):
     # noinspection PyProtectedMember
     async def on_event(self, data):
         if self.sock_reader._eof:
-            raise PyPresenceException('feed_data after feed_eof')
+            raise PyPresenceException("feed_data after feed_eof")
         if not data:
             return
         self.sock_reader._buffer.extend(data)
         self.sock_reader._wakeup_waiter()
-        if (self.sock_reader._transport is not None and
-                not self.sock_reader._paused and
-                len(self.sock_reader._buffer) > 2 * self.sock_reader._limit):
+        if (
+            self.sock_reader._transport is not None
+            and not self.sock_reader._paused
+            and len(self.sock_reader._buffer) > 2 * self.sock_reader._limit
+        ):
             try:
                 self.sock_reader._transport.pause_reading()
             except NotImplementedError:
@@ -242,13 +299,13 @@ class AioClient(BaseClient):
             else:
                 self.sock_reader._paused = True
 
-        payload = json.loads(data[8:].decode('utf-8'))
+        payload = json.loads(data[8:].decode("utf-8"))
 
         if payload["evt"] is not None:
             evt = payload["evt"].lower()
             if evt in self._events:
                 await self._events[evt](payload["data"])
-            elif evt == 'error':
+            elif evt == "error":
                 raise DiscordError(payload["data"]["code"], payload["data"]["message"])
 
     async def authorize(self, client_id: str, scopes: List[str]):
@@ -281,10 +338,17 @@ class AioClient(BaseClient):
         self.send_data(1, payload)
         return await self.read_output()
 
-    async def set_user_voice_settings(self, user_id: str, pan_left: float = None,
-                                      pan_right: float = None, volume: int = None,
-                                      mute: bool = None):
-        payload = Payload.set_user_voice_settings(user_id, pan_left, pan_right, volume, mute)
+    async def set_user_voice_settings(
+        self,
+        user_id: str,
+        pan_left: float = None,
+        pan_right: float = None,
+        volume: int = None,
+        mute: bool = None,
+    ):
+        payload = Payload.set_user_voice_settings(
+            user_id, pan_left, pan_right, volume, mute
+        )
         self.send_data(1, payload)
         return await self.read_output()
 
@@ -303,18 +367,44 @@ class AioClient(BaseClient):
         self.send_data(1, payload)
         return await self.read_output()
 
-    async def set_activity(self, pid: int = os.getpid(),
-                           state: str = None, details: str = None,
-                           start: int = None, end: int = None,
-                           large_image: str = None, large_text: str = None,
-                           small_image: str = None, small_text: str = None,
-                           party_id: str = None, party_size: list = None,
-                           join: str = None, spectate: str = None,
-                           buttons: list = None,
-                           match: str = None, instance: bool = True):
-        payload = Payload.set_activity(pid, state, details, start, end, large_image, large_text,
-                                       small_image, small_text, party_id, party_size, join, spectate,
-                                       match, buttons, instance, activity=True)
+    async def set_activity(
+        self,
+        pid: int = os.getpid(),
+        state: str = None,
+        details: str = None,
+        start: int = None,
+        end: int = None,
+        large_image: str = None,
+        large_text: str = None,
+        small_image: str = None,
+        small_text: str = None,
+        party_id: str = None,
+        party_size: list = None,
+        join: str = None,
+        spectate: str = None,
+        buttons: list = None,
+        match: str = None,
+        instance: bool = True,
+    ):
+        payload = Payload.set_activity(
+            pid,
+            state,
+            details,
+            start,
+            end,
+            large_image,
+            large_text,
+            small_image,
+            small_text,
+            party_id,
+            party_size,
+            join,
+            spectate,
+            match,
+            buttons,
+            instance,
+            activity=True,
+        )
         self.send_data(1, payload)
         return await self.read_output()
 
@@ -342,13 +432,31 @@ class AioClient(BaseClient):
         self.send_data(1, payload)
         return await self.read_output()
 
-    async def set_voice_settings(self, _input: dict = None, output: dict = None,
-                                 mode: dict = None, automatic_gain_control: bool = None,
-                                 echo_cancellation: bool = None, noise_suppression: bool = None,
-                                 qos: bool = None, silence_warning: bool = None,
-                                 deaf: bool = None, mute: bool = None):
-        payload = Payload.set_voice_settings(_input, output, mode, automatic_gain_control, echo_cancellation,
-                                             noise_suppression, qos, silence_warning, deaf, mute)
+    async def set_voice_settings(
+        self,
+        _input: dict = None,
+        output: dict = None,
+        mode: dict = None,
+        automatic_gain_control: bool = None,
+        echo_cancellation: bool = None,
+        noise_suppression: bool = None,
+        qos: bool = None,
+        silence_warning: bool = None,
+        deaf: bool = None,
+        mute: bool = None,
+    ):
+        payload = Payload.set_voice_settings(
+            _input,
+            output,
+            mode,
+            automatic_gain_control,
+            echo_cancellation,
+            noise_suppression,
+            qos,
+            silence_warning,
+            deaf,
+            mute,
+        )
         self.send_data(1, payload)
         return await self.read_output()
 
@@ -368,7 +476,7 @@ class AioClient(BaseClient):
         return await self.read_output()
 
     def close(self):
-        self.send_data(2, {'v': 1, 'client_id': self.client_id})
+        self.send_data(2, {"v": 1, "client_id": self.client_id})
         self.sock_writer.close()
         self._closed = True
         self.loop.close()

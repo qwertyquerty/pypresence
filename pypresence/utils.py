@@ -24,36 +24,36 @@ def remove_none(d: dict):
 
 # Returns on first IPC pipe matching Discord's
 def get_ipc_path(pipe=None):
-    ipc = 'discord-ipc-'
+    ipc = "discord-ipc-"
     if pipe:
         ipc = f"{ipc}{pipe}"
 
-    if sys.platform in ('linux', 'darwin'):
-        tempdir = (os.environ.get('XDG_RUNTIME_DIR') or tempfile.gettempdir())
-        paths = ['.', 'snap.discord', 'app/com.discordapp.Discord']
-    elif sys.platform == 'win32':
-        tempdir = r'\\?\pipe'
-        paths = ['.']
+    if sys.platform in ("linux", "darwin"):
+        tempdir = os.environ.get("XDG_RUNTIME_DIR") or tempfile.gettempdir()
+        paths = [".", "snap.discord", "app/com.discordapp.Discord"]
+    elif sys.platform == "win32":
+        tempdir = r"\\?\pipe"
+        paths = ["."]
     else:
         return
-    
+
     for path in paths:
         full_path = os.path.abspath(os.path.join(tempdir, path))
-        if sys.platform == 'win32' or os.path.isdir(full_path):
+        if sys.platform == "win32" or os.path.isdir(full_path):
             for entry in os.scandir(full_path):
                 if entry.name.startswith(ipc):
                     return entry.path
 
 
 def get_event_loop(force_fresh=False):
-    if sys.platform in ('linux', 'darwin'):
+    if sys.platform in ("linux", "darwin"):
         if force_fresh:
             return asyncio.new_event_loop()
         loop = asyncio.get_event_loop()
         if loop.is_closed():
             return asyncio.new_event_loop()
         return loop
-    elif sys.platform == 'win32':
+    elif sys.platform == "win32":
         if force_fresh:
             return asyncio.ProactorEventLoop()
         loop = asyncio.get_event_loop()
