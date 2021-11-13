@@ -1,7 +1,7 @@
 class PyPresenceException(Exception):
     def __init__(self, message: str = None):
         if message is None:
-            message = 'An error has occured within PyPresence'
+            message = 'An error has occurred within PyPresence'
         super().__init__(message)
 
 
