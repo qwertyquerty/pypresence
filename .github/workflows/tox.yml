@@ -13,3 +13,5 @@ jobs:
           python-version: ${{ matrix.python }}
       - run: pip install tox
       - run: tox -e py
+        env:
+          PYPRESENCE_CLIENT_ID: ${{ github.PYPRESENCE_CLIENT_ID }}
