@@ -20,16 +20,14 @@ class Presence(BaseClient):
                party_id: str = None, party_size: list = None,
                join: str = None, spectate: str = None,
                match: str = None, buttons: list = None,
-               instance: bool = True,
-               _donotuse=True):
+               instance: bool = True, payload_override: dict = None):
 
-        if _donotuse is True:
+        if payload_override is None:
             payload = Payload.set_activity(pid=pid, state=state, details=details, start=start, end=end,
                                            large_image=large_image, large_text=large_text,
                                            small_image=small_image, small_text=small_text, party_id=party_id,
                                            party_size=party_size, join=join, spectate=spectate,
                                            match=match, buttons=buttons, instance=instance, activity=True)
-
         else:
             payload = _donotuse
         self.send_data(1, payload)
