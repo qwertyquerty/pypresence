@@ -13,6 +13,7 @@ def get_presence_data():
     # Use the data in whatever way you want, and return kwargs for the Presence.update() method
     return {'state': data['online'].title(), 'details': 'SomeWebsite Status', 'start': data['start']}
 
+
 def run():
     presence = Presence(CLIENT_ID)
     presence.connect()
@@ -20,6 +21,7 @@ def run():
         data = get_presence_data()
         presence.update(**data)
         time.sleep(15)
+        
         
 if __name__ in '__main__':
     run()
