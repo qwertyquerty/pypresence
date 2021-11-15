@@ -1,0 +1,5 @@
+[tool.documatic]
+name = pypresence
+srcdir = .
+package = .
+docname = "README"
