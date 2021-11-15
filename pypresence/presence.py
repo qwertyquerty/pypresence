@@ -29,7 +29,7 @@ class Presence(BaseClient):
                                            party_size=party_size, join=join, spectate=spectate,
                                            match=match, buttons=buttons, instance=instance, activity=True)
         else:
-            payload = _donotuse
+            payload = payload_override
         self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
