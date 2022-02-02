@@ -1,10 +1,8 @@
 """Util functions that are needed but messy."""
 import asyncio
-import json
 import os
 import sys
 import tempfile
-import time
 
 from .exceptions import PyPresenceException
 

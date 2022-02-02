@@ -22,6 +22,7 @@ class BaseClient:
         self.isasync = kwargs.get('isasync', False)
 
         client_id = str(client_id)
+        self.client_id = client_id
         self.ipc_path = get_ipc_path(pipe)
 
         if not self.ipc_path:

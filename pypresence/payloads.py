@@ -1,13 +1,13 @@
 import json
 import os
 import time
-from typing import List, Union
+from typing import Dict, List, Union
 
+from .exceptions import InvalidArgument
 from .utils import remove_none
 
 
 class Payload:
-
     def __init__(self, data, clear_none=True):
         if clear_none:
             data = remove_none(data)
@@ -21,16 +21,33 @@ class Payload:
         return time.time()
 
     @classmethod
-    def set_activity(cls, pid: int = os.getpid(),
-                     state: str = None, details: str = None,
-                     start: int = None, end: int = None,
-                     large_image: str = None, large_text: str = None,
-                     small_image: str = None, small_text: str = None,
-                     party_id: str = None, party_size: list = None,
-                     join: str = None, spectate: str = None,
-                     match: str = None, buttons: list = None,
-                     instance: bool = True, activity: Union[bool, None] = True,
-                     _rn: bool = True):
+    def set_activity(
+        cls,
+        pid: int = os.getpid(),
+        type: int = 0,
+        stream_url: str = None,
+        name: str = None,
+        application_id: str = None,
+        created_at: int = int(time()),
+        emoji: Dict[str, Union[str, int, bool]] = None,
+        state: str = None,
+        details: str = None,
+        start: int = None,
+        end: int = None,
+        large_image: str = None,
+        large_text: str = None,
+        small_image: str = None,
+        small_text: str = None,
+        party_id: str = None,
+        party_size: list = None,
+        join: str = None,
+        spectate: str = None,
+        match: str = None,
+        buttons: list = None,
+        instance: bool = True,
+        activity: Union[bool, None] = True,
+        _rn: bool = True,
+    ):
 
         # They should already be an int because we give typehints, but some people are fucking stupid and use
         # IDLE or some other stupid shit.
@@ -38,45 +55,42 @@ class Payload:
             start = int(start)
         if end:
             end = int(end)
+        if type not in (0, 1, 2, 3, 4, 5):
+            raise InvalidArgument("From (0, 1, 2, 3, 4, 5)", type)
+        if type == 1 and not stream_url:
+            raise InvalidArgument("Stream URL", stream_url)
 
         if activity is None:
             act_details = None
             clear = True
         else:
             act_details = {
-                    "state": state,
-                    "details": details,
-                    "timestamps": {
-                        "start": start,
-                        "end": end
-                    },
-                    "assets": {
-                        "large_image": large_image,
-                        "large_text": large_text,
-                        "small_image": small_image,
-                        "small_text": small_text
-                    },
-                    "party": {
-                        "id": party_id,
-                        "size": party_size
-                    },
-                    "secrets": {
-                        "join": join,
-                        "spectate": spectate,
-                        "match": match
-                    },
-                    "buttons": buttons,
-                    "instance": instance
-                }
+                "name": name,
+                "type": type,
+                "stream_url": stream_url,
+                "state": state,
+                "details": details,
+                "created_at": created_at,
+                "emoji": emoji,
+                "application_id": application_id,
+                "timestamps": {"start": start, "end": end},
+                "assets": {
+                    "large_image": large_image,
+                    "large_text": large_text,
+                    "small_image": small_image,
+                    "small_text": small_text,
+                },
+                "party": {"id": party_id, "size": party_size},
+                "secrets": {"join": join, "spectate": spectate, "match": match},
+                "buttons": buttons,
+                "instance": instance,
+            }
             clear = False
 
         payload = {
             "cmd": "SET_ACTIVITY",
-            "args": {
-                "pid": pid,
-                "activity": act_details
-            },
-            "nonce": '{:.20f}'.format(cls.time())
+            "args": {"pid": pid, "activity": act_details},
+            "nonce": "{:.20f}".format(cls.time()),
         }
         if _rn:
             clear = _rn
@@ -86,11 +100,8 @@ class Payload:
     def authorize(cls, client_id: str, scopes: List[str]):
         payload = {
             "cmd": "AUTHORIZE",
-            "args": {
-                "client_id": str(client_id),
-                "scopes": scopes
-            },
-            "nonce": '{:.20f}'.format(cls.time())
+            "args": {"client_id": str(client_id), "scopes": scopes},
+            "nonce": "{:.20f}".format(cls.time()),
         }
         return cls(payload)
 
@@ -98,10 +109,8 @@ class Payload:
     def authenticate(cls, token: str):
         payload = {
             "cmd": "AUTHENTICATE",
-            "args": {
-                "access_token": token
-            },
-            "nonce": '{:.20f}'.format(cls.time())
+            "args": {"access_token": token},
+            "nonce": "{:.20f}".format(cls.time()),
         }
 
         return cls(payload)
@@ -110,9 +119,8 @@ class Payload:
     def get_guilds(cls):
         payload = {
             "cmd": "GET_GUILDS",
-            "args": {
-            },
-            "nonce": '{:.20f}'.format(cls.time())
+            "args": {},
+            "nonce": "{:.20f}".format(cls.time()),
         }
 
         return cls(payload)
@@ -124,7 +132,7 @@ class Payload:
             "args": {
                 "guild_id": str(guild_id),
             },
-            "nonce": '{:.20f}'.format(cls.time())
+            "nonce": "{:.20f}".format(cls.time()),
         }
 
         return cls(payload)
@@ -136,7 +144,7 @@ class Payload:
             "args": {
                 "guild_id": str(guild_id),
             },
-            "nonce": '{:.20f}'.format(cls.time())
+            "nonce": "{:.20f}".format(cls.time()),
         }
 
         return cls(payload)
@@ -148,27 +156,29 @@ class Payload:
             "args": {
                 "channel_id": str(channel_id),
             },
-            "nonce": '{:.20f}'.format(cls.time())
+            "nonce": "{:.20f}".format(cls.time()),
         }
 
         return cls(payload)
 
     @classmethod
-    def set_user_voice_settings(cls, user_id: str, pan_left: float = None,
-                                pan_right: float = None, volume: int = None,
-                                mute: bool = None):
+    def set_user_voice_settings(
+        cls,
+        user_id: str,
+        pan_left: float = None,
+        pan_right: float = None,
+        volume: int = None,
+        mute: bool = None,
+    ):
         payload = {
             "cmd": "SET_USER_VOICE_SETTINGS",
             "args": {
                 "user_id": str(user_id),
-                "pan": {
-                    "left": pan_left,
-                    "right": pan_right
-                },
+                "pan": {"left": pan_left, "right": pan_right},
                 "volume": volume,
-                "mute": mute
+                "mute": mute,
             },
-            "nonce": '{:.20f}'.format(cls.time())
+            "nonce": "{:.20f}".format(cls.time()),
         }
 
         return cls(payload, True)
@@ -180,7 +190,7 @@ class Payload:
             "args": {
                 "channel_id": str(channel_id),
             },
-            "nonce": '{:.20f}'.format(cls.time())
+            "nonce": "{:.20f}".format(cls.time()),
         }
 
         return cls(payload)
@@ -189,9 +199,8 @@ class Payload:
     def get_selected_voice_channel(cls):
         payload = {
             "cmd": "GET_SELECTED_VOICE_CHANNEL",
-            "args": {
-            },
-            "nonce": '{:.20f}'.format(cls.time())
+            "args": {},
+            "nonce": "{:.20f}".format(cls.time()),
         }
 
         return cls(payload)
@@ -203,7 +212,7 @@ class Payload:
             "args": {
                 "channel_id": str(channel_id),
             },
-            "nonce": '{:.20f}'.format(cls.time())
+            "nonce": "{:.20f}".format(cls.time()),
         }
 
         return cls(payload)
@@ -216,7 +225,7 @@ class Payload:
             "cmd": "SUBSCRIBE",
             "args": args,
             "evt": event.upper(),
-            "nonce": '{:.20f}'.format(cls.time())
+            "nonce": "{:.20f}".format(cls.time()),
         }
 
         return cls(payload)
@@ -229,7 +238,7 @@ class Payload:
             "cmd": "UNSUBSCRIBE",
             "args": args,
             "evt": event.upper(),
-            "nonce": '{:.20f}'.format(cls.time())
+            "nonce": "{:.20f}".format(cls.time()),
         }
 
         return cls(payload)
@@ -238,19 +247,26 @@ class Payload:
     def get_voice_settings(cls):
         payload = {
             "cmd": "GET_VOICE_SETTINGS",
-            "args": {
-            },
-            "nonce": '{:.20f}'.format(cls.time())
+            "args": {},
+            "nonce": "{:.20f}".format(cls.time()),
         }
 
         return cls(payload)
 
     @classmethod
-    def set_voice_settings(cls, _input: dict = None, output: dict = None,
-                           mode: dict = None, automatic_gain_control: bool = None,
-                           echo_cancellation: bool = None, noise_suppression: bool = None,
-                           qos: bool = None, silence_warning: bool = None,
-                           deaf: bool = None, mute: bool = None):
+    def set_voice_settings(
+        cls,
+        _input: dict = None,
+        output: dict = None,
+        mode: dict = None,
+        automatic_gain_control: bool = None,
+        echo_cancellation: bool = None,
+        noise_suppression: bool = None,
+        qos: bool = None,
+        silence_warning: bool = None,
+        deaf: bool = None,
+        mute: bool = None,
+    ):
         payload = {
             "cmd": "SET_VOICE_SETTINGS",
             "args": {
@@ -263,9 +279,9 @@ class Payload:
                 "qos": qos,
                 "silence_warning": silence_warning,
                 "deaf": deaf,
-                "mute": mute
+                "mute": mute,
             },
-            "nonce": '{:.20f}'.format(cls.time())
+            "nonce": "{:.20f}".format(cls.time()),
         }
 
         return cls(payload, True)
@@ -274,10 +290,8 @@ class Payload:
     def capture_shortcut(cls, action: str):
         payload = {
             "cmd": "CAPTURE_SHORTCUT",
-            "args": {
-                "action": action.upper()
-            },
-            "nonce": '{:.20f}'.format(cls.time())
+            "args": {"action": action.upper()},
+            "nonce": "{:.20f}".format(cls.time()),
         }
 
         return cls(payload)
@@ -286,10 +300,8 @@ class Payload:
     def send_activity_join_invite(cls, user_id: str):
         payload = {
             "cmd": "SEND_ACTIVITY_JOIN_INVITE",
-            "args": {
-                "user_id": str(user_id)
-            },
-            "nonce": '{:.20f}'.format(cls.time())
+            "args": {"user_id": str(user_id)},
+            "nonce": "{:.20f}".format(cls.time()),
         }
 
         return cls(payload)
@@ -298,10 +310,8 @@ class Payload:
     def close_activity_request(cls, user_id: str):
         payload = {
             "cmd": "CLOSE_ACTIVITY_REQUEST",
-            "args": {
-                "user_id": str(user_id)
-            },
-            "nonce": '{:.20f}'.format(cls.time())
+            "args": {"user_id": str(user_id)},
+            "nonce": "{:.20f}".format(cls.time()),
         }
 
         return cls(payload)
