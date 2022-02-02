@@ -1,3 +1,4 @@
+from codecs import StreamReader, StreamWriter
 import inspect
 import struct
 import json
@@ -12,6 +13,8 @@ from .payloads import Payload
 class Client(BaseClient):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.sock_reader: StreamReader
+        self.sock_writer: StreamWriter
         self._closed = False
         self._events = {}
 
@@ -157,8 +160,6 @@ class Client(BaseClient):
             stream_url=stream_url,
             emoji=emoji,
             type=type,
-            name=name,
-            application_id=self.client_id,
             pid=pid,
             state=state,
             details=details,
@@ -378,7 +379,9 @@ class AioClient(BaseClient):
 
     async def set_activity(
         self,
+        name: str = None,
         pid: int = os.getpid(),
+        type: int = 0,
         state: str = None,
         details: str = None,
         start: int = None,
@@ -390,28 +393,33 @@ class AioClient(BaseClient):
         party_id: str = None,
         party_size: list = None,
         join: str = None,
+        stream_url: str = None,
         spectate: str = None,
-        buttons: list = None,
+        emoji: Dict[str, Union[str, int, bool]] = None,
         match: str = None,
+        buttons: list = None,
         instance: bool = True,
     ):
         payload = Payload.set_activity(
-            pid,
-            state,
-            details,
-            start,
-            end,
-            large_image,
-            large_text,
-            small_image,
-            small_text,
-            party_id,
-            party_size,
-            join,
-            spectate,
-            match,
-            buttons,
-            instance,
+            stream_url=stream_url,
+            emoji=emoji,
+            type=type,
+            pid=pid,
+            state=state,
+            details=details,
+            start=start,
+            end=end,
+            large_image=large_image,
+            large_text=large_text,
+            small_image=small_image,
+            small_text=small_text,
+            party_id=party_id,
+            party_size=party_size,
+            join=join,
+            spectate=spectate,
+            match=match,
+            buttons=buttons,
+            instance=instance,
             activity=True,
         )
         self.send_data(1, payload)

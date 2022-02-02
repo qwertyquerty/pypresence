@@ -26,9 +26,6 @@ class Payload:
         pid: int = os.getpid(),
         type: int = 0,
         stream_url: str = None,
-        name: str = None,
-        application_id: str = None,
-        created_at: int = int(time()),
         emoji: Dict[str, Union[str, int, bool]] = None,
         state: str = None,
         details: str = None,
@@ -65,14 +62,11 @@ class Payload:
             clear = True
         else:
             act_details = {
-                "name": name,
                 "type": type,
                 "stream_url": stream_url,
                 "state": state,
                 "details": details,
-                "created_at": created_at,
                 "emoji": emoji,
-                "application_id": application_id,
                 "timestamps": {"start": start, "end": end},
                 "assets": {
                     "large_image": large_image,
