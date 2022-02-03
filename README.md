@@ -53,4 +53,4 @@ Examples can be found in the [examples](https://github.com/qwertyquerty/pypresen
 ----------
 Written by: [qwertyquerty](https://github.com/qwertyquerty)
 
-Notable Contributors: [GiovanniMCMXCIX](https://github.com/GiovanniMCMXCIX), [GhostofGoes](https://github.com/GhostofGoes)
+Notable Contributors: [GiovanniMCMXCIX](https://github.com/GiovanniMCMXCIX), [GhostofGoes](https://github.com/GhostofGoes), [Hunter](https://github.com/Hunter2807)
