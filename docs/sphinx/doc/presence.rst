@@ -10,7 +10,7 @@ Presence()
 
  Creates the Presence client ready for usage.
 
- :param str client_id: OAuth2 App ID (found `here <https://discordapp.com/developers/applications/me>`_)
+ :param str client_id: OAuth2 App ID (found `here <https://discord.com/developers/applications/me>`_)
  :param int pipe: Pipe that should be used to connect to the Discord client. Defaults to 0, can be 0-9
  :param asyncio.BaseEventLoop loop: Your own event loop (if you have one) that PyPresence should use. One will be created if not supplied. Information at `https://docs.python.org/3/library/asyncio-eventloop.html <https://docs.python.org/3/library/asyncio-eventloop.html>`_
  :param function handler: The exception handler pypresence should send asynchronous errors to. This can be a coroutine or standard function as long as it takes two arguments (exception, future). Exception will be the exception to handle and future will be an instance of asyncio.Future
