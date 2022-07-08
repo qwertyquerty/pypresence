@@ -3,7 +3,7 @@ import time
 
 """
 You need to upload your image(s) here:
-https://discordapp.com/developers/applications/<APP ID>/rich-presence/assets
+https://discord.com/developers/applications/<APP ID>/rich-presence/assets
 """
 
 client_id = "64567352374564"  # Enter your Application ID here.

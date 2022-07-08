@@ -14,7 +14,7 @@ Quickstart
 
 **The first thing youll want to do is create a Discord RPC app. Here are the steps:**
 
-- Navigate to `https://discordapp.com/developers/ <https://discordapp.com/developers/>`_
+- Navigate to `https://discord.com/developers/ <https://discord.com/developers/>`_
 - Click "Create an Application."
 - Setup the application how you want, give it the name you want, and give it a good image.
 - Right under the name of your application, locate your Client ID. You will need this later.
