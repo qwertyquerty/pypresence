@@ -10,7 +10,7 @@ from typing import Union, Optional
 # TODO: Get rid of this import * lol
 from .exceptions import *
 from .payloads import Payload
-from .utils import get_ipc_path, get_event_loop
+from .utils import get_ipc_path, get_event_loop, ClientType
 
 
 class BaseClient:
@@ -20,9 +20,10 @@ class BaseClient:
         loop = kwargs.get('loop', None)
         handler = kwargs.get('handler', None)
         self.isasync = kwargs.get('isasync', False)
+        client_type = kwargs.get('client_type', ClientType.MAIN)
 
         client_id = str(client_id)
-        self.ipc_path = get_ipc_path(pipe)
+        self.ipc_path = get_ipc_path(pipe, client_type)
 
         if not self.ipc_path:
             raise DiscordNotFound
