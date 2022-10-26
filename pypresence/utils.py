@@ -5,6 +5,13 @@ import os
 import sys
 import tempfile
 import time
+import enum
+
+class ClientType(enum.IntEnum):
+    """The type of client."""
+    CANARY = 0
+    PTB = 1
+    MAIN = 2
 
 from .exceptions import PyPresenceException
 
@@ -23,8 +30,8 @@ def remove_none(d: dict):
 
 
 # Returns on first IPC pipe matching Discord's
-def get_ipc_path(pipe=None):
-    ipc = 'discord-ipc-'
+def get_ipc_path(pipe=None, client_type=ClientType.MAIN):
+    ipc = 'discord-ipc-' + str(client_type)
     if pipe:
         ipc = f"{ipc}{pipe}"
 

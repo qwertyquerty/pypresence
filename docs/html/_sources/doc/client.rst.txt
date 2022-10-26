@@ -6,7 +6,7 @@ Client()
    <br />
 
 
-.. py:class:: Client(client_id, pipe=0, loop=None, handler=None)
+.. py:class:: Client(client_id, pipe=0, loop=None, handler=None, client_type=ClientType.MAIN)
 
  Creates the RPC client ready for usage.
 
@@ -14,6 +14,7 @@ Client()
  :param int pipe: Pipe that should be used to connect to the Discord client. Defaults to 0, can be 0-9
  :param asyncio.BaseEventLoop loop: Your own event loop (if you have one) that PyPresence should use. One will be created if not supplied. Information at https://docs.python.org/3/library/asyncio-eventloop.html
  :param function handler: The exception handler pypresence should send asynchronous errors to. This can be a coroutine or standard function as long as it takes two arguments (exception, future). Exception will be the exception to handle and future will be an instance of asyncio.Future
+ :param client_type: The discord client you want this to connect to. You can either use the ClientType enum or the integer value. Defaults to pypresence.ClientType.MAIN. You can use pypresence.ClientType.MAIN, pypresence.ClientType.PTB, pypresence.ClientType.CANARY or 0, 1, 2, for the main discord client, the PTB client, and the Canary client respectively.
 
 |br|
 
