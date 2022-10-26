@@ -6,7 +6,7 @@ Presence()
    <br />
 
 
-.. py:class:: Presence(client_id, pipe=0, loop=None, handler=None)
+.. py:class:: Presence(client_id, pipe=0, loop=None, handler=None, client_type=ClientType.NO_PREF)
 
  Creates the Presence client ready for usage.
 

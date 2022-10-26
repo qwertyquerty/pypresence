@@ -6,7 +6,7 @@ Client()
    <br />
 
 
-.. py:class:: Client(client_id, pipe=0, loop=None, handler=None, client_type=ClientType.MAIN)
+.. py:class:: Client(client_id, pipe=0, loop=None, handler=None, client_type=ClientType.NO_PREF)
 
  Creates the RPC client ready for usage.
 
