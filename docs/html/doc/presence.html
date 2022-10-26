@@ -46,6 +46,7 @@
 <li><p><strong>pipe</strong> (<em>int</em>) – Pipe that should be used to connect to the Discord client. Defaults to 0, can be 0-9</p></li>
 <li><p><strong>loop</strong> (<em>asyncio.BaseEventLoop</em>) – Your own event loop (if you have one) that PyPresence should use. One will be created if not supplied. Information at <a class="reference external" href="https://docs.python.org/3/library/asyncio-eventloop.html">https://docs.python.org/3/library/asyncio-eventloop.html</a></p></li>
 <li><p><strong>handler</strong> (<em>function</em>) – The exception handler pypresence should send asynchronous errors to. This can be a coroutine or standard function as long as it takes two arguments (exception, future). Exception will be the exception to handle and future will be an instance of asyncio.Future</p></li>
+<li><p><strong>client_type</strong> – The discord client you want this to connect to. You can either use the ClientType enum or the integer value. Defaults to pypresence.ClientType.NO_PREF, which uses the first Discord. You can use pypresence.ClientType.MAIN, pypresence.ClientType.PTB, pypresence.ClientType.CANARY or 0, 1, 2, for the main discord client, the PTB client, and the Canary client respectively.</p></li>
 </ul>
 </dd>
 </dl>

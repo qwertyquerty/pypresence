@@ -20,7 +20,7 @@ class BaseClient:
         loop = kwargs.get('loop', None)
         handler = kwargs.get('handler', None)
         self.isasync = kwargs.get('isasync', False)
-        client_type = kwargs.get('client_type', ClientType.MAIN)
+        client_type = kwargs.get('client_type', ClientType.NO_PREF)
 
         client_id = str(client_id)
         self.ipc_path = get_ipc_path(pipe, client_type)
