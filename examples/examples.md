@@ -10,7 +10,7 @@ Requirements for acception:
 Guidelines for acception:
 
 * You could possibly make the example to work with a specific other program (Ex: spotify presence)
-* It shouldn't be too long, the viewers should easily figure out wht you're doing fast
+* It shouldn't be too long, the viewers should easily figure out what you're doing fast
 * It shouldn't have a ton of dependencies, but a few are fine
 
 And there you go!
