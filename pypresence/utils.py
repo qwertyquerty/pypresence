@@ -49,7 +49,7 @@ def get_event_loop(force_fresh=False):
     if sys.platform in ('linux', 'darwin'):
         if force_fresh:
             return asyncio.new_event_loop()
-        loop = asyncio.get_event_loop()
+        loop = asyncio.new_event_loop()
         if loop.is_closed():
             return asyncio.new_event_loop()
         return loop
