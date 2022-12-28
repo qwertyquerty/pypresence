@@ -77,12 +77,15 @@ class BaseClient:
         await self.handler(context['exception'], context['future'])
 
     async def read_output(self):
+        TIMEOUT = 2
         try:
-            preamble = await self.sock_reader.read(8)
+            preamble = await asyncio.wait_for(self.sock_reader.read(8), TIMEOUT)
             status_code, length = struct.unpack('<II', preamble[:8])
-            data = await self.sock_reader.read(length)
+            data = await asyncio.wait_for(self.sock_reader.read(length), TIMEOUT)
         except BrokenPipeError:
             raise InvalidID
+        except asyncio.exceptions.TimeoutError:
+            raise TimeoutError(TIMEOUT)
         payload = json.loads(data.decode('utf-8'))
         if payload["evt"] == "ERROR":
             raise ServerError(payload["data"]["message"])

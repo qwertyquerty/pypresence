@@ -5,6 +5,11 @@ class PyPresenceException(Exception):
         super().__init__(message)
 
 
+class TimeoutError(PyPresenceException):
+    def __init__(self, timeout):
+        super().__init__(f'Discord pipe did not respond within {timeout} seconds.')
+
+
 class DiscordNotFound(PyPresenceException):
     def __init__(self):
         super().__init__('Could not find Discord installed and running on this machine.')
