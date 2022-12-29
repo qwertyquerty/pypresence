@@ -1,27 +1,24 @@
 import asyncio
 import inspect
 import json
-import os
 import struct
 import sys
-import tempfile
-from typing import Union, Optional
+from typing import Optional, Union
 
-# TODO: Get rid of this import * lol
-from .exceptions import *
+from .exceptions import (DiscordError, DiscordNotFound, InvalidArgument,
+                         InvalidID, InvalidPipe, PyPresenceException,
+                         ServerError, TimeoutError)
 from .payloads import Payload
-from .utils import get_ipc_path, get_event_loop
+from .utils import get_event_loop, get_ipc_path
 
 
 class BaseClient:
 
-    def __init__(self, client_id: str, **kwargs):
-        pipe = kwargs.get('pipe', None)
-        loop = kwargs.get('loop', None)
-        handler = kwargs.get('handler', None)
-        self.isasync = kwargs.get('isasync', False)
+    def __init__(self, client_id: str, pipe=None, loop=None, handler=None, isasync=False, timeout=2):
+        self.isasync = isasync
+        self.timeout = timeout
 
-        client_id = str(client_id)
+        self.client_id = str(client_id)
         self.ipc_path = get_ipc_path(pipe)
 
         if not self.ipc_path:
@@ -34,8 +31,6 @@ class BaseClient:
 
         self.sock_reader: Optional[asyncio.StreamReader] = None
         self.sock_writer: Optional[asyncio.StreamWriter] = None
-
-        self.client_id = client_id
 
         if handler is not None:
             if not inspect.isfunction(handler):
@@ -77,15 +72,14 @@ class BaseClient:
         await self.handler(context['exception'], context['future'])
 
     async def read_output(self):
-        TIMEOUT = 2
         try:
-            preamble = await asyncio.wait_for(self.sock_reader.read(8), TIMEOUT)
+            preamble = await asyncio.wait_for(self.sock_reader.read(8), self.timeout)
             status_code, length = struct.unpack('<II', preamble[:8])
-            data = await asyncio.wait_for(self.sock_reader.read(length), TIMEOUT)
+            data = await asyncio.wait_for(self.sock_reader.read(length), self.timeout)
         except BrokenPipeError:
             raise InvalidID
         except asyncio.exceptions.TimeoutError:
-            raise TimeoutError(TIMEOUT)
+            raise TimeoutError(self.timeout)
         payload = json.loads(data.decode('utf-8'))
         if payload["evt"] == "ERROR":
             raise ServerError(payload["data"]["message"])
@@ -98,20 +92,14 @@ class BaseClient:
 
         assert self.sock_writer is not None, "You must connect your client before sending events!"
 
-        self.sock_writer.write(
-            struct.pack(
-                '<II',
-                op,
-                len(payload)) +
-            payload.encode('utf-8'))
+        self.sock_writer.write(struct.pack('<II', op, len(payload)) + payload.encode('utf-8'))
 
     async def handshake(self):
         if sys.platform == 'linux' or sys.platform == 'darwin':
             self.sock_reader, self.sock_writer = await asyncio.open_unix_connection(self.ipc_path)
         elif sys.platform == 'win32' or sys.platform == 'win64':
             self.sock_reader = asyncio.StreamReader(loop=self.loop)
-            reader_protocol = asyncio.StreamReaderProtocol(
-                self.sock_reader, loop=self.loop)
+            reader_protocol = asyncio.StreamReaderProtocol(self.sock_reader, loop=self.loop)
             try:
                 self.sock_writer, _ = await self.loop.create_pipe_connection(lambda: reader_protocol, self.ipc_path)
             except FileNotFoundError:
