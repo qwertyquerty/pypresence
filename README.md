@@ -41,7 +41,7 @@ For the latest stable version:
 ####  [pypresence Documentation](https://qwertyquerty.github.io/pypresence/html/index.html)
 ####  [Discord Rich Presence Documentation](https://discord.com/developers/docs/rich-presence/how-to)
 ####  [Discord RPC Documentation](https://discord.com/developers/docs/topics/rpc)
-####  [pyresence Discord Support Server](https://discord.gg/JF3kg77)
+####  [pypresence Discord Support Server](https://discord.gg/JF3kg77)
 ####  [Discord API Support Server](https://discord.gg/discord-api)
 
 ----------
