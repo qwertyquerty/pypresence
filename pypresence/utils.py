@@ -41,7 +41,7 @@ def get_ipc_path(pipe=None):
         full_path = os.path.abspath(os.path.join(tempdir, path))
         if sys.platform == 'win32' or os.path.isdir(full_path):
             for entry in os.scandir(full_path):
-                if entry.name.startswith(ipc):
+                if entry.name.startswith(ipc) and os.path.exists(entry):
                     return entry.path
 
 
