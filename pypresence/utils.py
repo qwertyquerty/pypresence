@@ -66,6 +66,7 @@ def get_event_loop(force_fresh=False):
         if isinstance(loop, asyncio.ProactorEventLoop) and not loop.is_closed():
             return asyncio.ProactorEventLoop()
         return asyncio.get_running_loop() or loop or asyncio._get_running_loop() # pylint: disable=W0212 and E1101
+#still raises the set_wakeup_fd() only works in main thread but works.The first and this commit should hold up for some time though before complete depracation
 
 
 # This code used to do something. I don't know what, though.
