@@ -22,7 +22,7 @@ def remove_none(d: dict):
             del d[item]
     return d
 
-def test_ipc_path(path)
+def test_ipc_path(path):
     '''Tests an IPC pipe to ensure that it actually works'''
     try:
         with open(path) as f:
