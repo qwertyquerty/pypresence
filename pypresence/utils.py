@@ -28,7 +28,7 @@ def test_ipc_path(path):
         with open(path) as f:
             return True
     except Exception as e:
-        warnings.warn(f"IPC pipe path {path} exist, but could not be opened because of {e}. Trying next pipe")
+        warnings.warn(f"IPC pipe path {path.path} exists, but could not be opened because of {e}. Trying next pipe")
         return False
         
 
