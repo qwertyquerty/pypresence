@@ -61,11 +61,11 @@ def get_event_loop(force_fresh=False):
             return asyncio.ProactorEventLoop()
         try:
             loop = asyncio.get_running_loop()
-         except RuntimeError:
+        except RuntimeError:
             return asyncio.new_event_loop()
         if isinstance(loop, asyncio.ProactorEventLoop) and not loop.is_closed():
             return loop
-        # return asyncio.ProactorEventLoop()
+        return asyncio.ProactorEventLoop()
 
 
 # This code used to do something. I don't know what, though.
