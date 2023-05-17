@@ -32,7 +32,7 @@ def _get_probable_discord_path() -> Tuple[str | None, List[str]]:
     if sys.platform in ('linux', 'darwin'):
         folder_names = ['.', 'snap.discord', 'app/com.discordapp.Discord']
 
-        xdg_runtime_dir = os.environ.get('XDG_RUNTIME_DIR') # Runtime dir set by GUI enviroment
+        xdg_runtime_dir = os.environ.get('XDG_RUNTIME_DIR') # Runtime dir set by GUI environment
         users_runtime_dir = f"/run/user/{os.getuid()}" # Possible location for user's runtime
 
         if xdg_runtime_dir:
@@ -48,7 +48,7 @@ def _get_probable_discord_path() -> Tuple[str | None, List[str]]:
         pipe_dir = r'\\?\pipe'
         folder_names = ['.']
 
-        return pipe_dir, application_names
+        return pipe_dir, folder_names
 
     return None, [] # No known Discord locations for used OS. Probably never gets here
 
@@ -60,7 +60,7 @@ def get_ipc_path(pipe=None):
         ipc = f"{ipc}{pipe}"
 
     tmp_dir, folder_names = _get_probable_discord_path()
-    if (tmp_dir == None or len(folder_names) == 0):
+    if (tmp_dir is None or len(folder_names) == 0):
         return
 
     for folder in folder_names:
