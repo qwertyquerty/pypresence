@@ -45,20 +45,12 @@ def get_ipc_path(pipe=None):
 
 
 def get_event_loop(force_fresh=False):
-    if sys.platform in ('linux', 'darwin'):
-        if force_fresh:
-            return asyncio.new_event_loop()
-        try:
-            loop = asyncio.get_running_loop()
-        except RuntimeError:
-            return asyncio.new_event_loop()
-        if loop.is_closed():
-            return asyncio.new_event_loop()
-        return loop
-    elif sys.platform == 'win32':
-        if force_fresh:
-            return asyncio.ProactorEventLoop()
-        loop = asyncio.get_event_loop()
-        if isinstance(loop, asyncio.ProactorEventLoop) and not loop.is_closed():
-            return loop
-        return asyncio.ProactorEventLoop()
+    if force_fresh:
+        return asyncio.new_event_loop()
+    try:
+        running = asyncio.get_running_loop()
+    except RuntimeError:
+        return asyncio.new_event_loop()
+    if running.is_closed():
+        return asyncio.new_event_loop()
+    return running
