@@ -9,7 +9,6 @@ import time
 from .exceptions import PyPresenceException
 
 
-# Made by https://github.com/LewdNeko ;^)
 def remove_none(d: dict):
     for item in d.copy():
         if isinstance(d[item], dict):
@@ -63,11 +62,3 @@ def get_event_loop(force_fresh=False):
         if isinstance(loop, asyncio.ProactorEventLoop) and not loop.is_closed():
             return loop
         return asyncio.ProactorEventLoop()
-
-
-# This code used to do something. I don't know what, though.
-try:  # Thanks, Rapptz :^)
-    create_task = asyncio.ensure_future
-except AttributeError:
-    create_task = getattr(asyncio, "async")
-    # No longer crashes Python 3.7
