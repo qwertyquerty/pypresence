@@ -29,19 +29,8 @@ def get_ipc_path(pipe=None):
         ipc = f"{ipc}{pipe}"
 
     if sys.platform in ('linux', 'darwin'):
-        tempdir = os.environ.get('XDG_RUNTIME_DIR') # Runtime dir set by Linux GUI environment
+        tempdir = os.environ.get('XDG_RUNTIME_DIR') or (f"/run/user/{os.getuid()}" if os.path.exists(f"/run/user/{os.getuid()}") else tempfile.gettempdir())
         paths = ['.', 'snap.discord', 'app/com.discordapp.Discord', 'app/com.discordapp.DiscordCanary']
-        users_runtime_dir = f"/run/user/{os.getuid()}" # Possible location for Linux user's runtime
-
-        if tempdir:
-            pass # No overwrite needed, can probably trust the set XDG_RUNTIME_DIR variable
-        elif os.path.exists(users_runtime_dir):
-            # Runtime directory check as fix for #216
-            tempdir = users_runtime_dir
-        else:
-            tempdir = tempfile.gettempdir()
-
-        del users_runtime_dir
     elif sys.platform == 'win32':
         tempdir = r'\\?\pipe'
         paths = ['.']
