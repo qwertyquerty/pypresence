@@ -53,4 +53,12 @@ def get_event_loop(force_fresh=False):
         return asyncio.new_event_loop()
     if running.is_closed():
         return asyncio.new_event_loop()
-    return running
+    else:
+        if sys.platform in ('linux', 'darwin'):
+            return running
+        if sys.platform == 'win32':
+            if isinstance(running, asyncio.ProactorEventLoop):
+                return running
+            else:
+                return asyncio.ProactorEventLoop()
+
