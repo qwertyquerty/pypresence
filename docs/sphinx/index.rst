@@ -34,7 +34,6 @@ Information
    :maxdepth: 1
 
    info/about
-   info/changelog
    info/quickstart
    info/examples
 
