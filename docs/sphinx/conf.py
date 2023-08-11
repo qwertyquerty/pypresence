@@ -180,4 +180,3 @@ epub_exclude_files = ['search.html']
 # -- Extension configuration -------------------------------------------------
 
 extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode', 'sphinx.ext.autodoc']
-
