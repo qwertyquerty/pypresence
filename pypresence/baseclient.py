@@ -121,6 +121,8 @@ class BaseClient:
 
         self.send_data(0, {'v': 1, 'client_id': self.client_id})
         preamble = await self.sock_reader.read(8)
+        if len(preamble) < 8:
+            raise InvalidPipe # this sometimes happens for some reason, perhaps discord cannot always accept all the connections?
         code, length = struct.unpack('<ii', preamble)
         data = json.loads(await self.sock_reader.read(length))
         if 'code' in data:
