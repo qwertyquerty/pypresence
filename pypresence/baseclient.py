@@ -102,11 +102,7 @@ class BaseClient:
                 len(payload)) +
             payload.encode('utf-8'))
 
-    async def handshake(self):
-        ipc_path = get_ipc_path(self.pipe)
-        if not ipc_path:
-            raise DiscordNotFound
-
+    async def create_reader_writer(self, ipc_path):
         try:
             if sys.platform == 'linux' or sys.platform == 'darwin':
                 self.sock_reader, self.sock_writer = await asyncio.wait_for(asyncio.open_unix_connection(ipc_path), self.connection_timeout)
@@ -118,6 +114,13 @@ class BaseClient:
             raise InvalidPipe
         except asyncio.TimeoutError:
             raise ConnectionTimeout
+    
+    async def handshake(self):
+        ipc_path = get_ipc_path(self.pipe)
+        if not ipc_path:
+            raise DiscordNotFound
+
+        await create_reader_writer(ipc_path)
 
         self.send_data(0, {'v': 1, 'client_id': self.client_id})
         preamble = await self.sock_reader.read(8)
