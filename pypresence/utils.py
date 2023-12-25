@@ -18,7 +18,7 @@ def remove_none(d: dict):
                 del d[item]
         elif d[item] is None:
             del d[item]
-        elif not len(d[item]):
+        elif hasattr(d[item], "__len__") and not len(d[item]):
             del d[item]
     return d
 
