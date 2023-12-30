@@ -24,7 +24,7 @@ def remove_none(d: dict):
 # Returns on first IPC pipe matching Discord's
 def get_ipc_path(pipe=None):
     ipc = 'discord-ipc-'
-    if pipe:
+    if pipe is not None:
         ipc = f"{ipc}{pipe}"
 
     if sys.platform in ('linux', 'darwin'):
