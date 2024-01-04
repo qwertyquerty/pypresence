@@ -16,16 +16,14 @@ from .utils import get_ipc_path, get_event_loop
 class BaseClient:
 
     def __init__(self, client_id: str, **kwargs):
-        pipe = kwargs.get('pipe', None)
         loop = kwargs.get('loop', None)
         handler = kwargs.get('handler', None)
+        self.pipe = kwargs.get('pipe', None)
         self.isasync = kwargs.get('isasync', False)
+        self.connection_timeout = kwargs.get('connection_timeout', 30)
+        self.response_timeout = kwargs.get('response_timeout', 10)
 
         client_id = str(client_id)
-        self.ipc_path = get_ipc_path(pipe)
-
-        if not self.ipc_path:
-            raise DiscordNotFound
 
         if loop is not None:
             self.update_event_loop(loop)
@@ -78,11 +76,13 @@ class BaseClient:
 
     async def read_output(self):
         try:
-            preamble = await self.sock_reader.read(8)
+            preamble = await asyncio.wait_for(self.sock_reader.read(8), self.response_timeout)
             status_code, length = struct.unpack('<II', preamble[:8])
-            data = await self.sock_reader.read(length)
-        except BrokenPipeError:
-            raise InvalidID
+            data = await asyncio.wait_for(self.sock_reader.read(length), self.response_timeout)
+        except (BrokenPipeError, struct.error):
+            raise PipeClosed
+        except asyncio.TimeoutError:
+            raise ResponseTimeout
         payload = json.loads(data.decode('utf-8'))
         if payload["evt"] == "ERROR":
             raise ServerError(payload["data"]["message"])
@@ -103,21 +103,29 @@ class BaseClient:
             payload.encode('utf-8'))
 
     async def handshake(self):
-        if sys.platform == 'linux' or sys.platform == 'darwin':
-            self.sock_reader, self.sock_writer = await asyncio.open_unix_connection(self.ipc_path)
-        elif sys.platform == 'win32' or sys.platform == 'win64':
-            self.sock_reader = asyncio.StreamReader(loop=self.loop)
-            reader_protocol = asyncio.StreamReaderProtocol(
-                self.sock_reader, loop=self.loop)
-            try:
-                self.sock_writer, _ = await self.loop.create_pipe_connection(lambda: reader_protocol, self.ipc_path)
-            except FileNotFoundError:
-                raise InvalidPipe
+        ipc_path = get_ipc_path(self.pipe)
+        if not ipc_path:
+            raise DiscordNotFound
+
+        try:
+            if sys.platform == 'linux' or sys.platform == 'darwin':
+                self.sock_reader, self.sock_writer = await asyncio.wait_for(asyncio.open_unix_connection(ipc_path), self.connection_timeout)
+            elif sys.platform == 'win32' or sys.platform == 'win64':
+                self.sock_reader = asyncio.StreamReader(loop=self.loop)
+                reader_protocol = asyncio.StreamReaderProtocol(self.sock_reader, loop=self.loop)
+                self.sock_writer, _ = await asyncio.wait_for(self.loop.create_pipe_connection(lambda: reader_protocol, ipc_path), self.connection_timeout)
+        except FileNotFoundError:
+            raise InvalidPipe
+        except asyncio.TimeoutError:
+            raise ConnectionTimeout
+
         self.send_data(0, {'v': 1, 'client_id': self.client_id})
         preamble = await self.sock_reader.read(8)
         code, length = struct.unpack('<ii', preamble)
         data = json.loads(await self.sock_reader.read(length))
         if 'code' in data:
+            if data['message'] == 'Invalid Client ID':
+                raise InvalidID
             raise DiscordError(data['code'], data['message'])
         if self._events_on:
             self.sock_reader.feed_data = self.on_event

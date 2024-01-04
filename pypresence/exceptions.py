@@ -10,11 +10,6 @@ class DiscordNotFound(PyPresenceException):
         super().__init__('Could not find Discord installed and running on this machine.')
 
 
-class InvalidID(PyPresenceException):
-    def __init__(self):
-        super().__init__('Client ID is Invalid')
-
-
 class InvalidPipe(PyPresenceException):
     def __init__(self):
         super().__init__('Pipe Not Found - Is Discord Running?')
@@ -34,10 +29,15 @@ class ServerError(PyPresenceException):
 
 
 class DiscordError(PyPresenceException):
-    def __init__(self, code: int, message: str):
+    def __init__(self, code: int, message: str, override=False):
         self.code = code
         self.message = message
-        super().__init__('Error Code: {0} Message: {1}'.format(code, message))
+        super().__init__('Error Code: {0} Message: {1}'.format(code, message) if not override else message)
+
+
+class InvalidID(DiscordError):
+    def __init__(self):
+        super().__init__(4000, 'Client ID is Invalid')
 
 
 class ArgumentError(PyPresenceException):
@@ -48,3 +48,18 @@ class ArgumentError(PyPresenceException):
 class EventNotFound(PyPresenceException):
     def __init__(self, event):
         super().__init__('No event with name {0} exists.'.format(event))
+
+
+class PipeClosed(PyPresenceException):
+    def __init__(self):
+        super().__init__('The pipe was closed. Catch this exception and re-connect your instance.')
+
+
+class ResponseTimeout(PyPresenceException):
+    def __init__(self):
+        super().__init__('No response was received from the pipe in time')
+
+
+class ConnectionTimeout(PyPresenceException):
+    def __init__(self):
+        super().__init__('Unable to create a connection to the pipe in time')
