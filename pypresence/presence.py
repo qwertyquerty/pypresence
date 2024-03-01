@@ -1,6 +1,7 @@
 import json
 import os
 import time
+import sys
 
 from .baseclient import BaseClient
 from .payloads import Payload
@@ -81,5 +82,7 @@ class AioPresence(BaseClient):
 
     def close(self):
         self.send_data(2, {'v': 1, 'client_id': self.client_id})
-        self.sock_writer.close()
         self.loop.close()
+        self.sock_writer.close()
+        if sys.platform == 'win32' or sys.platform == 'win64':
+            self.sock_writer._call_connection_lost(None)
