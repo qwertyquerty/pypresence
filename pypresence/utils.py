@@ -26,6 +26,7 @@ def test_ipc_path(path):
     with open(path):
         return True
 
+
 # Returns on first IPC pipe matching Discord's
 def get_ipc_path(pipe=None):
     ipc = 'discord-ipc-'
