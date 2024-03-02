@@ -36,7 +36,8 @@ For the latest stable version:
 
 # Documentation
 
-> **NOTE**: You need an **authorized app** to do anything besides rich presence!
+> [!Note]
+> You need an **authorized app** to do anything besides rich presence!
 
 ####  [pypresence Documentation](https://qwertyquerty.github.io/pypresence/html/index.html)
 ####  [Discord Rich Presence Documentation](https://discord.com/developers/docs/rich-presence/how-to)
