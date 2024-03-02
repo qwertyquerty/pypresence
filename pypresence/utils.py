@@ -23,12 +23,8 @@ def remove_none(d: dict):
 
 def test_ipc_path(path):
     '''Tests an IPC pipe to ensure that it actually works'''
-    try:
-        with open(path):
-            return True
-    except Exception:
-        return False
-
+    with open(path):
+        return True
 
 # Returns on first IPC pipe matching Discord's
 def get_ipc_path(pipe=None):
