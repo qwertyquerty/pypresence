@@ -1,3 +1,4 @@
+import asyncio
 import inspect
 import struct
 import json
@@ -225,7 +226,7 @@ class AioClient(BaseClient):
         del self._events[event]
 
     # noinspection PyProtectedMember
-    async def on_event(self, data):
+    def on_event(self, data):
         if self.sock_reader._eof:
             raise PyPresenceException('feed_data after feed_eof')
         if not data:
@@ -247,7 +248,7 @@ class AioClient(BaseClient):
         if payload["evt"] is not None:
             evt = payload["evt"].lower()
             if evt in self._events:
-                await self._events[evt](payload["data"])
+                asyncio.create_task(self._events[evt](payload["data"]))
             elif evt == 'error':
                 raise DiscordError(payload["data"]["code"], payload["data"]["message"])
 
