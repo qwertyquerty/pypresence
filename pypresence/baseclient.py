@@ -120,7 +120,7 @@ class BaseClient:
         if not ipc_path:
             raise DiscordNotFound
 
-        await create_reader_writer(ipc_path)
+        await self.create_reader_writer(ipc_path)
 
         self.send_data(0, {'v': 1, 'client_id': self.client_id})
         preamble = await self.sock_reader.read(8)
