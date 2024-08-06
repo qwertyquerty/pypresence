@@ -4,6 +4,7 @@ import time
 from typing import List, Union
 
 from .utils import remove_none
+from .types import ActivityType
 
 
 class Payload:
@@ -22,6 +23,7 @@ class Payload:
 
     @classmethod
     def set_activity(cls, pid: int = os.getpid(),
+                     activity_type: ActivityType = None,
                      state: str = None, details: str = None,
                      start: int = None, end: int = None,
                      large_image: str = None, large_text: str = None,
@@ -38,12 +40,18 @@ class Payload:
             start = int(start)
         if end:
             end = int(end)
+        if activity_type:
+            if isinstance(activity_type, ActivityType):
+                activity_type = activity_type.value
+            else:
+                activity_type = int(activity_type)
 
         if activity is None:
             act_details = None
             clear = True
         else:
             act_details = {
+                    "type": activity_type,
                     "state": state,
                     "details": details,
                     "timestamps": {
