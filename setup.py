@@ -40,6 +40,7 @@ setup(name='pypresence',
 
             'Programming Language :: Python :: 3 :: Only',
             'Programming Language :: Python :: Implementation :: CPython',
+            'Typing :: Typed',
 
             'Intended Audience :: Developers',
             'Topic :: Software Development :: Libraries :: Python Modules',
