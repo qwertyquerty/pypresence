@@ -1,5 +1,6 @@
+from __future__ import annotations
 class PyPresenceException(Exception):
-    def __init__(self, message: str = None):
+    def __init__(self, message: str | None = None):
         if message is None:
             message = 'An error has occurred within PyPresence'
         super().__init__(message)
@@ -16,7 +17,7 @@ class InvalidPipe(PyPresenceException):
 
 
 class InvalidArgument(PyPresenceException):
-    def __init__(self, expected, received, description: str = None):
+    def __init__(self, expected, received, description: str | None = None):
         description = '\n{0}'.format(description) if description else ''
         super().__init__('Bad argument passed. Expected {0} but got {1} instead{2}'.format(expected, received,
                                                                                            description)
@@ -29,7 +30,7 @@ class ServerError(PyPresenceException):
 
 
 class DiscordError(PyPresenceException):
-    def __init__(self, code: int, message: str, override=False):
+    def __init__(self, code: int, message: str, override: bool = False):
         self.code = code
         self.message = message
         super().__init__('Error Code: {0} Message: {1}'.format(code, message) if not override else message)

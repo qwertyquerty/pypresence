@@ -1,7 +1,8 @@
+from __future__ import annotations
+
 import json
 import os
 import time
-from typing import List, Union
 
 from .utils import remove_none
 from .types import ActivityType
@@ -23,15 +24,15 @@ class Payload:
 
     @classmethod
     def set_activity(cls, pid: int = os.getpid(),
-                     activity_type: ActivityType = None,
-                     state: str = None, details: str = None,
-                     start: int = None, end: int = None,
-                     large_image: str = None, large_text: str = None,
-                     small_image: str = None, small_text: str = None,
-                     party_id: str = None, party_size: list = None,
-                     join: str = None, spectate: str = None,
-                     match: str = None, buttons: list = None,
-                     instance: bool = True, activity: Union[bool, None] = True,
+                     activity_type: ActivityType | None = None,
+                     state: str | None = None, details: str | None = None,
+                     start: int | None = None, end: int | None = None,
+                     large_image: str | None = None, large_text: str | None = None,
+                     small_image: str | None = None, small_text: str | None = None,
+                     party_id: str | None = None, party_size: list | None = None,
+                     join: str | None = None, spectate: str | None = None,
+                     match: str | None = None, buttons: list | None = None,
+                     instance: bool = True, activity: bool | None = True,
                      _rn: bool = True):
 
         # They should already be an int because we give typehints, but some people are fucking stupid and use
@@ -91,7 +92,7 @@ class Payload:
         return cls(payload, clear)
 
     @classmethod
-    def authorize(cls, client_id: str, scopes: List[str]):
+    def authorize(cls, client_id: str, scopes: list[str]):
         payload = {
             "cmd": "AUTHORIZE",
             "args": {
@@ -162,9 +163,9 @@ class Payload:
         return cls(payload)
 
     @classmethod
-    def set_user_voice_settings(cls, user_id: str, pan_left: float = None,
-                                pan_right: float = None, volume: int = None,
-                                mute: bool = None):
+    def set_user_voice_settings(cls, user_id: str, pan_left: float | None = None,
+                                pan_right: float | None = None, volume: int | None = None,
+                                mute: bool | None = None):
         payload = {
             "cmd": "SET_USER_VOICE_SETTINGS",
             "args": {
@@ -254,11 +255,11 @@ class Payload:
         return cls(payload)
 
     @classmethod
-    def set_voice_settings(cls, _input: dict = None, output: dict = None,
-                           mode: dict = None, automatic_gain_control: bool = None,
-                           echo_cancellation: bool = None, noise_suppression: bool = None,
-                           qos: bool = None, silence_warning: bool = None,
-                           deaf: bool = None, mute: bool = None):
+    def set_voice_settings(cls, _input: dict | None = None, output: dict | None = None,
+                           mode: dict | None = None, automatic_gain_control: bool | None = None,
+                           echo_cancellation: bool | None = None, noise_suppression: bool | None = None,
+                           qos: bool | None = None, silence_warning: bool | None = None,
+                           deaf: bool | None = None, mute: bool | None = None):
         payload = {
             "cmd": "SET_VOICE_SETTINGS",
             "args": {

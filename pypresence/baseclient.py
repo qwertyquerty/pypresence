@@ -1,11 +1,8 @@
 import asyncio
 import inspect
 import json
-import os
 import struct
 import sys
-import tempfile
-from typing import Union, Optional
 
 # TODO: Get rid of this import * lol
 from .exceptions import *
@@ -30,8 +27,8 @@ class BaseClient:
         else:
             self.update_event_loop(get_event_loop())
 
-        self.sock_reader: Optional[asyncio.StreamReader] = None
-        self.sock_writer: Optional[asyncio.StreamWriter] = None
+        self.sock_reader: asyncio.StreamReader | None = None
+        self.sock_writer: asyncio.StreamWriter | None = None
 
         self.client_id = client_id
 
@@ -88,7 +85,7 @@ class BaseClient:
             raise ServerError(payload["data"]["message"])
         return payload
 
-    def send_data(self, op: int, payload: Union[dict, Payload]):
+    def send_data(self, op: int, payload: dict | Payload):
         if isinstance(payload, Payload):
             payload = payload.data
         payload = json.dumps(payload)
