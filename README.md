@@ -2,7 +2,7 @@
 
 [![GitHub stars](https://img.shields.io/github/stars/qwertyquerty/pypresence.svg?style=for-the-badge&label=Stars)](https://github.com/qwertyquerty/pypresence) [![license](https://img.shields.io/github/license/qwertyquerty/pypresence.svg?style=for-the-badge)](https://github.com/qwertyquerty/pypresence/blob/master/LICENSE) ![GitHub last commit](https://img.shields.io/github/last-commit/qwertyquerty/pypresence.svg?style=for-the-badge) ![GitHub top language](https://img.shields.io/github/languages/top/qwertyquerty/pypresence.svg?style=for-the-badge) ![PyPI](https://img.shields.io/pypi/v/pypresence.svg?style=for-the-badge)
 
-## NOTE: Only Python versions 3.8 and above are supported.
+## NOTE: Only Python versions 3.9 and above are supported.
 
 ### [Documentation](https://qwertyquerty.github.io/pypresence/html/index.html), [Discord Server](https://discord.gg/JF3kg77), [Patreon](https://www.patreon.com/qwertyquerty)
 
