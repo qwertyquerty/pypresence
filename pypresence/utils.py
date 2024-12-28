@@ -20,7 +20,7 @@ def remove_none(d: dict):
 
 def test_ipc_path(path) -> bool:
     '''Tests an IPC pipe to ensure that it actually works'''
-    if sys.platform == 'win32' or sys.platform == 'win64':
+    if sys.platform == 'win32':
         with open(path):
             return True
     else:

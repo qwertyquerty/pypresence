@@ -107,7 +107,7 @@ class BaseClient:
         try:
             if sys.platform == 'linux' or sys.platform == 'darwin':
                 self.sock_reader, self.sock_writer = await asyncio.wait_for(asyncio.open_unix_connection(ipc_path), self.connection_timeout)
-            elif sys.platform == 'win32' or sys.platform == 'win64':
+            elif sys.platform == 'win32':
                 self.sock_reader = asyncio.StreamReader(loop=self.loop)
                 reader_protocol = asyncio.StreamReaderProtocol(self.sock_reader, loop=self.loop)
                 self.sock_writer, _ = await asyncio.wait_for(self.loop.create_pipe_connection(lambda: reader_protocol, ipc_path), self.connection_timeout)

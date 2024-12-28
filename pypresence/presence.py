@@ -47,7 +47,7 @@ class Presence(BaseClient):
     def close(self):
         self.send_data(2, {'v': 1, 'client_id': self.client_id})
         self.loop.close()
-        if sys.platform == 'win32' or sys.platform == 'win64':
+        if sys.platform == 'win32':
             self.sock_writer._call_connection_lost(None)
 
 
@@ -86,5 +86,5 @@ class AioPresence(BaseClient):
     def close(self):
         self.send_data(2, {'v': 1, 'client_id': self.client_id})
         self.loop.close()
-        if sys.platform == 'win32' or sys.platform == 'win64':
+        if sys.platform == 'win32':
             self.sock_writer._call_connection_lost(None)
