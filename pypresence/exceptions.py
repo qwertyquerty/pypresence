@@ -1,4 +1,6 @@
 from __future__ import annotations
+
+
 class PyPresenceException(Exception):
     def __init__(self, message: str | None = None):
         if message is None:
