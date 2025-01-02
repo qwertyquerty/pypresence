@@ -51,7 +51,7 @@ class BaseClient:
             else:
                 err_handler = self._err_handle
 
-            loop.set_exception_handler(err_handler)
+            self.loop.set_exception_handler(err_handler)
             self.handler = handler
 
         if getattr(self, "on_event", None):  # Tasty bad code ;^)
