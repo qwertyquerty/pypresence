@@ -10,7 +10,6 @@ from .exceptions import *
 from .payloads import Payload
 from .types import ActivityType
 
-
 class Client(BaseClient):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
