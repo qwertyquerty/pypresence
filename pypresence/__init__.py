@@ -10,7 +10,6 @@ from .exceptions import *
 from .types import ActivityType
 from .presence import Presence, AioPresence
 
-
 __title__ = 'pypresence'
 __author__ = 'qwertyquerty'
 __copyright__ = 'Copyright 2018 - Current qwertyquerty'
