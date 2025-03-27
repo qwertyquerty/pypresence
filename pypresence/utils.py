@@ -1,13 +1,9 @@
 """Util functions that are needed but messy."""
 import asyncio
-import json
 import os
 import sys
 import tempfile
-import time
 import socket
-
-from .exceptions import PyPresenceException
 
 
 def remove_none(d: dict):
@@ -22,9 +18,9 @@ def remove_none(d: dict):
     return d
 
 
-def test_ipc_path(path):
+def test_ipc_path(path) -> bool:
     '''Tests an IPC pipe to ensure that it actually works'''
-    if sys.platform == 'win32' or sys.platform == 'win64':
+    if sys.platform == 'win32':
         with open(path):
             return True
     else:
@@ -47,7 +43,7 @@ def get_ipc_path(pipe=None):
         paths = ['.']
     else:
         return
-    
+
     for path in paths:
         full_path = os.path.abspath(os.path.join(tempdir, path))
         if sys.platform == 'win32' or os.path.isdir(full_path):
@@ -56,7 +52,7 @@ def get_ipc_path(pipe=None):
                     return entry.path
 
 
-def get_event_loop(force_fresh=False):
+def get_event_loop(force_fresh: bool = False):
     if force_fresh:
         return asyncio.new_event_loop()
     try:

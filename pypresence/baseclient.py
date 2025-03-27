@@ -1,11 +1,10 @@
+from __future__ import annotations
+
 import asyncio
 import inspect
 import json
-import os
 import struct
 import sys
-import tempfile
-from typing import Union, Optional
 
 # TODO: Get rid of this import * lol
 from .exceptions import *
@@ -30,8 +29,8 @@ class BaseClient:
         else:
             self.update_event_loop(get_event_loop())
 
-        self.sock_reader: Optional[asyncio.StreamReader] = None
-        self.sock_writer: Optional[asyncio.StreamWriter] = None
+        self.sock_reader: asyncio.StreamReader | None = None
+        self.sock_writer: asyncio.StreamWriter | None = None
 
         self.client_id = client_id
 
@@ -52,7 +51,7 @@ class BaseClient:
             else:
                 err_handler = self._err_handle
 
-            loop.set_exception_handler(err_handler)
+            self.loop.set_exception_handler(err_handler)
             self.handler = handler
 
         if getattr(self, "on_event", None):  # Tasty bad code ;^)
@@ -88,7 +87,7 @@ class BaseClient:
             raise ServerError(payload["data"]["message"])
         return payload
 
-    def send_data(self, op: int, payload: Union[dict, Payload]):
+    def send_data(self, op: int, payload: dict | Payload):
         if isinstance(payload, Payload):
             payload = payload.data
         payload = json.dumps(payload)
@@ -110,7 +109,7 @@ class BaseClient:
         try:
             if sys.platform == 'linux' or sys.platform == 'darwin':
                 self.sock_reader, self.sock_writer = await asyncio.wait_for(asyncio.open_unix_connection(ipc_path), self.connection_timeout)
-            elif sys.platform == 'win32' or sys.platform == 'win64':
+            elif sys.platform == 'win32':
                 self.sock_reader = asyncio.StreamReader(loop=self.loop)
                 reader_protocol = asyncio.StreamReaderProtocol(self.sock_reader, loop=self.loop)
                 self.sock_writer, _ = await asyncio.wait_for(self.loop.create_pipe_connection(lambda: reader_protocol, ipc_path), self.connection_timeout)
