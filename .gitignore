@@ -18,3 +18,4 @@ pypresence/__pycache__/
 test.py
 .mypy_cache/
 *.egg-info/
+*.DS_Store
