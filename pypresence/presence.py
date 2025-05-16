@@ -22,14 +22,14 @@ class Presence(BaseClient):
                party_id: str | None = None, party_size: list | None = None,
                join: str | None = None, spectate: str | None = None,
                match: str | None = None, buttons: list | None = None,
-               instance: bool = True, payload_override: dict | None = None):
+               instance: bool = True, payload_override: dict | None = None, name: str | None = None):
 
         if payload_override is None:
             payload = Payload.set_activity(pid=pid, activity_type=activity_type, state=state, details=details,
                                            start=start, end=end, large_image=large_image, large_text=large_text,
                                            small_image=small_image, small_text=small_text, party_id=party_id,
                                            party_size=party_size, join=join, spectate=spectate,
-                                           match=match, buttons=buttons, instance=instance, activity=True)
+                                           match=match, buttons=buttons, instance=instance, activity=True, name=name)
         else:
             payload = payload_override
         self.send_data(1, payload)
@@ -65,12 +65,12 @@ class AioPresence(BaseClient):
                      party_id: str | None = None, party_size: list | None = None,
                      join: str | None = None, spectate: str | None = None,
                      match: str | None = None, buttons: list | None = None,
-                     instance: bool = True):
+                     instance: bool = True, name: str | None = None):
         payload = Payload.set_activity(pid=pid, activity_type=activity_type, state=state, details=details,
                                        start=start, end=end, large_image=large_image, large_text=large_text,
                                        small_image=small_image, small_text=small_text, party_id=party_id,
                                        party_size=party_size, join=join, spectate=spectate,
-                                       match=match, buttons=buttons, instance=instance, activity=True)
+                                       match=match, buttons=buttons, instance=instance, activity=True, name=name)
         self.send_data(1, payload)
         return await self.read_output()
 

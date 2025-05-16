@@ -33,7 +33,7 @@ class Payload:
                      join: str | None = None, spectate: str | None = None,
                      match: str | None = None, buttons: list | None = None,
                      instance: bool = True, activity: bool | None = True,
-                     _rn: bool = True):
+                     _rn: bool = True, name: str | None = None):
 
         # They should already be an int because we give typehints, but some people are fucking stupid and use
         # IDLE or some other stupid shit.
@@ -75,7 +75,8 @@ class Payload:
                         "match": match
                     },
                     "buttons": buttons,
-                    "instance": instance
+                    "instance": instance,
+                    "name": name
                 }
             clear = False
 

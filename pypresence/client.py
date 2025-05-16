@@ -131,12 +131,12 @@ class Client(BaseClient):
                      party_id: str | None = None, party_size: list | None = None,
                      join: str | None = None, spectate: str | None = None,
                      match: str | None = None, buttons: list | None = None,
-                     instance: bool = True):
+                     instance: bool = True, name: str | None = None):
         payload = Payload.set_activity(pid=pid, activity_type=activity_type, state=state, details=details, start=start,
                                        end=end, large_image=large_image, large_text=large_text, small_image=small_image,
                                        small_text=small_text, party_id=party_id, party_size=party_size, join=join,
                                        spectate=spectate, match=match, buttons=buttons, instance=instance,
-                                       activity=True)
+                                       activity=True, name=name)
 
         self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
