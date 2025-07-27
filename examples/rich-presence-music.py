@@ -1,4 +1,4 @@
-from pypresence import Presence, ActivityType
+from pypresence import Presence, ActivityType, StatusDisplayType
 import time
 
 client_id = '717091213148160041'  # Fake ID, put your real one here
@@ -7,11 +7,11 @@ RPC.connect() # Start the handshake loop
 
 RPC.update(
     activity_type = ActivityType.LISTENING, # Set the activity to listening
+    status_display_type= StatusDisplayType.DETAILS, # Set the status display type to details
     details=input("Your favorite song: "),
     state=input("The artist who made it: "),
-    end=int(input("The length of the song (in seconds): ")) + time.time(),
-    # At time of writing this, timestamps don't show for listening statuses!
-    # ...so this field is pointless lol
+    start=int(time.time()),  # Start time is now
+    end=int(input("The length of the song (in seconds): ")) + int(time.time()),
 ) # Get the user's favorite song!
 
 while True:  # The presence will stay on as long as the program is running

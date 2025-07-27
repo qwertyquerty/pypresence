@@ -5,7 +5,7 @@ import os
 import time
 
 from .utils import remove_none
-from .types import ActivityType
+from .types import ActivityType, StatusDisplayType
 
 
 class Payload:
@@ -24,7 +24,7 @@ class Payload:
 
     @classmethod
     def set_activity(cls, pid: int = os.getpid(),
-                     activity_type: ActivityType | None = None,
+                     activity_type: ActivityType | None = None, status_display_type: StatusDisplayType | None = None,
                      state: str | None = None, details: str | None = None,
                      start: int | None = None, end: int | None = None,
                      large_image: str | None = None, large_text: str | None = None,
@@ -46,6 +46,12 @@ class Payload:
                 activity_type = activity_type.value
             else:
                 activity_type = int(activity_type)
+        
+        if status_display_type:
+            if isinstance(status_display_type, StatusDisplayType):
+                status_display_type = status_display_type.value
+            else:
+                status_display_type = int(status_display_type)
 
         if activity is None:
             act_details = None
@@ -53,6 +59,7 @@ class Payload:
         else:
             act_details = {
                     "type": activity_type,
+                    "status_display_type": status_display_type,
                     "state": state,
                     "details": details,
                     "timestamps": {

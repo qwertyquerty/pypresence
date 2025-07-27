@@ -7,7 +7,7 @@ By: qwertyquerty and LewdNeko
 from .baseclient import BaseClient
 from .client import Client, AioClient
 from .exceptions import *
-from .types import ActivityType
+from .types import ActivityType, StatusDisplayType
 from .presence import Presence, AioPresence
 
 
