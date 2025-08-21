@@ -26,7 +26,7 @@ class Payload:
     def set_activity(cls, pid: int = os.getpid(),
                      activity_type: ActivityType | None = None, status_display_type: StatusDisplayType | None = None,
                      state: str | None = None, details: str | None = None,
-                     start: int | None = None, end: int | None = None,
+                     start: int | float | None = None, end: int | float | None = None,
                      large_image: str | None = None, large_text: str | None = None,
                      small_image: str | None = None, small_text: str | None = None,
                      party_id: str | None = None, party_size: list | None = None,
@@ -41,25 +41,14 @@ class Payload:
             start = int(start)
         if end:
             end = int(end)
-        if activity_type:
-            if isinstance(activity_type, ActivityType):
-                activity_type = activity_type.value
-            else:
-                activity_type = int(activity_type)
-        
-        if status_display_type:
-            if isinstance(status_display_type, StatusDisplayType):
-                status_display_type = status_display_type.value
-            else:
-                status_display_type = int(status_display_type)
-
+            
         if activity is None:
             act_details = None
             clear = True
         else:
             act_details = {
-                    "type": activity_type,
-                    "status_display_type": status_display_type,
+                    "type": activity_type.value if isinstance(activity_type, ActivityType) else ActivityType.PLAYING,
+                    "status_display_type": status_display_type if isinstance(status_display_type, StatusDisplayType) else StatusDisplayType.NAME,
                     "state": state,
                     "details": details,
                     "timestamps": {
