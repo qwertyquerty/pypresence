@@ -177,3 +177,13 @@ class BaseClient:
         finally:
             self.sock_reader = None
             self.sock_writer = None
+
+    def try_connect(self):
+        """Attempt to connect to Discord but don't raise exceptions"""
+        try:
+            self.loop.run_until_complete(self.handshake())
+            return True
+        except (DiscordNotFound, InvalidPipe, ConnectionTimeout, InvalidID, DiscordError, ConnectionError):
+            return False
+        except Exception:
+            return False
