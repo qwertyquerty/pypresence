@@ -22,9 +22,10 @@ class Presence(BaseClient):
                match: str = None, buttons: list = None,
                instance: bool = True, payload_override: dict = None):
 
-        if not self.sock_writer:
-            return None  # Return None if not connected instead of raising error
-            
+        # Check if we're connected before attempting to update
+        if self.sock_writer is None:
+            return None
+
         if payload_override is None:
             payload = Payload.set_activity(pid=pid, state=state, details=details, start=start, end=end,
                                            large_image=large_image, large_text=large_text,
@@ -37,43 +38,43 @@ class Presence(BaseClient):
         try:
             self.send_data(1, payload)
             return self.loop.run_until_complete(self.read_output())
-        except:
-            return None  # Return None if update fails
+        except Exception:
+            return None
 
     def clear(self, pid: int = os.getpid()):
-        if not self.sock_writer:
-            return None  # Return None if not connected
+        """Clear the current activity"""
+        if self.sock_writer is None:
+            return None
             
         try:
             payload = Payload.set_activity(pid, activity=None)
             self.send_data(1, payload)
             return self.loop.run_until_complete(self.read_output())
-        except:
-            return None  # Return None if clear fails
+        except Exception:
+            return None
 
     def connect(self):
-        """Connect to Discord - returns True if successful, False otherwise"""
+        """
+        Connect to Discord.
+        
+        Returns:
+            bool: True if connection was successful, False otherwise.
+        """
         try:
             self.update_event_loop(get_event_loop())
             self.loop.run_until_complete(self.handshake())
             return True
-        except:
+        except Exception:
             return False
 
-    def try_connect(self):
-        """Alias for connect() for backward compatibility"""
-        return self.connect()
-
     def close(self):
-        if not self.sock_writer:
-            return  # Do nothing if not connected
-            
+        """Safely close the connection to Discord"""
         try:
-            self.send_data(2, {'v': 1, 'client_id': self.client_id})
-            self.sock_writer.close()
-            self.loop.close()
-        except:
-            pass  # Silently fail on close errors
+            if self.sock_writer:
+                self.send_data(2, {'v': 1, 'client_id': self.client_id})
+                self.loop.run_until_complete(super().close())
+        except Exception:
+            pass
 
 
 class AioPresence(BaseClient):
@@ -90,8 +91,9 @@ class AioPresence(BaseClient):
                      join: str = None, spectate: str = None,
                      match: str = None, buttons: list = None,
                      instance: bool = True):
-        if not self.sock_writer:
-            return None  # Return None if not connected
+        # Check if we're connected before attempting to update
+        if self.sock_writer is None:
+            return None
             
         try:
             payload = Payload.set_activity(pid=pid, state=state, details=details, start=start, end=end,
@@ -101,45 +103,40 @@ class AioPresence(BaseClient):
                                            match=match, buttons=buttons, instance=instance, activity=True)
             self.send_data(1, payload)
             return await self.read_output()
-        except:
-            return None  # Return None if update fails
+        except Exception:
+            return None
 
     async def clear(self, pid: int = os.getpid()):
-        if not self.sock_writer:
-            return None  # Return None if not connected
+        """Clear the current activity"""
+        if self.sock_writer is None:
+            return None
             
         try:
             payload = Payload.set_activity(pid, activity=None)
             self.send_data(1, payload)
             return await self.read_output()
-        except:
-            return None  # Return None if clear fails
+        except Exception:
+            return None
 
     async def connect(self):
-        """Connect to Discord - returns True if successful, False otherwise"""
+        """
+        Connect to Discord.
+        
+        Returns:
+            bool: True if connection was successful, False otherwise.
+        """
         try:
             self.update_event_loop(get_event_loop())
             await self.handshake()
             return True
-        except:
+        except Exception:
             return False
 
-    def try_connect(self):
-        """Synchronous version of connect for AioPresence"""
+    async def close(self):
+        """Safely close the connection to Discord"""
         try:
-            self.update_event_loop(get_event_loop())
-            self.loop.run_until_complete(self.handshake())
-            return True
-        except:
-            return False
-
-    def close(self):
-        if not self.sock_writer:
-            return  # Do nothing if not connected
-            
-        try:
-            self.send_data(2, {'v': 1, 'client_id': self.client_id})
-            self.sock_writer.close()
-            self.loop.close()
-        except:
-            pass  # Silently fail on close errors
+            if self.sock_writer:
+                self.send_data(2, {'v': 1, 'client_id': self.client_id})
+                await super().close()
+        except Exception:
+            pass
