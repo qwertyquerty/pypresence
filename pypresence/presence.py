@@ -1,11 +1,10 @@
-from __future__ import annotations
+import json
 import os
-import sys
+import time
 
 from .baseclient import BaseClient
 from .payloads import Payload
-from .utils import get_event_loop
-from .types import ActivityType
+from .utils import remove_none, get_event_loop
 
 
 class Presence(BaseClient):
@@ -14,41 +13,67 @@ class Presence(BaseClient):
         super().__init__(*args, **kwargs)
 
     def update(self, pid: int = os.getpid(),
-               activity_type: ActivityType | None = None,
-               state: str | None = None, details: str | None = None,
-               start: int | None = None, end: int | None = None,
-               large_image: str | None = None, large_text: str | None = None,
-               small_image: str | None = None, small_text: str | None = None,
-               party_id: str | None = None, party_size: list | None = None,
-               join: str | None = None, spectate: str | None = None,
-               match: str | None = None, buttons: list | None = None,
-               instance: bool = True, payload_override: dict | None = None):
+               state: str = None, details: str = None,
+               start: int = None, end: int = None,
+               large_image: str = None, large_text: str = None,
+               small_image: str = None, small_text: str = None,
+               party_id: str = None, party_size: list = None,
+               join: str = None, spectate: str = None,
+               match: str = None, buttons: list = None,
+               instance: bool = True, payload_override: dict = None):
 
+        if not self.sock_writer:
+            return None  # Return None if not connected instead of raising error
+            
         if payload_override is None:
-            payload = Payload.set_activity(pid=pid, activity_type=activity_type, state=state, details=details,
-                                           start=start, end=end, large_image=large_image, large_text=large_text,
+            payload = Payload.set_activity(pid=pid, state=state, details=details, start=start, end=end,
+                                           large_image=large_image, large_text=large_text,
                                            small_image=small_image, small_text=small_text, party_id=party_id,
                                            party_size=party_size, join=join, spectate=spectate,
                                            match=match, buttons=buttons, instance=instance, activity=True)
         else:
             payload = payload_override
-        self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
+            
+        try:
+            self.send_data(1, payload)
+            return self.loop.run_until_complete(self.read_output())
+        except:
+            return None  # Return None if update fails
 
     def clear(self, pid: int = os.getpid()):
-        payload = Payload.set_activity(pid, activity=None)
-        self.send_data(1, payload)
-        return self.loop.run_until_complete(self.read_output())
+        if not self.sock_writer:
+            return None  # Return None if not connected
+            
+        try:
+            payload = Payload.set_activity(pid, activity=None)
+            self.send_data(1, payload)
+            return self.loop.run_until_complete(self.read_output())
+        except:
+            return None  # Return None if clear fails
 
     def connect(self):
-        self.update_event_loop(get_event_loop())
-        self.loop.run_until_complete(self.handshake())
+        """Connect to Discord - returns True if successful, False otherwise"""
+        try:
+            self.update_event_loop(get_event_loop())
+            self.loop.run_until_complete(self.handshake())
+            return True
+        except:
+            return False
+
+    def try_connect(self):
+        """Alias for connect() for backward compatibility"""
+        return self.connect()
 
     def close(self):
-        self.send_data(2, {'v': 1, 'client_id': self.client_id})
-        self.loop.close()
-        if sys.platform == 'win32':
-            self.sock_writer._call_connection_lost(None)
+        if not self.sock_writer:
+            return  # Do nothing if not connected
+            
+        try:
+            self.send_data(2, {'v': 1, 'client_id': self.client_id})
+            self.sock_writer.close()
+            self.loop.close()
+        except:
+            pass  # Silently fail on close errors
 
 
 class AioPresence(BaseClient):
@@ -57,34 +82,64 @@ class AioPresence(BaseClient):
         super().__init__(*args, **kwargs, isasync=True)
 
     async def update(self, pid: int = os.getpid(),
-                     activity_type: ActivityType | None = None,
-                     state: str | None = None, details: str | None = None,
-                     start: int | None = None, end: int | None = None,
-                     large_image: str | None = None, large_text: str | None = None,
-                     small_image: str | None = None, small_text: str | None = None,
-                     party_id: str | None = None, party_size: list | None = None,
-                     join: str | None = None, spectate: str | None = None,
-                     match: str | None = None, buttons: list | None = None,
+                     state: str = None, details: str = None,
+                     start: int = None, end: int = None,
+                     large_image: str = None, large_text: str = None,
+                     small_image: str = None, small_text: str = None,
+                     party_id: str = None, party_size: list = None,
+                     join: str = None, spectate: str = None,
+                     match: str = None, buttons: list = None,
                      instance: bool = True):
-        payload = Payload.set_activity(pid=pid, activity_type=activity_type, state=state, details=details,
-                                       start=start, end=end, large_image=large_image, large_text=large_text,
-                                       small_image=small_image, small_text=small_text, party_id=party_id,
-                                       party_size=party_size, join=join, spectate=spectate,
-                                       match=match, buttons=buttons, instance=instance, activity=True)
-        self.send_data(1, payload)
-        return await self.read_output()
+        if not self.sock_writer:
+            return None  # Return None if not connected
+            
+        try:
+            payload = Payload.set_activity(pid=pid, state=state, details=details, start=start, end=end,
+                                           large_image=large_image, large_text=large_text,
+                                           small_image=small_image, small_text=small_text, party_id=party_id,
+                                           party_size=party_size, join=join, spectate=spectate,
+                                           match=match, buttons=buttons, instance=instance, activity=True)
+            self.send_data(1, payload)
+            return await self.read_output()
+        except:
+            return None  # Return None if update fails
 
     async def clear(self, pid: int = os.getpid()):
-        payload = Payload.set_activity(pid, activity=None)
-        self.send_data(1, payload)
-        return await self.read_output()
+        if not self.sock_writer:
+            return None  # Return None if not connected
+            
+        try:
+            payload = Payload.set_activity(pid, activity=None)
+            self.send_data(1, payload)
+            return await self.read_output()
+        except:
+            return None  # Return None if clear fails
 
     async def connect(self):
-        self.update_event_loop(get_event_loop())
-        await self.handshake()
+        """Connect to Discord - returns True if successful, False otherwise"""
+        try:
+            self.update_event_loop(get_event_loop())
+            await self.handshake()
+            return True
+        except:
+            return False
+
+    def try_connect(self):
+        """Synchronous version of connect for AioPresence"""
+        try:
+            self.update_event_loop(get_event_loop())
+            self.loop.run_until_complete(self.handshake())
+            return True
+        except:
+            return False
 
     def close(self):
-        self.send_data(2, {'v': 1, 'client_id': self.client_id})
-        self.loop.close()
-        if sys.platform == 'win32':
-            self.sock_writer._call_connection_lost(None)
+        if not self.sock_writer:
+            return  # Do nothing if not connected
+            
+        try:
+            self.send_data(2, {'v': 1, 'client_id': self.client_id})
+            self.sock_writer.close()
+            self.loop.close()
+        except:
+            pass  # Silently fail on close errors
