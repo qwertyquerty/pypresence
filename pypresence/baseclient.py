@@ -1,10 +1,11 @@
-from __future__ import annotations
-
 import asyncio
 import inspect
 import json
+import os
 import struct
 import sys
+import tempfile
+from typing import Union, Optional
 
 # TODO: Get rid of this import * lol
 from .exceptions import *
@@ -29,8 +30,8 @@ class BaseClient:
         else:
             self.update_event_loop(get_event_loop())
 
-        self.sock_reader: asyncio.StreamReader | None = None
-        self.sock_writer: asyncio.StreamWriter | None = None
+        self.sock_reader: Optional[asyncio.StreamReader] = None
+        self.sock_writer: Optional[asyncio.StreamWriter] = None
 
         self.client_id = client_id
 
@@ -51,7 +52,7 @@ class BaseClient:
             else:
                 err_handler = self._err_handle
 
-            self.loop.set_exception_handler(err_handler)
+            loop.set_exception_handler(err_handler)
             self.handler = handler
 
         if getattr(self, "on_event", None):  # Tasty bad code ;^)
@@ -84,15 +85,16 @@ class BaseClient:
             raise ResponseTimeout
         payload = json.loads(data.decode('utf-8'))
         if payload["evt"] == "ERROR":
-            raise ServerError(payload["data"]["message"])
+            raise ServerError(payload['data']['message'])
         return payload
 
-    def send_data(self, op: int, payload: dict | Payload):
+    def send_data(self, op: int, payload: Union[dict, Payload]):
         if isinstance(payload, Payload):
             payload = payload.data
         payload = json.dumps(payload)
 
-        assert self.sock_writer is not None, "You must connect your client before sending events!"
+        if self.sock_writer is None:
+            raise ConnectionError("Not connected to Discord. Call connect() first.")
 
         self.sock_writer.write(
             struct.pack(
@@ -101,35 +103,102 @@ class BaseClient:
                 len(payload)) +
             payload.encode('utf-8'))
 
-    async def create_reader_writer(self, ipc_path):
+    def is_discord_available(self):
+        """
+        Check if Discord is available without establishing a full connection.
+        
+        Returns:
+            bool: True if Discord appears to be running and available, False otherwise.
+        """
         try:
+            ipc_path = get_ipc_path(self.pipe)
+            if not ipc_path:
+                return False
+                
+            # Check if the IPC pipe exists
             if sys.platform == 'linux' or sys.platform == 'darwin':
-                self.sock_reader, self.sock_writer = await asyncio.wait_for(asyncio.open_unix_connection(ipc_path), self.connection_timeout)
-            elif sys.platform == 'win32':
-                self.sock_reader = asyncio.StreamReader(loop=self.loop)
-                reader_protocol = asyncio.StreamReaderProtocol(self.sock_reader, loop=self.loop)
-                self.sock_writer, _ = await asyncio.wait_for(self.loop.create_pipe_connection(lambda: reader_protocol, ipc_path), self.connection_timeout)
-        except FileNotFoundError:
-            raise InvalidPipe
-        except asyncio.TimeoutError:
-            raise ConnectionTimeout
-    
+                return os.path.exists(ipc_path)
+            elif sys.platform == 'win32' or sys.platform == 'win64':
+                # On Windows, check if any Discord IPC pipe exists
+                for i in range(10):  # Check pipes 0-9
+                    pipe_path = rf'\\.\pipe\discord-ipc-{i}'
+                    if os.path.exists(pipe_path):
+                        return True
+                return False
+            return False
+        except:
+            return False
+
     async def handshake(self):
         ipc_path = get_ipc_path(self.pipe)
         if not ipc_path:
-            raise DiscordNotFound
+            raise DiscordNotFound("Could not find Discord IPC path")
 
-        await self.create_reader_writer(ipc_path)
+        try:
+            if sys.platform == 'linux' or sys.platform == 'darwin':
+                self.sock_reader, self.sock_writer = await asyncio.wait_for(
+                    asyncio.open_unix_connection(ipc_path), 
+                    self.connection_timeout
+                )
+            elif sys.platform == 'win32' or sys.platform == 'win64':
+                self.sock_reader = asyncio.StreamReader(loop=self.loop)
+                reader_protocol = asyncio.StreamReaderProtocol(self.sock_reader, loop=self.loop)
+                self.sock_writer, _ = await asyncio.wait_for(
+                    self.loop.create_pipe_connection(lambda: reader_protocol, ipc_path),
+                    self.connection_timeout
+                )
+        except FileNotFoundError:
+            raise InvalidPipe("Discord IPC pipe not found")
+        except asyncio.TimeoutError:
+            raise ConnectionTimeout("Connection to Discord timed out")
+        except ConnectionRefusedError:
+            raise DiscordNotFound("Discord is running but not accepting connections")
+        except Exception as e:
+            raise ConnectionError(f"Failed to connect to Discord: {e}")
 
-        self.send_data(0, {'v': 1, 'client_id': self.client_id})
-        preamble = await self.sock_reader.read(8)
-        if len(preamble) < 8:
-            raise InvalidPipe # this sometimes happens for some reason, perhaps discord cannot always accept all the connections?
-        code, length = struct.unpack('<ii', preamble)
-        data = json.loads(await self.sock_reader.read(length))
-        if 'code' in data:
-            if data['message'] == 'Invalid Client ID':
-                raise InvalidID
-            raise DiscordError(data['code'], data['message'])
-        if self._events_on:
-            self.sock_reader.feed_data = self.on_event
+        try:
+            self.send_data(0, {'v': 1, 'client_id': self.client_id})
+            preamble = await asyncio.wait_for(self.sock_reader.read(8), self.response_timeout)
+            code, length = struct.unpack('<ii', preamble)
+            data = json.loads(await asyncio.wait_for(self.sock_reader.read(length), self.response_timeout))
+            if 'code' in data:
+                if data['message'] == 'Invalid Client ID':
+                    raise InvalidID("Invalid Discord application ID")
+                raise DiscordError(data['code'], data['message'])
+            if self._events_on:
+                self.sock_reader.feed_data = self.on_event
+        except asyncio.TimeoutError:
+            # Clean up the connection if handshake times out
+            await self.close()
+            raise ResponseTimeout("Handshake timed out")
+        except Exception as e:
+            # Clean up the connection if handshake fails
+            await self.close()
+            raise e
+
+    async def close(self):
+        """Safely close the connection to Discord"""
+        try:
+            if self.sock_writer:
+                self.sock_writer.close()
+                await self.sock_writer.wait_closed()
+        except:
+            pass
+        finally:
+            self.sock_reader = None
+            self.sock_writer = None
+
+    def try_connect(self):
+        """
+        Attempt to connect to Discord but don't raise exceptions.
+        
+        Returns:
+            bool: True if connection was successful, False otherwise.
+        """
+        try:
+            self.loop.run_until_complete(self.handshake())
+            return True
+        except (DiscordNotFound, InvalidPipe, ConnectionTimeout, InvalidID, DiscordError, ConnectionError):
+            return False
+        except Exception:
+            return False
