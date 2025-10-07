@@ -3,7 +3,7 @@ import time
 from pypresence import AioPresence, ActivityType, StatusDisplayType
 from pypresence.exceptions import PyPresenceException
 
-client_id = '717091213148160041'  # Fake ID, put your real one here
+client_id = "717091213148160041"  # Fake ID, put your real one here
 
 # Gather inputs synchronously before starting the event loop
 song = input("Your favorite song: ")
@@ -29,6 +29,8 @@ async def main(rpc) -> None:
             await asyncio.sleep(15)  # Can only update rich presence every 15 seconds
     except PyPresenceException:
         pass
+
+
 if __name__ == "__main__":
     rpc = AioPresence(client_id)
     asyncio.run(main(rpc))

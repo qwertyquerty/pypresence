@@ -9,9 +9,9 @@ jobs:
       - run: pip install --upgrade pip wheel setuptools
       - run: pip install bandit black codespell flake8 isort mypy pytest pyupgrade safety
       - run: bandit --recursive --skip B101,B311 .
-      - run: black --check . || true
+      - run: black --check .
       - run: codespell --ignore-words-list="wee" --skip="*.css,*.js"
-      - run: flake8 . --count --ignore=E12,E2,F40,W29,W504 --max-complexity=10 --max-line-length=156 --show-source --statistics
+      - run: flake8 . --count --select=C,E,F,W,B,B950 --extend-ignore=E203,E501,W503 --max-complexity=10 --max-line-length=88 --show-source --statistics
       - run: isort --check-only --profile black . || true
       - run: pip install psutil
       - run: pip install -e .
