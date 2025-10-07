@@ -28,14 +28,16 @@ class InvalidArgument(PyPresenceException):
 
 class ServerError(PyPresenceException):
     def __init__(self, message: str):
-        super().__init__(message.replace(']', '').replace('[', '').capitalize())
+        super().__init__(message.replace(
+            ']', '').replace('[', '').capitalize())
 
 
 class DiscordError(PyPresenceException):
     def __init__(self, code: int, message: str, override: bool = False):
         self.code = code
         self.message = message
-        super().__init__('Error Code: {0} Message: {1}'.format(code, message) if not override else message)
+        super().__init__('Error Code: {0} Message: {1}'.format(
+            code, message) if not override else message)
 
 
 class InvalidID(DiscordError):

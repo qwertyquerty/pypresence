@@ -48,7 +48,7 @@ setup(name='pypresence',
             'Topic :: Communications :: Chat',
             'Framework :: AsyncIO',
       ]
-)
+      )
 
 print(r"""
 ___  _   _ ___  ____ ____ ____ ____ _  _ ____ ____

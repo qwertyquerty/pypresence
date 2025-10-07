@@ -9,6 +9,7 @@ song = input("Your favorite song: ")
 artist = input("The artist who made it: ")
 length = int(input("The length of the song (in seconds): "))
 
+
 async def main(rpc) -> None:
     await rpc.connect()  # Start the handshake loop (async)
 
@@ -25,7 +26,7 @@ async def main(rpc) -> None:
     try:
         while True:  # Keep the presence alive while the program runs
             await asyncio.sleep(15)  # Can only update rich presence every 15 seconds
-    except Exception as e:
+    except Exception:
         pass
 if __name__ == "__main__":
     rpc = AioPresence(client_id)

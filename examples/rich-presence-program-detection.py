@@ -4,7 +4,7 @@ import psutil
 import pypresence
 
 rpc = pypresence.Presence('0123..')  # Put your Application ID here
-data = None
+data: dict | None = None
 
 rpc.connect()
 

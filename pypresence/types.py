@@ -14,12 +14,13 @@ class ActivityType(enum.Enum):
     # CUSTOM = 4
     COMPETING = 5
 
+
 class StatusDisplayType(enum.Enum):
     """
     https://discord.com/developers/docs/events/gateway-events#activity-object-status-display-types
     "status" must be one of 0, 1, 2 -- Discord only implemented these three
     """
-    
+
     NAME = 0
     STATE = 1
     DETAILS = 2

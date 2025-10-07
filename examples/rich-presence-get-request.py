@@ -25,7 +25,7 @@ def run():
         data = get_presence_data()
         presence.update(**data)
         time.sleep(15)
-        
-        
+
+
 if __name__ in '__main__':
     run()

@@ -7,7 +7,18 @@ import struct
 import sys
 
 # TODO: Get rid of this import * lol
-from .exceptions import *
+from .exceptions import (
+    PyPresenceException,
+    InvalidArgument,
+    InvalidPipe,
+    PipeClosed,
+    ConnectionTimeout,
+    ResponseTimeout,
+    DiscordNotFound,
+    InvalidID,
+    DiscordError,
+    ServerError,
+)
 from .payloads import Payload
 from .utils import get_ipc_path, get_event_loop
 
@@ -41,7 +52,8 @@ class BaseClient:
             if args[0] == 'self':
                 args = args[1:]
             if len(args) != 2:
-                raise PyPresenceException('Error handler should only accept two arguments.')
+                raise PyPresenceException(
+                    'Error handler should only accept two arguments.')
 
             if self.isasync:
                 if not inspect.iscoroutinefunction(handler):
@@ -90,7 +102,7 @@ class BaseClient:
     def send_data(self, op: int, payload: dict | Payload):
         if isinstance(payload, Payload):
             payload = payload.data
-        payload = json.dumps(payload)
+        payload_string = json.dumps(payload)
 
         assert self.sock_writer is not None, "You must connect your client before sending events!"
 
@@ -98,8 +110,8 @@ class BaseClient:
             struct.pack(
                 '<II',
                 op,
-                len(payload)) +
-            payload.encode('utf-8'))
+                len(payload_string)) +
+            payload_string.encode('utf-8'))
 
     async def create_reader_writer(self, ipc_path):
         try:
@@ -107,13 +119,14 @@ class BaseClient:
                 self.sock_reader, self.sock_writer = await asyncio.wait_for(asyncio.open_unix_connection(ipc_path), self.connection_timeout)
             elif sys.platform == 'win32':
                 self.sock_reader = asyncio.StreamReader(loop=self.loop)
-                reader_protocol = asyncio.StreamReaderProtocol(self.sock_reader, loop=self.loop)
+                reader_protocol = asyncio.StreamReaderProtocol(
+                    self.sock_reader, loop=self.loop)
                 self.sock_writer, _ = await asyncio.wait_for(self.loop.create_pipe_connection(lambda: reader_protocol, ipc_path), self.connection_timeout)
         except FileNotFoundError:
             raise InvalidPipe
         except asyncio.TimeoutError:
             raise ConnectionTimeout
-    
+
     async def handshake(self):
         ipc_path = get_ipc_path(self.pipe)
         if not ipc_path:
@@ -124,7 +137,7 @@ class BaseClient:
         self.send_data(0, {'v': 1, 'client_id': self.client_id})
         preamble = await self.sock_reader.read(8)
         if len(preamble) < 8:
-            raise InvalidPipe # this sometimes happens for some reason, perhaps discord cannot always accept all the connections?
+            raise InvalidPipe  # this sometimes happens for some reason, perhaps discord cannot always accept all the connections?
         code, length = struct.unpack('<ii', preamble)
         data = json.loads(await self.sock_reader.read(length))
         if 'code' in data:
