@@ -1,0 +1,13 @@
+[tool.black]
+extend-exclude = '''
+/(\.(git|hg|mypy_cache|tox|venv|env|.eggs|.vscode|.github|.idea)|
+ build|
+ dist|
+ \.eggs|
+ \.venv|
+ env|
+ venv|
+ __pycache__|
+ docs|
+)/
+'''

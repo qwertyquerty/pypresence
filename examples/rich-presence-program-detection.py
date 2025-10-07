@@ -3,8 +3,8 @@ import time
 import psutil
 import pypresence
 
-rpc = pypresence.Presence('0123..')  # Put your Application ID here
-data = None
+rpc = pypresence.Presence("0123..")  # Put your Application ID here
+data: dict | None = None
 
 rpc.connect()
 
@@ -16,7 +16,12 @@ while True:
                 data = {"state": "On VirtualBox", "details": "Kali Linux"}
                 break
             case "itunes.exe":
-                data = {"state": "XYZ", "details": "Zoom", "large_image": "foo", "large_text": "bar"}
+                data = {
+                    "state": "XYZ",
+                    "details": "Zoom",
+                    "large_image": "foo",
+                    "large_text": "bar",
+                }
                 break
             case _:
                 data = None
