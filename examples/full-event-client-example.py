@@ -1,4 +1,4 @@
-# this example has to be rewriten, exchange_code apparently doesn't exist anymore
+# this example has to be rewritten, exchange_code apparently doesn't exist anymore
 
 # import asyncio
 # import pypresence
