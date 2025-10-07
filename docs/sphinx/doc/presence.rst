@@ -50,10 +50,12 @@ Presence()
    Sets the user's presence on Discord.
 
    :param int pid: the process id of your game
+   :param ActivityType activity_type: the type of activity (PLAYING, LISTENING, WATCHING, or COMPETING). See :ref:`activity-types` for more details. Defaults to PLAYING if not specified.
+   :param StatusDisplayType status_display_type: which field to display in the status (NAME, STATE, or DETAILS). See :ref:`status-display-types` for more details. Defaults to NAME if not specified.
    :param str state: the user's current status
    :param str details: what the player is currently doing
-   :param int start: epoch time for game start
-   :param int end: epoch time for game end
+   :param int start: epoch time for game start (in seconds, will be converted to milliseconds)
+   :param int end: epoch time for game end (in seconds, will be converted to milliseconds)
    :param str large_image: name of the uploaded image for the large profile artwork
    :param str large_text: tooltip for the large image
    :param str small_image: name of the uploaded image for the small profile artwork
@@ -69,3 +71,66 @@ Presence()
 
 
   |br|
+
+
+.. _activity-types:
+
+ActivityType Enum
+*****************
+
+The ``ActivityType`` enum specifies what type of activity is being displayed. It is imported from ``pypresence.types``.
+
+Available values:
+
+- ``ActivityType.PLAYING`` (0) - Shows "Playing {game name}" (default)
+- ``ActivityType.LISTENING`` (2) - Shows "Listening to {name}"
+- ``ActivityType.WATCHING`` (3) - Shows "Watching {name}"
+- ``ActivityType.COMPETING`` (5) - Shows "Competing in {name}"
+
+Example usage::
+
+    from pypresence import Presence
+    from pypresence.types import ActivityType
+
+    RPC = Presence(client_id)
+    RPC.connect()
+    RPC.update(
+        activity_type=ActivityType.LISTENING,
+        details="My Favorite Song",
+        state="By My Favorite Artist"
+    )
+
+Note: Discord only supports activity types 0, 2, 3, and 5. Types 1 (STREAMING) and 4 (CUSTOM) are not available via Rich Presence.
+
+|br|
+
+
+.. _status-display-types:
+
+StatusDisplayType Enum
+**********************
+
+The ``StatusDisplayType`` enum controls which field from your presence is displayed in the user's status. It is imported from ``pypresence.types``.
+
+Available values:
+
+- ``StatusDisplayType.NAME`` (0) - Displays the application name (default)
+- ``StatusDisplayType.STATE`` (1) - Displays the ``state`` field
+- ``StatusDisplayType.DETAILS`` (2) - Displays the ``details`` field
+
+Example usage::
+
+    from pypresence import Presence
+    from pypresence.types import StatusDisplayType
+
+    RPC = Presence(client_id)
+    RPC.connect()
+    RPC.update(
+        status_display_type=StatusDisplayType.STATE,
+        state="Custom Status Message",
+        details="What I'm doing"
+    )
+
+This allows you to control what appears in the user's Discord status bar while maintaining all information in the full Rich Presence display.
+
+|br|

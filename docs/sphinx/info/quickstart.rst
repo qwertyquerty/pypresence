@@ -66,3 +66,40 @@ Quickstart
 .. figure:: ../_static/img/quickstart-final.png
    :scale: 150 %
    :alt: Finished Presence
+
+|br|
+
+**Using Activity Types and Status Display Types**
+
+You can customize how your presence appears by using ``ActivityType`` and ``StatusDisplayType`` enums. Here's an example:
+
+.. code-block:: python
+
+ from pypresence import Presence
+ from pypresence.types import ActivityType, StatusDisplayType
+ import time
+
+ client_id = "ID HERE"
+ RPC = Presence(client_id)
+ RPC.connect()
+
+ # Show as "Listening to" instead of "Playing"
+ RPC.update(
+     activity_type=ActivityType.LISTENING,
+     details="My Favorite Song",
+     state="By My Favorite Artist"
+ )
+
+ # Or use StatusDisplayType to control what appears in the user's status
+ RPC.update(
+     status_display_type=StatusDisplayType.STATE,
+     state="Building something awesome",
+     details="Using pypresence"
+ )
+
+ while True:
+     time.sleep(15)
+
+Available activity types: ``PLAYING`` (default), ``LISTENING``, ``WATCHING``, ``COMPETING``
+
+Available status display types: ``NAME`` (default - shows app name), ``STATE``, ``DETAILS``

@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Client() &#8212; pypresence 4.3.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
+    <title>Client() &#8212; pypresence 4.5.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
+    <script src="../_static/documentation_options.js?v=5ef59c98"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="prev" title="Presence()" href="presence.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -31,10 +33,10 @@
           <div class="body" role="main">
             
   <section id="client">
-<h1>Client()<a class="headerlink" href="#client" title="Permalink to this heading">¶</a></h1>
+<h1>Client()<a class="headerlink" href="#client" title="Link to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="Client">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pipe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Client" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pipe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Client" title="Link to this definition">¶</a></dt>
 <dd><p>Creates the RPC client ready for usage.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -52,7 +54,7 @@
 <blockquote>
 <div><dl class="py function">
 <dt class="sig sig-object py" id="start">
-<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#start" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#start" title="Link to this definition">¶</a></dt>
 <dd><p>Initializes the connection - must be done in order to run RPC commands.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -64,14 +66,14 @@
 <p><br /></p>
 <dl class="py function">
 <dt class="sig sig-object py" id="close">
-<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#close" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#close" title="Link to this definition">¶</a></dt>
 <dd><p>Closes the connection.</p>
 </dd></dl>
 
 <p><br /></p>
 <dl class="py function">
 <dt class="sig sig-object py" id="authorize">
-<span class="sig-name descname"><span class="pre">authorize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scopes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rpc_token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authorize" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">authorize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scopes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rpc_token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authorize" title="Link to this definition">¶</a></dt>
 <dd><p>Used to authenticate a new client with your app. By default this pops up a modal in-app that asks the user to authorize access to your app.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -92,7 +94,7 @@
 <p><br /></p>
 <dl class="py function">
 <dt class="sig sig-object py" id="authenticate">
-<span class="sig-name descname"><span class="pre">authenticate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authenticate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">authenticate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#authenticate" title="Link to this definition">¶</a></dt>
 <dd><p>Used to authenticate an existing client with your app.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -107,7 +109,7 @@
 <p><br /></p>
 <dl class="py function">
 <dt class="sig sig-object py" id="get_guilds">
-<span class="sig-name descname"><span class="pre">get_guilds</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_guilds" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_guilds</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_guilds" title="Link to this definition">¶</a></dt>
 <dd><p>Used to get a list of guilds the client is in.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -119,7 +121,7 @@
 <p><br /></p>
 <dl class="py function">
 <dt class="sig sig-object py" id="get_channels">
-<span class="sig-name descname"><span class="pre">get_channels</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_channels" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_channels</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_channels" title="Link to this definition">¶</a></dt>
 <dd><p>Used to get a guild’s channels the client is in.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -131,7 +133,7 @@
 <p><br /></p>
 <dl class="py function">
 <dt class="sig sig-object py" id="channel_id">
-<span class="sig-name descname"><span class="pre">channel_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#channel_id" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">channel_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#channel_id" title="Link to this definition">¶</a></dt>
 <dd><p>Used to get a channel the client is in.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -146,7 +148,7 @@
 <p><br /></p>
 <dl class="py function">
 <dt class="sig sig-object py" id="set_user_voice_settings">
-<span class="sig-name descname"><span class="pre">set_user_voice_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#set_user_voice_settings" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">set_user_voice_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#set_user_voice_settings" title="Link to this definition">¶</a></dt>
 <dd><p>Used to get a channel the client is in.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -167,7 +169,7 @@
 <p><br /></p>
 <dl class="py function">
 <dt class="sig sig-object py" id="select_voice_channel">
-<span class="sig-name descname"><span class="pre">select_voice_channel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#select_voice_channel" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">select_voice_channel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#select_voice_channel" title="Link to this definition">¶</a></dt>
 <dd><p>Used to join and leave voice channels, group dms, or dms.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -182,7 +184,7 @@
 <p><br /></p>
 <dl class="py function">
 <dt class="sig sig-object py" id="get_selected_voice_channel">
-<span class="sig-name descname"><span class="pre">get_selected_voice_channel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_selected_voice_channel" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_selected_voice_channel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_selected_voice_channel" title="Link to this definition">¶</a></dt>
 <dd><p>Used to get the client’s current voice channel.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -194,7 +196,7 @@
 <p><br /></p>
 <dl class="py function">
 <dt class="sig sig-object py" id="select_text_channel">
-<span class="sig-name descname"><span class="pre">select_text_channel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#select_text_channel" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">select_text_channel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#select_text_channel" title="Link to this definition">¶</a></dt>
 <dd><p>Used to join and leave text channels, group dms, or dms.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -209,7 +211,7 @@
 <p><br /></p>
 <dl class="py function">
 <dt class="sig sig-object py" id="set_activity">
-<span class="sig-name descname"><span class="pre">set_activity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#set_activity" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">set_activity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#set_activity" title="Link to this definition">¶</a></dt>
 <dd><p>Used to set the activity shown on Discord profiles and status of users. Takes the following as parameters.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -241,7 +243,7 @@
 <p><br /></p>
 <dl class="py function">
 <dt class="sig sig-object py" id="clear_activity">
-<span class="sig-name descname"><span class="pre">clear_activity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">os.getpid()</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#clear_activity" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">clear_activity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">os.getpid()</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#clear_activity" title="Link to this definition">¶</a></dt>
 <dd><p>Clear the activity.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -272,7 +274,7 @@
 <p><br /></p>
 <dl class="py function">
 <dt class="sig sig-object py" id="subscribe">
-<span class="sig-name descname"><span class="pre">subscribe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subscribe" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">subscribe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#subscribe" title="Link to this definition">¶</a></dt>
 <dd><p>Used to subscribe to events.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -290,7 +292,7 @@
 <p><br /></p>
 <dl class="py function">
 <dt class="sig sig-object py" id="unsubscribe">
-<span class="sig-name descname"><span class="pre">unsubscribe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#unsubscribe" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">unsubscribe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#unsubscribe" title="Link to this definition">¶</a></dt>
 <dd><p>Used to unsubscribe from events.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -308,7 +310,7 @@
 <p><br /></p>
 <dl class="py function">
 <dt class="sig sig-object py" id="get_voice_settings">
-<span class="sig-name descname"><span class="pre">get_voice_settings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_voice_settings" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_voice_settings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_voice_settings" title="Link to this definition">¶</a></dt>
 <dd><p>Get the user’s voice settings.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -320,7 +322,7 @@
 <p><br /></p>
 <dl class="py function">
 <dt class="sig sig-object py" id="set_voice_settings">
-<span class="sig-name descname"><span class="pre">set_voice_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#set_voice_settings" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">set_voice_settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#set_voice_settings" title="Link to this definition">¶</a></dt>
 <dd><p>Set the user’s voice settings.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -346,7 +348,7 @@
 <p><br /></p>
 <dl class="py function">
 <dt class="sig sig-object py" id="capture_shortcut">
-<span class="sig-name descname"><span class="pre">capture_shortcut</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#capture_shortcut" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">capture_shortcut</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#capture_shortcut" title="Link to this definition">¶</a></dt>
 <dd><p>Used to capture a keyboard shortcut entered by the user.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -361,7 +363,7 @@
 <p><br /></p>
 <dl class="py function">
 <dt class="sig sig-object py" id="send_activity_join_invite">
-<span class="sig-name descname"><span class="pre">send_activity_join_invite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#send_activity_join_invite" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">send_activity_join_invite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#send_activity_join_invite" title="Link to this definition">¶</a></dt>
 <dd><p>Used to accept an Ask to Join request.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -376,7 +378,7 @@
 <p><br /></p>
 <dl class="py function">
 <dt class="sig sig-object py" id="close_activity_request">
-<span class="sig-name descname"><span class="pre">close_activity_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#close_activity_request" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">close_activity_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#close_activity_request" title="Link to this definition">¶</a></dt>
 <dd><p>Used to reject an Ask to Join request.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -391,7 +393,7 @@
 <p><br /></p>
 <dl class="py function">
 <dt class="sig sig-object py" id="register_event">
-<span class="sig-name descname"><span class="pre">register_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#register_event" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">register_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#register_event" title="Link to this definition">¶</a></dt>
 <dd><p>Hook an event to a function. The function will be called whenever Discord sends that event. Will auto subscribe to it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -410,7 +412,7 @@
 <p><br /></p>
 <dl class="py function">
 <dt class="sig sig-object py" id="unregister_event">
-<span class="sig-name descname"><span class="pre">unregister_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#unregister_event" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">unregister_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#unregister_event" title="Link to this definition">¶</a></dt>
 <dd><p>Unhook an event from a function. Will auto unsubscribe from the event as well.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -434,7 +436,7 @@
           
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <h1 class="logo"><a href="../index.html">pypresence</a></h1>
 
@@ -445,7 +447,16 @@
 
 
 
-<h3>Navigation</h3>
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../info/about.html">About</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../info/quickstart.html">Quickstart</a></li>
@@ -453,6 +464,8 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="presence.html">Presence()</a></li>
+<li class="toctree-l1"><a class="reference internal" href="presence.html#activitytype-enum">ActivityType Enum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="presence.html#statusdisplaytype-enum">StatusDisplayType Enum</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Client()</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#Client"><code class="docutils literal notranslate"><span class="pre">Client</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#start"><code class="docutils literal notranslate"><span class="pre">start()</span></code></a></li>
@@ -489,16 +502,6 @@
   </ul></li>
 </ul>
 </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -512,11 +515,11 @@
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2018, qwertyquerty.
+      &#169;2025, qwertyquerty.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.0.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
       
       |
       <a href="../_sources/doc/client.rst.txt"
