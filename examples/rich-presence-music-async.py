@@ -1,6 +1,7 @@
 import asyncio
 import time
 from pypresence import AioPresence, ActivityType, StatusDisplayType
+from pypresence.exceptions import PyPresenceException
 
 client_id = '717091213148160041'  # Fake ID, put your real one here
 
@@ -26,7 +27,7 @@ async def main(rpc) -> None:
     try:
         while True:  # Keep the presence alive while the program runs
             await asyncio.sleep(15)  # Can only update rich presence every 15 seconds
-    except Exception:
+    except PyPresenceException:
         pass
 if __name__ == "__main__":
     rpc = AioPresence(client_id)
