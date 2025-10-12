@@ -25,11 +25,17 @@ project = "pypresence"
 copyright = "2025, qwertyquerty"
 author = "qwertyquerty, LewdNeko"
 
-# The short X.Y version
 
-version = "4.5"
+with open("../pypresence/__init__.py", "r", encoding="utf8") as f:
+    for line in f:
+        if line.startswith("__version__"):
+            rawRelease = line.split("=")[1].strip().strip('"').strip("'")
+            break
+
+# The short X.Y version
+version = ".".join(rawRelease.split(".")[:2])  # X.Y
 # The full version, including alpha/beta/rc tags
-release = "4.5.0"
+release = rawRelease
 
 # -- General configuration ---------------------------------------------------
 

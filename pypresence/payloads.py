@@ -67,12 +67,12 @@ class Payload:
                 "type": (
                     activity_type.value
                     if isinstance(activity_type, ActivityType)
-                    else ActivityType.PLAYING
+                    else ActivityType.PLAYING.value
                 ),
                 "status_display_type": (
-                    status_display_type
+                    status_display_type.value
                     if isinstance(status_display_type, StatusDisplayType)
-                    else StatusDisplayType.NAME
+                    else StatusDisplayType.NAME.value
                 ),
                 "state": state,
                 "details": details,
