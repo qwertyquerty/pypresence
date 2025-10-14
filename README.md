@@ -52,6 +52,12 @@ For the latest stable version:
 Examples can be found in the [examples](https://github.com/qwertyquerty/pypresence/tree/master/examples) directory, and you can contribute your own examples if you wish, just read [examples.md](https://github.com/qwertyquerty/pypresence/blob/master/examples/examples.md)!
 
 ----------
+
+# Development
+
+Want to contribute? Check out the **[Development Guide](DEVELOPMENT.md)** for setup instructions, testing, code quality tools, and contribution guidelines.
+
+----------
 Written by: [qwertyquerty](https://github.com/qwertyquerty)
 
 Notable Contributors: [GiovanniMCMXCIX](https://github.com/GiovanniMCMXCIX), [GhostofGoes](https://github.com/GhostofGoes)

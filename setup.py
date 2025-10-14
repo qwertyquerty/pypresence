@@ -1,50 +1,13 @@
+"""
+Legacy setup.py for backward compatibility.
+All configuration has been migrated to pyproject.toml.
+This file is kept for compatibility with older tools.
+"""
+
 from setuptools import setup
-import pypresence
 
-# Use README for the PyPI page
-with open("README.md") as f:
-    long_description = f.read()
-
-# https://setuptools.readthedocs.io/en/latest/setuptools.html
-setup(
-    name="pypresence",
-    author="qwertyquerty",
-    url="https://github.com/qwertyquerty/pypresence",
-    version=pypresence.__version__,
-    packages=["pypresence"],
-    python_requires=">=3.9",
-    platforms=["Windows", "Linux", "OSX"],
-    zip_safe=True,
-    license="MIT",
-    description="Discord RPC client written in Python",
-    long_description=long_description,
-    # PEP 566, PyPI Warehouse, setuptools>=38.6.0 make markdown possible
-    long_description_content_type="text/markdown",
-    keywords="discord rich presence pypresence rpc api wrapper gamers chat irc",
-    # Used by PyPI to classify the project and make it searchable
-    # Full list: https://pypi.org/pypi?%3Aaction=list_classifiers
-    classifiers=[
-        "Development Status :: 5 - Production/Stable",
-        "License :: OSI Approved :: MIT License",
-        "Operating System :: Microsoft :: Windows",
-        "Operating System :: POSIX :: Linux",
-        "Operating System :: MacOS :: MacOS X",
-        "Programming Language :: Python",
-        "Programming Language :: Python :: 3.9",
-        "Programming Language :: Python :: 3.10",
-        "Programming Language :: Python :: 3.11",
-        "Programming Language :: Python :: 3.12",
-        "Programming Language :: Python :: 3.13",
-        "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: Implementation :: CPython",
-        "Typing :: Typed",
-        "Intended Audience :: Developers",
-        "Topic :: Software Development :: Libraries :: Python Modules",
-        "Topic :: Software Development :: Libraries",
-        "Topic :: Communications :: Chat",
-        "Framework :: AsyncIO",
-    ],
-)
+# All configuration is now in pyproject.toml
+setup()
 
 print(
     r"""
