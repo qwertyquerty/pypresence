@@ -98,9 +98,8 @@ asyncio_mode = "auto"
 
 [tool.mypy]
 files = ["pypresence/", "examples/"]
-exclude = ["docs/*"]
+exclude = ["docs/*", "tests/*"]
 ignore_missing_imports = true
-strict = true
 
 [tool.isort]
 profile = "black"

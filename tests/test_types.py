@@ -1,6 +1,5 @@
 """Test type enums"""
 
-import pytest
 from pypresence.types import ActivityType, StatusDisplayType
 
 
