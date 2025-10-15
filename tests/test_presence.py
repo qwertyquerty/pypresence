@@ -112,6 +112,80 @@ class TestPresenceUpdate:
 
         assert payload["args"]["activity"]["type"] == ActivityType.LISTENING.value
 
+    @patch("pypresence.baseclient.BaseClient.read_output")
+    def test_update_with_name(self, mock_read_output, client_id):
+        """Test update with name parameter"""
+        presence = Presence(client_id)
+        presence.sock_writer = Mock()
+
+        async def mock_coro():
+            return {}
+
+        mock_read_output.return_value = mock_coro()
+
+        presence.update(name="Custom Activity Name")
+
+        call_args = presence.sock_writer.write.call_args[0][0]
+        op, length = struct.unpack("<II", call_args[:8])
+        payload_json = call_args[8 : 8 + length].decode("utf-8")
+        payload = json.loads(payload_json)
+
+        assert payload["args"]["activity"]["name"] == "Custom Activity Name"
+
+    @patch("pypresence.baseclient.BaseClient.read_output")
+    def test_update_with_name_and_status_display_type(
+        self, mock_read_output, client_id
+    ):
+        """Test update with name and status_display_type"""
+        presence = Presence(client_id)
+        presence.sock_writer = Mock()
+
+        async def mock_coro():
+            return {}
+
+        mock_read_output.return_value = mock_coro()
+
+        from pypresence.types import StatusDisplayType
+
+        presence.update(
+            name="My Custom Name", status_display_type=StatusDisplayType.NAME
+        )
+
+        call_args = presence.sock_writer.write.call_args[0][0]
+        op, length = struct.unpack("<II", call_args[:8])
+        payload_json = call_args[8 : 8 + length].decode("utf-8")
+        payload = json.loads(payload_json)
+
+        assert payload["args"]["activity"]["name"] == "My Custom Name"
+        assert (
+            payload["args"]["activity"]["status_display_type"]
+            == StatusDisplayType.NAME.value
+        )
+
+    @patch("pypresence.baseclient.BaseClient.read_output")
+    def test_update_with_name_details_and_state(self, mock_read_output, client_id):
+        """Test update with name, details, and state together"""
+        presence = Presence(client_id)
+        presence.sock_writer = Mock()
+
+        async def mock_coro():
+            return {}
+
+        mock_read_output.return_value = mock_coro()
+
+        presence.update(
+            name="My Activity", details="Working on something", state="In Progress"
+        )
+
+        call_args = presence.sock_writer.write.call_args[0][0]
+        op, length = struct.unpack("<II", call_args[:8])
+        payload_json = call_args[8 : 8 + length].decode("utf-8")
+        payload = json.loads(payload_json)
+
+        assert payload["args"]["activity"]["name"] == "My Activity"
+        assert payload["args"]["activity"]["details"] == "Working on something"
+        assert payload["args"]["activity"]["state"] == "In Progress"
+
 
 class TestPresenceClear:
     """Test Presence.clear() method"""

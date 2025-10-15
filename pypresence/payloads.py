@@ -30,6 +30,7 @@ class Payload:
         status_display_type: StatusDisplayType | int | None = None,
         state: str | None = None,
         details: str | None = None,
+        name: str | None = None,
         start: int | float | None = None,
         end: int | float | None = None,
         large_image: str | None = None,
@@ -76,6 +77,7 @@ class Payload:
                 ),
                 "state": state,
                 "details": details,
+                "name": name,
                 "timestamps": {"start": start, "end": end},
                 "assets": {
                     "large_image": large_image,
