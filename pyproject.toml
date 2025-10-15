@@ -100,9 +100,13 @@ asyncio_mode = "auto"
 files = ["pypresence/", "examples/"]
 exclude = ["docs/*"]
 ignore_missing_imports = true
+strict = true
 
 [tool.isort]
 profile = "black"
 
 [tool.bdist_wheel]
 universal = true
+
+[tool.bandit]
+exclude_dirs = ["tests", ".venv"]

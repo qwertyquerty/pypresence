@@ -8,7 +8,7 @@ jobs:
       - uses: actions/setup-python@v5
       - run: pip install --upgrade pip wheel setuptools
       - run: pip install bandit black codespell flake8 isort mypy pytest pyupgrade safety
-      - run: bandit --recursive --skip B101,B311 .
+      - run: bandit --recursive -c pyproject.toml --skip B101,B311 .
       - run: black --check .
       - run: codespell --ignore-words-list="wee" --skip="*.css,*.js"
       - run: flake8 . --count --select=C,E,F,W,B,B950 --extend-ignore=E203,E501,W503 --max-complexity=10 --max-line-length=88 --show-source --statistics
@@ -17,7 +17,7 @@ jobs:
       - run: pip install -e .
       - run: mkdir -p .mypy_cache
       - run: mypy --install-types --non-interactive . || true
-      - run: pytest . || true
-      - run: pytest --doctest-modules . || true
+      - run: pytest .
+      - run: pytest --doctest-modules . 
       - run: shopt -s globstar && pyupgrade --py36-plus **/*.py || true
       - run: safety scan || true
