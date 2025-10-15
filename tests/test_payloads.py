@@ -1,6 +1,5 @@
 """Test payload generation without any I/O operations"""
 
-import pytest
 import json
 import os
 from pypresence.payloads import Payload

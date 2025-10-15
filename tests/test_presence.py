@@ -4,7 +4,6 @@ import pytest
 from unittest.mock import Mock, patch, AsyncMock
 import struct
 import json
-import os
 
 from pypresence import Presence, AioPresence
 from pypresence.types import ActivityType

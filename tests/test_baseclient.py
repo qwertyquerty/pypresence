@@ -1,7 +1,7 @@
 """Test BaseClient core functionality"""
 
 import pytest
-from unittest.mock import Mock, patch, AsyncMock, MagicMock
+from unittest.mock import Mock, patch, AsyncMock
 import asyncio
 import struct
 import json
@@ -15,7 +15,6 @@ from pypresence.exceptions import (
     PipeClosed,
     ConnectionTimeout,
     ResponseTimeout,
-    DiscordNotFound,
     InvalidID,
     ServerError,
 )
