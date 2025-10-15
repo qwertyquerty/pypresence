@@ -8,14 +8,13 @@ dynamic = ["version"]
 description = "Discord RPC client written in Python"
 readme = "README.md"
 requires-python = ">=3.9"
-license = {text = "MIT"}
+license = "MIT"
 authors = [
     {name = "qwertyquerty"}
 ]
 keywords = ["discord", "rich presence", "pypresence", "rpc", "api", "wrapper", "gamers", "chat", "irc"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: Microsoft :: Windows",
     "Operating System :: POSIX :: Linux",
     "Operating System :: MacOS :: MacOS X",
