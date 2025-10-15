@@ -6,6 +6,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
+        with:
+          cache: 'pip'
       - run: pip install --upgrade pip wheel setuptools
       - run: pip install bandit black codespell flake8 isort mypy pytest pyupgrade safety
       - run: bandit --recursive -c pyproject.toml --skip B101,B311 .
