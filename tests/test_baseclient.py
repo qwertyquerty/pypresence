@@ -208,17 +208,22 @@ class TestBaseClientHandshake:
         """Test successful handshake"""
         client = BaseClient(client_id)
 
-        # Mock create_reader_writer
-        client.sock_reader = AsyncMock()
-        client.sock_writer = Mock()
-        client.create_reader_writer = AsyncMock()
-
         # Mock successful handshake response
         response = {"cmd": "DISPATCH", "data": {"v": 1}, "evt": "READY"}
         response_json = json.dumps(response).encode("utf-8")
         preamble = struct.pack("<II", 1, len(response_json))
 
-        client.sock_reader.read = AsyncMock(side_effect=[preamble, response_json])
+        # Create mock reader and writer
+        mock_reader = AsyncMock()
+        mock_writer = Mock()
+        mock_reader.read = AsyncMock(side_effect=[preamble, response_json])
+
+        # Mock create_reader_writer to set up the mocks
+        async def mock_create_reader_writer(ipc_path):
+            client.sock_reader = mock_reader
+            client.sock_writer = mock_writer
+
+        client.create_reader_writer = AsyncMock(side_effect=mock_create_reader_writer)
 
         await client.handshake()
 
@@ -230,12 +235,17 @@ class TestBaseClientHandshake:
         """Test handshake when Discord IPC returns empty preamble"""
         client = BaseClient(client_id)
 
-        client.sock_reader = AsyncMock()
-        client.sock_writer = Mock()
-        client.create_reader_writer = AsyncMock()
+        # Create mock reader and writer
+        mock_reader = AsyncMock()
+        mock_writer = Mock()
+        mock_reader.read = AsyncMock(return_value=b"")
 
-        # Mock empty preamble which triggers InvalidID
-        client.sock_reader.read = AsyncMock(return_value=b"")
+        # Mock create_reader_writer to set up the mocks
+        async def mock_create_reader_writer(ipc_path):
+            client.sock_reader = mock_reader
+            client.sock_writer = mock_writer
+
+        client.create_reader_writer = AsyncMock(side_effect=mock_create_reader_writer)
 
         with pytest.raises(InvalidPipe):
             await client.handshake()
@@ -245,16 +255,22 @@ class TestBaseClientHandshake:
         """Test handshake with invalid client ID"""
         client = BaseClient(client_id)
 
-        client.sock_reader = AsyncMock()
-        client.sock_writer = Mock()
-        client.create_reader_writer = AsyncMock()
-
         # Mock invalid client ID response
         response = {"code": 4000, "message": "Invalid Client ID"}
         response_json = json.dumps(response).encode("utf-8")
         preamble = struct.pack("<II", 1, len(response_json))
 
-        client.sock_reader.read = AsyncMock(side_effect=[preamble, response_json])
+        # Create mock reader and writer
+        mock_reader = AsyncMock()
+        mock_writer = Mock()
+        mock_reader.read = AsyncMock(side_effect=[preamble, response_json])
+
+        # Mock create_reader_writer to set up the mocks
+        async def mock_create_reader_writer(ipc_path):
+            client.sock_reader = mock_reader
+            client.sock_writer = mock_writer
+
+        client.create_reader_writer = AsyncMock(side_effect=mock_create_reader_writer)
 
         with pytest.raises(InvalidID):
             await client.handshake()
@@ -264,12 +280,17 @@ class TestBaseClientHandshake:
         """Test handshake with short preamble"""
         client = BaseClient(client_id)
 
-        client.sock_reader = AsyncMock()
-        client.sock_writer = Mock()
-        client.create_reader_writer = AsyncMock()
+        # Create mock reader and writer
+        mock_reader = AsyncMock()
+        mock_writer = Mock()
+        mock_reader.read = AsyncMock(return_value=b"\x00\x00")
 
-        # Mock short preamble (less than 8 bytes)
-        client.sock_reader.read = AsyncMock(return_value=b"\x00\x00")
+        # Mock create_reader_writer to set up the mocks
+        async def mock_create_reader_writer(ipc_path):
+            client.sock_reader = mock_reader
+            client.sock_writer = mock_writer
+
+        client.create_reader_writer = AsyncMock(side_effect=mock_create_reader_writer)
 
         with pytest.raises(InvalidPipe):
             await client.handshake()
