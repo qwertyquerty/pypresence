@@ -54,6 +54,7 @@ Presence()
    :param StatusDisplayType status_display_type: which field to display in the status (NAME, STATE, or DETAILS). See :ref:`status-display-types` for more details. Defaults to NAME if not specified.
    :param str state: the user's current status
    :param str details: what the player is currently doing
+   :param str name: directly set what discord will display in places like the user list
    :param int start: epoch time for game start (in seconds, will be converted to milliseconds)
    :param int end: epoch time for game end (in seconds, will be converted to milliseconds)
    :param str large_image: name of the uploaded image for the large profile artwork

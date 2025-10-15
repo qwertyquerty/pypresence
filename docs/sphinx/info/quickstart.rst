@@ -20,10 +20,10 @@ Quickstart
 - Right under the name of your application, locate your Client ID. You will need this later.
 - Lastly, save your application.
 
-**Next, you need to install pypresence. You will need python 3.5 - 3.7 installed. Here are the steps:**
+**Next, you need to install pypresence. You will need python 3.9+ installed. Here are the steps:**
 
 - Open command prompt
-- Type ``pip3 install pypresence`` and hit enter
+- Type ``pip install pypresence`` and hit enter
 - It should say something near the end that says something like ``"Successfully installed pypresence"``.
 
 **Now you will need to create the program to set your rich presence. First we need to import what we need, like so:**
@@ -50,7 +50,11 @@ Quickstart
 
 .. code-block:: python
 
- RPC.update(state="Rich Presence using pypresence!") # Updates our presence
+     RPC.update(
+        state="Here it is!",
+        details="A working presence, from python!",
+        name="Rich Presence Example",
+    ) # Updates our presence
 
 
 **Now we need our program to run forever, so we use a while loop.**
@@ -63,8 +67,7 @@ Quickstart
 
 **Now when you run your program, it should look something like this!**
 
-.. figure:: ../_static/img/quickstart-final.png
-   :scale: 150 %
+.. figure:: ../_static/img/quickstart-final-new.png
    :alt: Finished Presence
 
 |br|

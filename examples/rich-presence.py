@@ -1,14 +1,15 @@
 from pypresence import Presence
 import time
 
-client_id = "64567352374564"  # Fake ID, put your real one here
+client_id = "717091213148160041"  # Fake ID, put your real one here
 RPC = Presence(client_id)  # Initialize the client class
 RPC.connect()  # Start the handshake loop
 
 print(
     RPC.update(
-        state="Lookie Lookie",
-        details="A test of qwertyquerty's Python Discord RPC wrapper, pypresence!",
+        state="Here it is!",
+        details="A working presence, from python!",
+        name="Rich Presence Example",
     )
 )  # Set the presence
 

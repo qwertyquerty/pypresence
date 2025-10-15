@@ -25,8 +25,7 @@ project = "pypresence"
 copyright = "2025, qwertyquerty"
 author = "qwertyquerty, LewdNeko"
 
-
-with open("../pypresence/__init__.py", "r", encoding="utf8") as f:
+with open("../../pypresence/__init__.py", "r", encoding="utf8") as f:
     for line in f:
         if line.startswith("__version__"):
             rawRelease = line.split("=")[1].strip().strip('"').strip("'")
