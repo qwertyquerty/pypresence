@@ -104,8 +104,9 @@ def mock_ipc_path(monkeypatch, tmp_path):
     def mock_get_ipc_path(pipe=None):
         return ipc_path
 
-    from pypresence import utils
+    # Patch in baseclient module where it's actually used
+    from pypresence import baseclient
 
-    monkeypatch.setattr(utils, "get_ipc_path", mock_get_ipc_path)
+    monkeypatch.setattr(baseclient, "get_ipc_path", mock_get_ipc_path)
 
     return ipc_path
