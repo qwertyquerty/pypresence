@@ -46,7 +46,7 @@ Quickstart
 
  RPC.connect() # Start the handshake loop
 
-**Now we need to actually set our rich presence. We can use the update() function for this. There are many options we can use, but for this we will use state:**
+**Now we need to actually set our rich presence. We can use the update() function for this. There are many options we can use, but for this we will use these:**
 
 .. code-block:: python
 
