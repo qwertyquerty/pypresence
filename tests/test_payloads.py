@@ -2,6 +2,7 @@
 
 import json
 import os
+
 from pypresence.payloads import Payload
 from pypresence.types import ActivityType, StatusDisplayType
 

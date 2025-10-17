@@ -1,10 +1,11 @@
 """Pytest configuration and shared fixtures"""
 
-import pytest
 import asyncio
-from unittest.mock import Mock, AsyncMock, MagicMock
-import struct
 import json
+import struct
+from unittest.mock import AsyncMock, MagicMock, Mock
+
+import pytest
 
 
 @pytest.fixture

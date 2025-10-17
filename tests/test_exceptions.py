@@ -1,16 +1,17 @@
 """Test exception classes"""
 
 import pytest
+
 from pypresence.exceptions import (
-    PyPresenceException,
+    ConnectionTimeout,
+    DiscordError,
+    DiscordNotFound,
     InvalidArgument,
+    InvalidID,
     InvalidPipe,
     PipeClosed,
-    ConnectionTimeout,
+    PyPresenceException,
     ResponseTimeout,
-    DiscordNotFound,
-    InvalidID,
-    DiscordError,
     ServerError,
 )
 

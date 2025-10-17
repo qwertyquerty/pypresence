@@ -1,8 +1,8 @@
 import time
 
 import requests  # Needs requests module installed: pip install requests -U
-from pypresence import Presence
 
+from pypresence import Presence
 
 CLIENT_ID = ""  # Your client ID here
 

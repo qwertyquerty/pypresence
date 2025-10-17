@@ -1,6 +1,8 @@
-import psutil
-from pypresence import Presence
 import time
+
+import psutil
+
+from pypresence import Presence
 
 client_id = "64567352374564"  # Fake ID, put your real one here
 RPC = Presence(client_id, pipe=0)  # Initialize the client class

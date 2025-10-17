@@ -1,13 +1,13 @@
 from __future__ import annotations
+
 import os
 import sys
+import typing
 
 from .baseclient import BaseClient
 from .payloads import Payload
-from .utils import get_event_loop
 from .types import ActivityType, StatusDisplayType
-
-import typing
+from .utils import get_event_loop
 
 
 class Presence(BaseClient):

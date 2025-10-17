@@ -1,9 +1,11 @@
 """Test utility functions"""
 
-import pytest
 import asyncio
 import sys
-from pypresence.utils import remove_none, get_event_loop
+
+import pytest
+
+from pypresence.utils import get_event_loop, remove_none
 
 
 class TestRemoveNone:

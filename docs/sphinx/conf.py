@@ -16,8 +16,8 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
-import sys
 import os
+import sys
 
 # -- Project information -----------------------------------------------------
 

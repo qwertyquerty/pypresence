@@ -1,6 +1,7 @@
-from pypresence import Presence
-import time
 import random
+import time
+
+from pypresence import Presence
 
 client_id = "64567352374564"  # Put your Client ID here, this is a fake ID
 RPC = Presence(client_id)  # Initialize the Presence class

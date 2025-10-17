@@ -1,6 +1,7 @@
 import asyncio
 import time
-from pypresence import AioPresence, ActivityType, StatusDisplayType
+
+from pypresence import ActivityType, AioPresence, StatusDisplayType
 from pypresence.exceptions import PyPresenceException
 
 client_id = "717091213148160041"  # Fake ID, put your real one here
