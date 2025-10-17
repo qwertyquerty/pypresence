@@ -4,8 +4,8 @@ import json
 import os
 import time
 
-from .utils import remove_none
 from .types import ActivityType, StatusDisplayType
+from .utils import remove_none
 
 
 class Payload:

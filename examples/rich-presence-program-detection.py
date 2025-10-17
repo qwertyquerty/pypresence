@@ -1,6 +1,7 @@
 import time
 
 import psutil
+
 import pypresence
 
 rpc = pypresence.Presence("0123..")  # Put your Application ID here

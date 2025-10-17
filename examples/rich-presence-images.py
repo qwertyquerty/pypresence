@@ -1,5 +1,6 @@
-from pypresence import Presence
 import time
+
+from pypresence import Presence
 
 """
 You need to upload your image(s) here:

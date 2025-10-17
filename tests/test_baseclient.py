@@ -1,21 +1,22 @@
 """Test BaseClient core functionality"""
 
-import pytest
-from unittest.mock import Mock, patch, AsyncMock
 import asyncio
-import struct
 import json
+import struct
 import sys
+from unittest.mock import AsyncMock, Mock, patch
+
+import pytest
 
 from pypresence.baseclient import BaseClient
 from pypresence.exceptions import (
-    PyPresenceException,
+    ConnectionTimeout,
     InvalidArgument,
+    InvalidID,
     InvalidPipe,
     PipeClosed,
-    ConnectionTimeout,
+    PyPresenceException,
     ResponseTimeout,
-    InvalidID,
     ServerError,
 )
 

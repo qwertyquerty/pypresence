@@ -1,5 +1,6 @@
-from pypresence import Presence, ActivityType, StatusDisplayType
 import time
+
+from pypresence import ActivityType, Presence, StatusDisplayType
 
 client_id = "717091213148160041"  # Fake ID, put your real one here
 RPC = Presence(client_id)  # Initialize the client class

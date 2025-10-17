@@ -5,11 +5,10 @@ By: qwertyquerty and LewdNeko
 """
 
 from .baseclient import BaseClient
-from .client import Client, AioClient
+from .client import AioClient, Client
 from .exceptions import *
+from .presence import AioPresence, Presence
 from .types import ActivityType, StatusDisplayType
-from .presence import Presence, AioPresence
-
 
 __title__ = "pypresence"
 __author__ = "qwertyquerty"

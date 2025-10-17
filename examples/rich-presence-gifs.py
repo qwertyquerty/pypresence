@@ -1,5 +1,6 @@
-from pypresence import Presence
 import time
+
+from pypresence import Presence
 
 """
 Create an application and get the application id here 

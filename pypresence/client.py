@@ -1,17 +1,18 @@
 from __future__ import annotations
+
 import asyncio
 import inspect
-import struct
 import json
 import os
-from typing import List, Callable, Union
+import struct
+from typing import Callable, List, Union
 
 from .baseclient import BaseClient
 from .exceptions import (
     ArgumentError,
+    DiscordError,
     EventNotFound,
     InvalidArgument,
-    DiscordError,
     PyPresenceException,
 )
 from .payloads import Payload

@@ -2,9 +2,9 @@
 
 import asyncio
 import os
+import socket
 import sys
 import tempfile
-import socket
 
 
 def remove_none(d: dict):

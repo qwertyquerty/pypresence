@@ -8,19 +8,19 @@ import sys
 
 # TODO: Get rid of this import * lol
 from .exceptions import (
-    PyPresenceException,
+    ConnectionTimeout,
+    DiscordError,
+    DiscordNotFound,
     InvalidArgument,
+    InvalidID,
     InvalidPipe,
     PipeClosed,
-    ConnectionTimeout,
+    PyPresenceException,
     ResponseTimeout,
-    DiscordNotFound,
-    InvalidID,
-    DiscordError,
     ServerError,
 )
 from .payloads import Payload
-from .utils import get_ipc_path, get_event_loop
+from .utils import get_event_loop, get_ipc_path
 
 
 class BaseClient:

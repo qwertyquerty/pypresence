@@ -9,9 +9,10 @@ These URL parameters allow you to make text and images clickable
 in Discord Rich Presence.
 """
 
+import time
+
 from pypresence import Presence
 from pypresence.types import ActivityType
-import time
 
 # Your Discord Application Client ID
 client_id = "YOUR_CLIENT_ID_HERE"

@@ -1,11 +1,12 @@
 """Test Presence class with mocked I/O"""
 
-import pytest
-from unittest.mock import Mock, patch, AsyncMock
-import struct
 import json
+import struct
+from unittest.mock import AsyncMock, Mock, patch
 
-from pypresence import Presence, AioPresence
+import pytest
+
+from pypresence import AioPresence, Presence
 from pypresence.types import ActivityType
 
 
