@@ -281,3 +281,208 @@ class TestAioPresence:
 
         assert result == mock_response
         assert presence.sock_writer.write.called
+
+
+class TestPresenceURLFeatures:
+    """Test Presence URL features (state_url, details_url, large_url, small_url)"""
+
+    @patch("pypresence.baseclient.BaseClient.read_output")
+    def test_update_with_state_url(self, mock_read_output, client_id):
+        """Test presence update with state_url parameter"""
+        presence = Presence(client_id)
+        presence.sock_writer = Mock()
+
+        async def mock_coro():
+            return {}
+
+        mock_read_output.return_value = mock_coro()
+
+        presence.update(state="Playing a game", state_url="https://example.com/game")
+
+        # Parse the payload
+        call_args = presence.sock_writer.write.call_args[0][0]
+        op, length = struct.unpack("<II", call_args[:8])
+        payload_json = call_args[8 : 8 + length].decode("utf-8")
+        payload = json.loads(payload_json)
+
+        assert payload["args"]["activity"]["state"] == "Playing a game"
+        assert payload["args"]["activity"]["state_url"] == "https://example.com/game"
+
+    @patch("pypresence.baseclient.BaseClient.read_output")
+    def test_update_with_details_url(self, mock_read_output, client_id):
+        """Test presence update with details_url parameter"""
+        presence = Presence(client_id)
+        presence.sock_writer = Mock()
+
+        async def mock_coro():
+            return {}
+
+        mock_read_output.return_value = mock_coro()
+
+        presence.update(
+            details="In a ranked match", details_url="https://example.com/match/12345"
+        )
+
+        # Parse the payload
+        call_args = presence.sock_writer.write.call_args[0][0]
+        op, length = struct.unpack("<II", call_args[:8])
+        payload_json = call_args[8 : 8 + length].decode("utf-8")
+        payload = json.loads(payload_json)
+
+        assert payload["args"]["activity"]["details"] == "In a ranked match"
+        assert (
+            payload["args"]["activity"]["details_url"]
+            == "https://example.com/match/12345"
+        )
+
+    @patch("pypresence.baseclient.BaseClient.read_output")
+    def test_update_with_large_url(self, mock_read_output, client_id):
+        """Test presence update with large_url parameter"""
+        presence = Presence(client_id)
+        presence.sock_writer = Mock()
+
+        async def mock_coro():
+            return {}
+
+        mock_read_output.return_value = mock_coro()
+
+        presence.update(
+            large_image="large_key",
+            large_text="Large Image",
+            large_url="https://cdn.example.com/images/large.png",
+        )
+
+        # Parse the payload
+        call_args = presence.sock_writer.write.call_args[0][0]
+        op, length = struct.unpack("<II", call_args[:8])
+        payload_json = call_args[8 : 8 + length].decode("utf-8")
+        payload = json.loads(payload_json)
+
+        assets = payload["args"]["activity"]["assets"]
+        assert assets["large_image"] == "large_key"
+        assert assets["large_text"] == "Large Image"
+        assert assets["large_url"] == "https://cdn.example.com/images/large.png"
+
+    @patch("pypresence.baseclient.BaseClient.read_output")
+    def test_update_with_small_url(self, mock_read_output, client_id):
+        """Test presence update with small_url parameter"""
+        presence = Presence(client_id)
+        presence.sock_writer = Mock()
+
+        async def mock_coro():
+            return {}
+
+        mock_read_output.return_value = mock_coro()
+
+        presence.update(
+            small_image="small_key",
+            small_text="Small Image",
+            small_url="https://cdn.example.com/images/small.png",
+        )
+
+        # Parse the payload
+        call_args = presence.sock_writer.write.call_args[0][0]
+        op, length = struct.unpack("<II", call_args[:8])
+        payload_json = call_args[8 : 8 + length].decode("utf-8")
+        payload = json.loads(payload_json)
+
+        assets = payload["args"]["activity"]["assets"]
+        assert assets["small_image"] == "small_key"
+        assert assets["small_text"] == "Small Image"
+        assert assets["small_url"] == "https://cdn.example.com/images/small.png"
+
+    @patch("pypresence.baseclient.BaseClient.read_output")
+    def test_update_with_all_urls(self, mock_read_output, client_id):
+        """Test presence update with all URL parameters"""
+        presence = Presence(client_id)
+        presence.sock_writer = Mock()
+
+        async def mock_coro():
+            return {}
+
+        mock_read_output.return_value = mock_coro()
+
+        presence.update(
+            state="Playing",
+            state_url="https://example.com/state",
+            details="Match in progress",
+            details_url="https://example.com/details",
+            large_image="large",
+            large_url="https://cdn.example.com/large.png",
+            small_image="small",
+            small_url="https://cdn.example.com/small.png",
+        )
+
+        # Parse the payload
+        call_args = presence.sock_writer.write.call_args[0][0]
+        op, length = struct.unpack("<II", call_args[:8])
+        payload_json = call_args[8 : 8 + length].decode("utf-8")
+        payload = json.loads(payload_json)
+
+        activity = payload["args"]["activity"]
+        assert activity["state_url"] == "https://example.com/state"
+        assert activity["details_url"] == "https://example.com/details"
+
+        assets = activity["assets"]
+        assert assets["large_url"] == "https://cdn.example.com/large.png"
+        assert assets["small_url"] == "https://cdn.example.com/small.png"
+
+
+class TestAioPresenceURLFeatures:
+    """Test async Presence URL features"""
+
+    @pytest.mark.asyncio
+    async def test_aio_update_with_state_url(self, client_id):
+        """Test async presence update with state_url"""
+        presence = AioPresence(client_id)
+        presence.sock_writer = Mock()
+
+        mock_response = {"cmd": "SET_ACTIVITY", "evt": "ACTIVITY_UPDATE", "data": {}}
+        presence.read_output = AsyncMock(return_value=mock_response)
+
+        await presence.update(
+            state="Playing async", state_url="https://example.com/async"
+        )
+
+        # Parse the payload
+        call_args = presence.sock_writer.write.call_args[0][0]
+        op, length = struct.unpack("<II", call_args[:8])
+        payload_json = call_args[8 : 8 + length].decode("utf-8")
+        payload = json.loads(payload_json)
+
+        assert payload["args"]["activity"]["state"] == "Playing async"
+        assert payload["args"]["activity"]["state_url"] == "https://example.com/async"
+
+    @pytest.mark.asyncio
+    async def test_aio_update_with_all_urls(self, client_id):
+        """Test async presence update with all URL parameters"""
+        presence = AioPresence(client_id)
+        presence.sock_writer = Mock()
+
+        mock_response = {"cmd": "SET_ACTIVITY", "evt": "ACTIVITY_UPDATE", "data": {}}
+        presence.read_output = AsyncMock(return_value=mock_response)
+
+        await presence.update(
+            state="Async State",
+            state_url="https://example.com/state",
+            details="Async Details",
+            details_url="https://example.com/details",
+            large_image="large",
+            large_url="https://cdn.example.com/large.png",
+            small_image="small",
+            small_url="https://cdn.example.com/small.png",
+        )
+
+        # Parse the payload
+        call_args = presence.sock_writer.write.call_args[0][0]
+        op, length = struct.unpack("<II", call_args[:8])
+        payload_json = call_args[8 : 8 + length].decode("utf-8")
+        payload = json.loads(payload_json)
+
+        activity = payload["args"]["activity"]
+        assert activity["state_url"] == "https://example.com/state"
+        assert activity["details_url"] == "https://example.com/details"
+
+        assets = activity["assets"]
+        assert assets["large_url"] == "https://cdn.example.com/large.png"
+        assert assets["small_url"] == "https://cdn.example.com/small.png"

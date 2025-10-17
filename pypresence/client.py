@@ -4,8 +4,7 @@ import inspect
 import struct
 import json
 import os
-import typing
-from typing import List, Callable
+from typing import List, Callable, Union
 
 from .baseclient import BaseClient
 from .exceptions import (
@@ -146,14 +145,18 @@ class Client(BaseClient):
         activity_type: ActivityType | None = None,
         status_display_type: StatusDisplayType | None = None,
         state: str | None = None,
+        state_url: str | None = None,
         details: str | None = None,
+        details_url: str | None = None,
         name: str | None = None,
-        start: typing.Union[int, float] | None = None,
-        end: typing.Union[int, float] | None = None,
+        start: Union[int, float] | None = None,
+        end: Union[int, float] | None = None,
         large_image: str | None = None,
         large_text: str | None = None,
+        large_url: str | None = None,
         small_image: str | None = None,
         small_text: str | None = None,
+        small_url: str | None = None,
         party_id: str | None = None,
         party_size: list | None = None,
         join: str | None = None,
@@ -184,14 +187,17 @@ class Client(BaseClient):
                     status_display_type.value if status_display_type else None
                 ),
                 state=state,
+                state_url=state_url,
                 details=details,
-                name=name,
+                details_url=details_url,
                 start=start,
                 end=end,
                 large_image=large_image,
                 large_text=large_text,
+                large_url=large_url,
                 small_image=small_image,
                 small_text=small_text,
+                small_url=small_url,
                 party_id=party_id,
                 party_size=party_size,
                 join=join,
@@ -410,8 +416,8 @@ class AioClient(BaseClient):
         state: str | None = None,
         details: str | None = None,
         name: str | None = None,
-        start: typing.Union[int, float] | None = None,
-        end: typing.Union[int, float] | None = None,
+        start: Union[int, float] | None = None,
+        end: Union[int, float] | None = None,
         large_image: str | None = None,
         large_text: str | None = None,
         small_image: str | None = None,
