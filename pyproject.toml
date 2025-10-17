@@ -1,3 +1,68 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pypresence"
+dynamic = ["version"]
+description = "Discord RPC client written in Python"
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+authors = [
+    {name = "qwertyquerty"}
+]
+keywords = ["discord", "rich presence", "pypresence", "rpc", "api", "wrapper", "gamers", "chat", "irc"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS :: MacOS X",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Typing :: Typed",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Communications :: Chat",
+    "Framework :: AsyncIO",
+]
+
+[project.urls]
+Homepage = "https://github.com/qwertyquerty/pypresence"
+Repository = "https://github.com/qwertyquerty/pypresence"
+Issues = "https://github.com/qwertyquerty/pypresence/issues"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-mock>=3.10.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "flake8>=6.0.0",
+    "mypy>=1.0.0",
+    "isort>=5.12.0",
+    "sphinx>=5.0.0",
+    "sphinx-rtd-theme>=1.2.0",
+]
+
+[tool.setuptools]
+packages = ["pypresence"]
+zip-safe = true
+
+[tool.setuptools.dynamic]
+version = {attr = "pypresence.__version__"}
+
+[tool.setuptools.package-data]
+pypresence = ["py.typed"]
+
 [tool.black]
 extend-exclude = '''
 /(\.(git|hg|mypy_cache|tox|venv|env|.eggs|.vscode|.github|.idea)|
@@ -11,3 +76,32 @@ extend-exclude = '''
  docs|
 )/
 '''
+
+[tool.pytest.ini_options]
+testpaths = "tests"
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+addopts = [
+    "-v",
+    "--strict-markers",
+    "--tb=short",
+    "--disable-warnings"
+]
+markers = [
+    "asyncio: marks tests as async (deselect with '-m \"not asyncio\"')",
+    "integration: marks tests as integration tests (deselect with '-m \"not integration\"')",
+    "manual: marks tests that require manual setup like Discord running (deselect with '-m \"not manual\"')"
+]
+asyncio_mode = "auto"
+
+[tool.mypy]
+files = ["pypresence/", "examples/"]
+exclude = ["docs/*", "tests/*"]
+ignore_missing_imports = true
+
+[tool.isort]
+profile = "black"
+
+[tool.bandit]
+exclude_dirs = ["tests", ".venv"]

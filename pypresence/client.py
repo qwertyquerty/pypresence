@@ -148,6 +148,7 @@ class Client(BaseClient):
         state_url: str | None = None,
         details: str | None = None,
         details_url: str | None = None,
+        name: str | None = None,
         start: Union[int, float] | None = None,
         end: Union[int, float] | None = None,
         large_image: str | None = None,
@@ -178,31 +179,37 @@ class Client(BaseClient):
             if isinstance(end, int) or isinstance(end, float):
                 end = int(end) * 1000  # Convert to milliseconds
 
-        payload = Payload.set_activity(
-            pid=pid,
-            activity_type=activity_type,
-            status_display_type=status_display_type,
-            state=state,
-            state_url=state_url,
-            details=details,
-            details_url=details_url,
-            start=start,
-            end=end,
-            large_image=large_image,
-            large_text=large_text,
-            large_url=large_url,
-            small_image=small_image,
-            small_text=small_text,
-            small_url=small_url,
-            party_id=party_id,
-            party_size=party_size,
-            join=join,
-            spectate=spectate,
-            match=match,
-            buttons=buttons,
-            instance=instance,
-            activity=True,
-        )
+        if payload_override is None:
+            payload = Payload.set_activity(
+                pid=pid,
+                activity_type=activity_type.value if activity_type else None,
+                status_display_type=(
+                    status_display_type.value if status_display_type else None
+                ),
+                state=state,
+                state_url=state_url,
+                details=details,
+                details_url=details_url,
+                start=start,
+                end=end,
+                large_image=large_image,
+                large_text=large_text,
+                large_url=large_url,
+                small_image=small_image,
+                small_text=small_text,
+                small_url=small_url,
+                party_id=party_id,
+                party_size=party_size,
+                join=join,
+                spectate=spectate,
+                match=match,
+                buttons=buttons,
+                instance=instance,
+                activity=True,
+            )
+        else:
+            payload = payload_override
+
         self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
@@ -405,11 +412,12 @@ class AioClient(BaseClient):
         self,
         pid: int = os.getpid(),
         activity_type: ActivityType | None = None,
-        status_display_type: StatusDisplayType | int | None = None,
+        status_display_type: StatusDisplayType | None = None,
         state: str | None = None,
         details: str | None = None,
-        start: int | None = None,
-        end: int | None = None,
+        name: str | None = None,
+        start: typing.Union[int, float] | None = None,
+        end: typing.Union[int, float] | None = None,
         large_image: str | None = None,
         large_text: str | None = None,
         small_image: str | None = None,
@@ -418,16 +426,32 @@ class AioClient(BaseClient):
         party_size: list | None = None,
         join: str | None = None,
         spectate: str | None = None,
-        buttons: list | None = None,
         match: str | None = None,
+        buttons: list | None = None,
         instance: bool = True,
     ):
+        """
+        Please note that the start and end timestamps are in seconds since the epoch (UTC) (time.time()).
+        Yes, they will be converted to milliseconds by the library.
+        """
+
+        if start:
+            if isinstance(start, int) or isinstance(start, float):
+                start = int(start) * 1000  # Convert to milliseconds
+
+        if end:
+            if isinstance(end, int) or isinstance(end, float):
+                end = int(end) * 1000  # Convert to milliseconds
+
         payload = Payload.set_activity(
-            pid,
-            activity_type=activity_type,
-            status_display_type=status_display_type,
+            pid=pid,
+            activity_type=activity_type.value if activity_type else None,
+            status_display_type=(
+                status_display_type.value if status_display_type else None
+            ),
             state=state,
             details=details,
+            name=name,
             start=start,
             end=end,
             large_image=large_image,

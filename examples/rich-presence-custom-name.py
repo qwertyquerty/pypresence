@@ -7,9 +7,9 @@ RPC.connect()  # Start the handshake loop
 
 print(
     RPC.update(
-        state="Here it is!",
-        details="A working presence, from python!",
-        name="Rich Presence Example",
+        state="Lookie Lookie",
+        details="A test of qwertyquerty's Python Discord RPC wrapper, pypresence!",
+        name="This is a amazing test presence",
     )
 )  # Set the presence
 

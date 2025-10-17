@@ -5,11 +5,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Quickstart &#8212; pypresence 4.5.0 documentation</title>
+    <title>Quickstart &#8212; pypresence 4.6.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
     <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
-    <script src="../_static/documentation_options.js?v=5ef59c98"></script>
+    <script src="../_static/documentation_options.js?v=cc8a4273"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -49,10 +49,10 @@
 <li><p>Right under the name of your application, locate your Client ID. You will need this later.</p></li>
 <li><p>Lastly, save your application.</p></li>
 </ul>
-<p><strong>Next, you need to install pypresence. You will need python 3.5 - 3.7 installed. Here are the steps:</strong></p>
+<p><strong>Next, you need to install pypresence. You will need python 3.9+ installed. Here are the steps:</strong></p>
 <ul class="simple">
 <li><p>Open command prompt</p></li>
-<li><p>Type <code class="docutils literal notranslate"><span class="pre">pip3</span> <span class="pre">install</span> <span class="pre">pypresence</span></code> and hit enter</p></li>
+<li><p>Type <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pypresence</span></code> and hit enter</p></li>
 <li><p>It should say something near the end that says something like <code class="docutils literal notranslate"><span class="pre">&quot;Successfully</span> <span class="pre">installed</span> <span class="pre">pypresence&quot;</span></code>.</p></li>
 </ul>
 <p><strong>Now you will need to create the program to set your rich presence. First we need to import what we need, like so:</strong></p>
@@ -69,8 +69,12 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">RPC</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="c1"># Start the handshake loop</span>
 </pre></div>
 </div>
-<p><strong>Now we need to actually set our rich presence. We can use the update() function for this. There are many options we can use, but for this we will use state:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">RPC</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;Rich Presence using pypresence!&quot;</span><span class="p">)</span> <span class="c1"># Updates our presence</span>
+<p><strong>Now we need to actually set our rich presence. We can use the update() function for this. There are many options we can use, but for this we will use these:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="n">RPC</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+    <span class="n">state</span><span class="o">=</span><span class="s2">&quot;Here it is!&quot;</span><span class="p">,</span>
+    <span class="n">details</span><span class="o">=</span><span class="s2">&quot;A working presence, from python!&quot;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Rich Presence Example&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="c1"># Updates our presence</span>
 </pre></div>
 </div>
 <p><strong>Now we need our program to run forever, so we use a while loop.</strong></p>
@@ -80,8 +84,7 @@
 </div>
 <p><strong>Now when you run your program, it should look something like this!</strong></p>
 <figure class="align-default">
-<a class="reference internal image-reference" href="../_images/quickstart-final.png"><img alt="Finished Presence" src="../_images/quickstart-final.png" style="width: 370.5px; height: 354.0px;" />
-</a>
+<img alt="Finished Presence" src="../_images/quickstart-final-new.png" />
 </figure>
 <p><br /></p>
 <p><strong>Using Activity Types and Status Display Types</strong></p>

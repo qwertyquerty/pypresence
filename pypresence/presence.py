@@ -24,6 +24,7 @@ class Presence(BaseClient):
         state_url: str | None = None,
         details: str | None = None,
         details_url: str | None = None,
+        name: str | None = None,
         start: typing.Union[int, float] | None = None,
         end: typing.Union[int, float] | None = None,
         large_image: str | None = None,
@@ -57,12 +58,15 @@ class Presence(BaseClient):
         if payload_override is None:
             payload = Payload.set_activity(
                 pid=pid,
-                activity_type=activity_type,
-                status_display_type=status_display_type,
+                activity_type=activity_type.value if activity_type else None,
+                status_display_type=(
+                    status_display_type.value if status_display_type else None
+                ),
                 state=state,
                 state_url=state_url,
                 details=details,
                 details_url=details_url,
+                name=name,
                 start=start,
                 end=end,
                 large_image=large_image,
@@ -115,6 +119,7 @@ class AioPresence(BaseClient):
         state_url: str | None = None,
         details: str | None = None,
         details_url: str | None = None,
+        name: str | None = None,
         start: int | None = None,
         end: int | None = None,
         large_image: str | None = None,
@@ -148,6 +153,7 @@ class AioPresence(BaseClient):
             state_url=state_url,
             details=details,
             details_url=details_url,
+            name=name,
             start=start,
             end=end,
             large_image=large_image,

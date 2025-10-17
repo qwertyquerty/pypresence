@@ -32,6 +32,7 @@ class Payload:
         state_url: str | None = None,
         details: str | None = None,
         details_url: str | None = None,
+        name: str | None = None,
         start: int | float | None = None,
         end: int | float | None = None,
         large_image: str | None = None,
@@ -71,17 +72,18 @@ class Payload:
                 "type": (
                     activity_type.value
                     if isinstance(activity_type, ActivityType)
-                    else ActivityType.PLAYING
+                    else ActivityType.PLAYING.value
                 ),
                 "status_display_type": (
-                    status_display_type
+                    status_display_type.value
                     if isinstance(status_display_type, StatusDisplayType)
-                    else StatusDisplayType.NAME
+                    else StatusDisplayType.NAME.value
                 ),
                 "state": state,
                 "state_url": state_url,
                 "details": details,
                 "details_url": details_url,
+                "name": name,
                 "timestamps": {"start": start, "end": end},
                 "assets": {
                     "large_image": large_image,
