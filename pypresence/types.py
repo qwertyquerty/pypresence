@@ -1,7 +1,7 @@
 import enum
 
 
-class ActivityType(enum.Enum):
+class ActivityType(enum.IntEnum):
     """
     https://discord.com/developers/docs/game-sdk/activities#data-models-activitytype-enum
     "type" must be one of 0, 2, 3, 5 -- Discord only implemented these four
@@ -15,7 +15,7 @@ class ActivityType(enum.Enum):
     COMPETING = 5
 
 
-class StatusDisplayType(enum.Enum):
+class StatusDisplayType(enum.IntEnum):
     """
     https://discord.com/developers/docs/events/gateway-events#activity-object-status-display-types
     "status" must be one of 0, 1, 2 -- Discord only implemented these three
