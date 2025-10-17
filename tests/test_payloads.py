@@ -221,3 +221,130 @@ class TestSetActivity:
         payload2 = Payload.set_activity(state="Test 2")
 
         assert payload1.data["nonce"] != payload2.data["nonce"]
+
+
+class TestSetActivityURLFeatures:
+    """Test SET_ACTIVITY payload generation with URL parameters"""
+
+    def test_set_activity_with_state_url(self):
+        """Test activity with state URL"""
+        payload = Payload.set_activity(
+            state="Playing a game", state_url="https://example.com/game"
+        )
+
+        assert payload.data["args"]["activity"]["state"] == "Playing a game"
+        assert (
+            payload.data["args"]["activity"]["state_url"] == "https://example.com/game"
+        )
+
+    def test_set_activity_with_details_url(self):
+        """Test activity with details URL"""
+        payload = Payload.set_activity(
+            details="In a match", details_url="https://example.com/match/123"
+        )
+
+        assert payload.data["args"]["activity"]["details"] == "In a match"
+        assert (
+            payload.data["args"]["activity"]["details_url"]
+            == "https://example.com/match/123"
+        )
+
+    def test_set_activity_with_large_url(self):
+        """Test activity with large image URL"""
+        payload = Payload.set_activity(
+            large_image="large_key",
+            large_text="Large Image",
+            large_url="https://example.com/images/large.png",
+        )
+
+        assets = payload.data["args"]["activity"]["assets"]
+        assert assets["large_image"] == "large_key"
+        assert assets["large_text"] == "Large Image"
+        assert assets["large_url"] == "https://example.com/images/large.png"
+
+    def test_set_activity_with_small_url(self):
+        """Test activity with small image URL"""
+        payload = Payload.set_activity(
+            small_image="small_key",
+            small_text="Small Image",
+            small_url="https://example.com/images/small.png",
+        )
+
+        assets = payload.data["args"]["activity"]["assets"]
+        assert assets["small_image"] == "small_key"
+        assert assets["small_text"] == "Small Image"
+        assert assets["small_url"] == "https://example.com/images/small.png"
+
+    def test_set_activity_with_all_urls(self):
+        """Test activity with all URL parameters"""
+        payload = Payload.set_activity(
+            state="Playing",
+            state_url="https://example.com/state",
+            details="Match in progress",
+            details_url="https://example.com/details",
+            large_image="large",
+            large_url="https://example.com/large.png",
+            small_image="small",
+            small_url="https://example.com/small.png",
+        )
+
+        activity = payload.data["args"]["activity"]
+        assert activity["state_url"] == "https://example.com/state"
+        assert activity["details_url"] == "https://example.com/details"
+
+        assets = activity["assets"]
+        assert assets["large_url"] == "https://example.com/large.png"
+        assert assets["small_url"] == "https://example.com/small.png"
+
+    def test_set_activity_url_without_corresponding_field(self):
+        """Test that URL can be set even without the corresponding text field"""
+        payload = Payload.set_activity(state_url="https://example.com/state")
+
+        # URL should still be present even if state is None
+        activity = payload.data["args"]["activity"]
+        assert activity["state_url"] == "https://example.com/state"
+
+    def test_set_activity_image_url_without_image_key(self):
+        """Test that image URL can be set without the image key"""
+        payload = Payload.set_activity(large_url="https://example.com/large.png")
+
+        assets = payload.data["args"]["activity"]["assets"]
+        assert assets["large_url"] == "https://example.com/large.png"
+
+    def test_set_activity_urls_none_are_removed(self):
+        """Test that URL fields with None values are removed"""
+        payload = Payload.set_activity(
+            state="Testing", state_url=None, details="Details", details_url=None
+        )
+
+        activity = payload.data["args"]["activity"]
+        assert "state_url" not in activity
+        assert "details_url" not in activity
+        assert activity["state"] == "Testing"
+        assert activity["details"] == "Details"
+
+    def test_set_activity_mixed_urls_and_regular_fields(self):
+        """Test activity with mix of URLs and regular fields"""
+        payload = Payload.set_activity(
+            state="Current State",
+            state_url="https://example.com/state",
+            details="Current Details",
+            large_image="large_key",
+            large_text="Large Image Text",
+            large_url="https://cdn.example.com/large.png",
+            buttons=[{"label": "Website", "url": "https://example.com"}],
+        )
+
+        activity = payload.data["args"]["activity"]
+        assert activity["state"] == "Current State"
+        assert activity["state_url"] == "https://example.com/state"
+        assert activity["details"] == "Current Details"
+
+        assets = activity["assets"]
+        assert assets["large_image"] == "large_key"
+        assert assets["large_text"] == "Large Image Text"
+        assert assets["large_url"] == "https://cdn.example.com/large.png"
+
+        assert activity["buttons"] == [
+            {"label": "Website", "url": "https://example.com"}
+        ]
