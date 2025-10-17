@@ -140,14 +140,21 @@ Client()
    Used to set the activity shown on Discord profiles and status of users. Takes the following as parameters.
 
    :param int pid: the process id of your game
+   :param ActivityType activity_type: the type of activity (PLAYING, LISTENING, WATCHING, or COMPETING). See :ref:`activity-types` for more details. Defaults to PLAYING if not specified.
+   :param StatusDisplayType status_display_type: which field to display in the status (NAME, STATE, or DETAILS). See :ref:`status-display-types` for more details. Defaults to NAME if not specified.
    :param str state: the user's current status
+   :param str state_url: URL to make the state text clickable (opens when state is clicked)
    :param str details: what the player is currently doing
-   :param int start: epoch time for game start
-   :param int end: epoch time for game end
+   :param str details_url: URL to make the details text clickable (opens when details is clicked)
+   :param str name: directly set what discord will display in places like the user list
+   :param int start: epoch time for game start (in seconds, will be converted to milliseconds)
+   :param int end: epoch time for game end (in seconds, will be converted to milliseconds)
    :param str large_image: name of the uploaded image for the large profile artwork
    :param str large_text: tooltip for the large image
+   :param str large_url: URL to make the large image clickable (opens when large image is clicked)
    :param str small_image: name of the uploaded image for the small profile artwork
    :param str small_text: tootltip for the small image
+   :param str small_url: URL to make the small image clickable (opens when small image is clicked)
    :param str party_id: id of the player's party, lobby, or group
    :param list party_size: current size of the player's party, lobby, or group, and the max in this format: ``[1,4]``
    :param str join: unique hashed string for chat invitations and ask to join

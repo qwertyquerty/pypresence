@@ -106,3 +106,41 @@ You can customize how your presence appears by using ``ActivityType`` and ``Stat
 Available activity types: ``PLAYING`` (default), ``LISTENING``, ``WATCHING``, ``COMPETING``
 
 Available status display types: ``NAME`` (default - shows app name), ``STATE``, ``DETAILS``
+
+|br|
+
+**Making Your Presence Interactive with URLs**
+
+You can make text and images clickable by using URL parameters. When users click on these elements, Discord will open the specified URL:
+
+.. code-block:: python
+
+ from pypresence import Presence
+ import time
+
+ client_id = "ID HERE"
+ RPC = Presence(client_id)
+ RPC.connect()
+
+ # Make state and details clickable
+ RPC.update(
+     state="Playing an Awesome Game",
+     state_url="https://example.com/game",
+     details="In the Main Menu",
+     details_url="https://example.com/game/menu"
+ )
+
+ # Make images clickable
+ RPC.update(
+     large_image="game_logo",
+     large_text="My Game",
+     large_url="https://example.com/game",
+     small_image="status_online",
+     small_text="Online",
+     small_url="https://example.com/status"
+ )
+
+ while True:
+     time.sleep(15)
+
+Available URL parameters: ``state_url``, ``details_url``, ``large_url``, ``small_url``
