@@ -4,7 +4,7 @@ import time
 
 from .baseclient import BaseClient
 from .payloads import Payload
-from .utils import remove_none, get_event_loop
+from .utils import get_event_loop
 
 
 class Presence(BaseClient):
