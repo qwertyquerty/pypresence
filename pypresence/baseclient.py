@@ -1,39 +1,27 @@
 import asyncio
 import inspect
 import json
-import logging
 import os
 import struct
 import sys
 import tempfile
-from typing import Union, Optional, Callable
+from typing import Union, Optional
 
 # TODO: Get rid of this import * lol
-from .exceptions import (
-    ConnectionTimeout,
-    DiscordError,
-    DiscordNotFound,
-    InvalidArgument,
-    InvalidID,
-    InvalidPipe,
-    PipeClosed,
-    PyPresenceException,
-    ResponseTimeout,
-    ServerError,
-)
+from .exceptions import *
 from .payloads import Payload
-from .utils import get_event_loop, get_ipc_path
+from .utils import get_ipc_path, get_event_loop
 
 
 class BaseClient:
 
     def __init__(self, client_id: str, **kwargs):
-        loop: Optional[asyncio.AbstractEventLoop] = kwargs.get('loop', None)
-        handler: Optional[Callable] = kwargs.get('handler', None)
-        self.pipe: Optional[int] = kwargs.get('pipe', None)
-        self.isasync: bool = kwargs.get('isasync', False)
-        self.connection_timeout: int = kwargs.get('connection_timeout', 30)
-        self.response_timeout: int = kwargs.get('response_timeout', 10)
+        loop = kwargs.get('loop', None)
+        handler = kwargs.get('handler', None)
+        self.pipe = kwargs.get('pipe', None)
+        self.isasync = kwargs.get('isasync', False)
+        self.connection_timeout = kwargs.get('connection_timeout', 30)
+        self.response_timeout = kwargs.get('response_timeout', 10)
 
         client_id = str(client_id)
 
@@ -44,31 +32,22 @@ class BaseClient:
 
         self.sock_reader: Optional[asyncio.StreamReader] = None
         self.sock_writer: Optional[asyncio.StreamWriter] = None
-        self.loop: asyncio.AbstractEventLoop
-        self.handler: Optional[Callable] = None
-        self._events_on: bool
 
-        self.client_id: str = client_id
+        self.client_id = client_id
 
         if handler is not None:
             if not inspect.isfunction(handler):
-                raise PyPresenceException("Error handler must be a function.")
+                raise PyPresenceException('Error handler must be a function.')
             args = inspect.getfullargspec(handler).args
-            if args[0] == "self":
+            if args[0] == 'self':
                 args = args[1:]
             if len(args) != 2:
-                raise PyPresenceException(
-                    "Error handler should only accept two arguments."
-                )
+                raise PyPresenceException('Error handler should only accept two arguments.')
 
             if self.isasync:
                 if not inspect.iscoroutinefunction(handler):
-                    raise InvalidArgument(
-                        "Coroutine",
-                        "Subroutine",
-                        "You are running async mode - "
-                        "your error handler should be awaitable.",
-                    )
+                    raise InvalidArgument('Coroutine', 'Subroutine', 'You are running async mode - '
+                                                                     'your error handler should be awaitable.')
                 err_handler = self._async_err_handle
             else:
                 err_handler = self._err_handle
@@ -81,49 +60,48 @@ class BaseClient:
         else:
             self._events_on = False
 
-    def update_event_loop(self, loop: asyncio.AbstractEventLoop) -> None:
+    def update_event_loop(self, loop):
         # noinspection PyAttributeOutsideInit
         self.loop = loop
         asyncio.set_event_loop(self.loop)
 
-    def _err_handle(self, loop: asyncio.AbstractEventLoop, context: dict) -> None:
+    def _err_handle(self, loop, context: dict):
         result = self.handler(context['exception'], context['future'])
         if inspect.iscoroutinefunction(self.handler):
             loop.run_until_complete(result)
 
     # noinspection PyUnusedLocal
-    async def _async_err_handle(self, loop: asyncio.AbstractEventLoop, context: dict) -> None:
+    async def _async_err_handle(self, loop, context: dict):
         await self.handler(context['exception'], context['future'])
 
-    async def read_output(self) -> dict:
+    async def read_output(self):
         try:
-            preamble = await asyncio.wait_for(
-                self.sock_reader.read(8), self.response_timeout
-            )
-            status_code, length = struct.unpack("<II", preamble[:8])
-            data = await asyncio.wait_for(
-                self.sock_reader.read(length), self.response_timeout
-            )
+            preamble = await asyncio.wait_for(self.sock_reader.read(8), self.response_timeout)
+            status_code, length = struct.unpack('<II', preamble[:8])
+            data = await asyncio.wait_for(self.sock_reader.read(length), self.response_timeout)
         except (BrokenPipeError, struct.error):
             raise PipeClosed
         except asyncio.TimeoutError:
             raise ResponseTimeout
-        payload = json.loads(data.decode("utf-8"))
+        payload = json.loads(data.decode('utf-8'))
         if payload["evt"] == "ERROR":
             raise ServerError(payload['data']['message'])
         return payload
 
-    def send_data(self, op: int, payload: Union[dict, Payload]) -> None:
+    def send_data(self, op: int, payload: Union[dict, Payload]):
         if isinstance(payload, Payload):
             payload = payload.data
-        payload_string = json.dumps(payload)
+        payload = json.dumps(payload)
 
         if self.sock_writer is None:
-            raise PyPresenceException("Not connected to Discord. Call connect() first.")
+            raise ConnectionError("Not connected to Discord. Call connect() first.")
 
         self.sock_writer.write(
-            struct.pack("<II", op, len(payload_string)) + payload_string.encode("utf-8")
-        )
+            struct.pack(
+                '<II',
+                op,
+                len(payload)) +
+            payload.encode('utf-8'))
 
     def is_discord_available(self):
         """
@@ -145,17 +123,17 @@ class BaseClient:
                 for i in range(10):  # Check pipes 0-9
                     pipe_path = rf'\\.\pipe\discord-ipc-{i}'
                     try:
+                        # Use os.stat() to check if the named pipe exists
                         os.stat(pipe_path)
                         return True
-                    except OSError:
+                    except (OSError, FileNotFoundError):
                         continue
                 return False
             return False
-        except (OSError, PermissionError, ValueError) as e:
-            logging.debug(f"Error checking Discord availability: {e}")
+        except:
             return False
 
-    async def handshake(self) -> None:
+    async def handshake(self):
         ipc_path = get_ipc_path(self.pipe)
         if not ipc_path:
             raise DiscordNotFound("Could not find Discord IPC path")
@@ -174,7 +152,7 @@ class BaseClient:
                     self.connection_timeout
                 )
         except FileNotFoundError:
-            raise InvalidPipe()
+            raise InvalidPipe("Discord IPC pipe not found")
         except asyncio.TimeoutError:
             raise ConnectionTimeout("Connection to Discord timed out")
         except ConnectionRefusedError:
@@ -202,14 +180,14 @@ class BaseClient:
             await self.close()
             raise e
 
-    async def close(self) -> None:
+    async def close(self):
         """Safely close the connection to Discord"""
         try:
             if self.sock_writer:
                 self.sock_writer.close()
                 await self.sock_writer.wait_closed()
-        except (ConnectionError, OSError, asyncio.CancelledError) as e:
-            logging.debug(f"Error during connection cleanup: {e}")
+        except:
+            pass
         finally:
             self.sock_reader = None
             self.sock_writer = None
@@ -224,9 +202,7 @@ class BaseClient:
         try:
             self.loop.run_until_complete(self.handshake())
             return True
-        except (DiscordNotFound, InvalidPipe, ConnectionTimeout, InvalidID, DiscordError, ConnectionError) as e:
-            logging.debug(f"Expected connection failure: {e}")
+        except (DiscordNotFound, InvalidPipe, ConnectionTimeout, InvalidID, DiscordError, ConnectionError):
             return False
-        except Exception as e:
-            logging.debug(f"Unexpected error during connection attempt: {e}")
+        except Exception:
             return False

@@ -1,12 +1,10 @@
 import json
 import logging
 import os
-import time
-from typing import Optional, List, Dict, Union, Any
+from typing import Optional, List, Dict
 
 from .baseclient import BaseClient
 from .payloads import Payload
-from .types import ActivityType, StatusDisplayType
 from .utils import get_event_loop
 
 
@@ -23,7 +21,7 @@ class Presence(BaseClient):
                party_id: Optional[str] = None, party_size: Optional[List[int]] = None,
                join: Optional[str] = None, spectate: Optional[str] = None,
                match: Optional[str] = None, buttons: Optional[List[Dict[str, str]]] = None,
-               instance: bool = True, payload_override: Optional[Dict[str, Any]] = None) -> Optional[Dict[str, Any]]:
+               instance: bool = True, payload_override: Optional[Dict] = None):
 
         # Check if we're connected before attempting to update
         if self.sock_writer is None:
@@ -41,11 +39,14 @@ class Presence(BaseClient):
         try:
             self.send_data(1, payload)
             return self.loop.run_until_complete(self.read_output())
+        except (ConnectionError, OSError) as e:
+            logging.debug(f"Connection error in update: {e}")
+            return None
         except Exception as e:
-            logging.debug(f"Error updating presence: {e}")
+            logging.debug(f"Unexpected error in update: {e}")
             return None
 
-    def clear(self, pid: int = os.getpid()) -> Optional[Dict[str, Any]]:
+    def clear(self, pid: int = os.getpid()):
         """Clear the current activity"""
         if self.sock_writer is None:
             return None
@@ -54,11 +55,14 @@ class Presence(BaseClient):
             payload = Payload.set_activity(pid, activity=None)
             self.send_data(1, payload)
             return self.loop.run_until_complete(self.read_output())
+        except (ConnectionError, OSError) as e:
+            logging.debug(f"Connection error in clear: {e}")
+            return None
         except Exception as e:
-            logging.debug(f"Error clearing presence: {e}")
+            logging.debug(f"Unexpected error in clear: {e}")
             return None
 
-    def connect(self) -> bool:
+    def connect(self):
         """
         Connect to Discord.
         
@@ -69,25 +73,23 @@ class Presence(BaseClient):
             self.update_event_loop(get_event_loop())
             self.loop.run_until_complete(self.handshake())
             return True
+        except (ConnectionError, OSError) as e:
+            logging.debug(f"Connection error in connect: {e}")
+            return False
         except Exception as e:
-            logging.debug(f"Error connecting to Discord: {e}")
+            logging.debug(f"Unexpected error in connect: {e}")
             return False
 
-    def close(self) -> None:
+    def close(self):
         """Safely close the connection to Discord"""
         try:
             if self.sock_writer:
                 self.send_data(2, {'v': 1, 'client_id': self.client_id})
                 self.loop.run_until_complete(super().close())
-            else:
-                # If no connection, just clean up without calling super().close()
-                self.sock_reader = None
-                self.sock_writer = None
+        except (ConnectionError, OSError) as e:
+            logging.debug(f"Connection error during close: {e}")
         except Exception as e:
-            logging.debug(f"Error closing presence connection: {e}")
-            # Manual cleanup on error
-            self.sock_reader = None
-            self.sock_writer = None
+            logging.debug(f"Unexpected error during close: {e}")
 
 
 class AioPresence(BaseClient):
@@ -103,7 +105,7 @@ class AioPresence(BaseClient):
                      party_id: Optional[str] = None, party_size: Optional[List[int]] = None,
                      join: Optional[str] = None, spectate: Optional[str] = None,
                      match: Optional[str] = None, buttons: Optional[List[Dict[str, str]]] = None,
-                     instance: bool = True) -> Optional[Dict[str, Any]]:
+                     instance: bool = True):
         # Check if we're connected before attempting to update
         if self.sock_writer is None:
             return None
@@ -116,11 +118,14 @@ class AioPresence(BaseClient):
                                            match=match, buttons=buttons, instance=instance, activity=True)
             self.send_data(1, payload)
             return await self.read_output()
+        except (ConnectionError, OSError) as e:
+            logging.debug(f"Connection error in async update: {e}")
+            return None
         except Exception as e:
-            logging.debug(f"Error updating async presence: {e}")
+            logging.debug(f"Unexpected error in async update: {e}")
             return None
 
-    async def clear(self, pid: int = os.getpid()) -> Optional[Dict[str, Any]]:
+    async def clear(self, pid: int = os.getpid()):
         """Clear the current activity"""
         if self.sock_writer is None:
             return None
@@ -129,11 +134,14 @@ class AioPresence(BaseClient):
             payload = Payload.set_activity(pid, activity=None)
             self.send_data(1, payload)
             return await self.read_output()
+        except (ConnectionError, OSError) as e:
+            logging.debug(f"Connection error in async clear: {e}")
+            return None
         except Exception as e:
-            logging.debug(f"Error clearing async presence: {e}")
+            logging.debug(f"Unexpected error in async clear: {e}")
             return None
 
-    async def connect(self) -> bool:
+    async def connect(self):
         """
         Connect to Discord.
         
@@ -144,15 +152,20 @@ class AioPresence(BaseClient):
             self.update_event_loop(get_event_loop())
             await self.handshake()
             return True
+        except (ConnectionError, OSError) as e:
+            logging.debug(f"Connection error in async connect: {e}")
+            return False
         except Exception as e:
-            logging.debug(f"Error connecting to Discord (async): {e}")
+            logging.debug(f"Unexpected error in async connect: {e}")
             return False
 
-    async def close(self) -> None:
+    async def close(self):
         """Safely close the connection to Discord"""
         try:
             if self.sock_writer:
                 self.send_data(2, {'v': 1, 'client_id': self.client_id})
                 await super().close()
+        except (ConnectionError, OSError) as e:
+            logging.debug(f"Connection error during async close: {e}")
         except Exception as e:
-            logging.debug(f"Error closing async presence connection: {e}")
+            logging.debug(f"Unexpected error during async close: {e}")
