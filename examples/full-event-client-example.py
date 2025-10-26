@@ -1,33 +1,35 @@
-import asyncio
-import pypresence
+# this example has to be rewritten, exchange_code apparently doesn't exist anymore
 
-CLIENT_ID = 555555555555555555
+# import asyncio
+# import pypresence
 
-loop = asyncio.get_event_loop()
-c = pypresence.Client(CLIENT_ID, loop=loop)
-c.start()
+# CLIENT_ID = 555555555555555555
 
-# Prompt user for authorization to do stuff with RPC scopes
-auth = c.authorize(str(CLIENT_ID), ['rpc'])
-code_grant = auth['data']['code']
+# loop = asyncio.get_event_loop()
+# c = pypresence.Client(CLIENT_ID, loop=loop)
+# c.start()
 
-'''
-Implement the API found here for code/token exchange: 
-https://discord.com/developers/docs/topics/oauth2#authorization-code-grant-access-token-exchange-example
-(NOTE: Redirect URI is needed and should be what's set in your Dev Application's OAuth2 screen)
-'''
-token = exchange_code(code_grant)  # noqa: F821
+# # Prompt user for authorization to do stuff with RPC scopes
+# auth = c.authorize(str(CLIENT_ID), ['rpc'])
+# code_grant = auth['data']['code']
 
-# Now authenticate with the token we got (Save to skip authorization later)
-c.authenticate(token['access_token'])
+# '''
+# Implement the API found here for code/token exchange:
+# https://discord.com/developers/docs/topics/oauth2#authorization-code-grant-access-token-exchange-example
+# (NOTE: Redirect URI is needed and should be what's set in your Dev Application's OAuth2 screen)
+# '''
+# token = exchange_code(code_grant)  # noqa: F821
 
-
-def on_new_message(data):
-    print("New message: %s" % data['message']['content'])
+# # Now authenticate with the token we got (Save to skip authorization later)
+# c.authenticate(token['access_token'])
 
 
-# Watch for new messages created on channel 444444444444444444
-c.register_event('MESSAGE_CREATE', on_new_message, args={'channel_id': '444444444444444444'})
-# Find other event types here: https://discord.com/developers/docs/topics/rpc#commands-and-events-rpc-events
+# def on_new_message(data):
+#     print("New message: %s" % data['message']['content'])
 
-loop.run_forever()
+
+# # Watch for new messages created on channel 444444444444444444
+# c.register_event('MESSAGE_CREATE', on_new_message, args={'channel_id': '444444444444444444'})
+# # Find other event types here: https://discord.com/developers/docs/topics/rpc#commands-and-events-rpc-events
+
+# loop.run_forever()
