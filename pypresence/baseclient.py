@@ -118,7 +118,7 @@ class BaseClient:
             # Check if the IPC pipe exists
             if sys.platform == 'linux' or sys.platform == 'darwin':
                 return os.path.exists(ipc_path)
-            elif sys.platform == 'win32' or sys.platform == 'win64':
+            elif sys.platform == 'win32':
                 # On Windows, check if any Discord IPC pipe exists
                 for i in range(10):  # Check pipes 0-9
                     pipe_path = rf'\\.\pipe\discord-ipc-{i}'
