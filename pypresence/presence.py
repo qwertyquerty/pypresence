@@ -79,8 +79,15 @@ class Presence(BaseClient):
             if self.sock_writer:
                 self.send_data(2, {'v': 1, 'client_id': self.client_id})
                 self.loop.run_until_complete(super().close())
+            else:
+                # If no connection, just clean up without calling super().close()
+                self.sock_reader = None
+                self.sock_writer = None
         except Exception as e:
             logging.debug(f"Error closing presence connection: {e}")
+            # Manual cleanup on error
+            self.sock_reader = None
+            self.sock_writer = None
 
 
 class AioPresence(BaseClient):
