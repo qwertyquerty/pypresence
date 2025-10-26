@@ -122,8 +122,11 @@ class BaseClient:
                 # On Windows, check if any Discord IPC pipe exists
                 for i in range(10):  # Check pipes 0-9
                     pipe_path = rf'\\.\pipe\discord-ipc-{i}'
-                    if os.path.exists(pipe_path):
+                    try:
+                        os.stat(pipe_path)
                         return True
+                    except OSError:
+                        continue
                 return False
             return False
         except:
