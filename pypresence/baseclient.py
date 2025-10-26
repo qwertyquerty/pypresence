@@ -98,7 +98,7 @@ class BaseClient:
         payload = json.dumps(payload)
 
         if self.sock_writer is None:
-            raise ConnectionError("Not connected to Discord. Call connect() first.")
+            raise PyPresenceException("Not connected to Discord. Call connect() first.")
 
         self.sock_writer.write(
             struct.pack(
@@ -156,7 +156,7 @@ class BaseClient:
                     self.connection_timeout
                 )
         except FileNotFoundError:
-            raise InvalidPipe("Discord IPC pipe not found")
+            raise InvalidPipe()
         except asyncio.TimeoutError:
             raise ConnectionTimeout("Connection to Discord timed out")
         except ConnectionRefusedError:
