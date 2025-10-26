@@ -9,9 +9,20 @@ import tempfile
 from typing import Union, Optional, Callable
 
 # TODO: Get rid of this import * lol
-from .exceptions import *
+from .exceptions import (
+    ConnectionTimeout,
+    DiscordError,
+    DiscordNotFound,
+    InvalidArgument,
+    InvalidID,
+    InvalidPipe,
+    PipeClosed,
+    PyPresenceException,
+    ResponseTimeout,
+    ServerError,
+)
 from .payloads import Payload
-from .utils import get_ipc_path, get_event_loop
+from .utils import get_event_loop, get_ipc_path
 
 
 class BaseClient:
@@ -41,17 +52,23 @@ class BaseClient:
 
         if handler is not None:
             if not inspect.isfunction(handler):
-                raise PyPresenceException('Error handler must be a function.')
+                raise PyPresenceException("Error handler must be a function.")
             args = inspect.getfullargspec(handler).args
-            if args[0] == 'self':
+            if args[0] == "self":
                 args = args[1:]
             if len(args) != 2:
-                raise PyPresenceException('Error handler should only accept two arguments.')
+                raise PyPresenceException(
+                    "Error handler should only accept two arguments."
+                )
 
             if self.isasync:
                 if not inspect.iscoroutinefunction(handler):
-                    raise InvalidArgument('Coroutine', 'Subroutine', 'You are running async mode - '
-                                                                     'your error handler should be awaitable.')
+                    raise InvalidArgument(
+                        "Coroutine",
+                        "Subroutine",
+                        "You are running async mode - "
+                        "your error handler should be awaitable.",
+                    )
                 err_handler = self._async_err_handle
             else:
                 err_handler = self._err_handle
@@ -80,14 +97,18 @@ class BaseClient:
 
     async def read_output(self) -> dict:
         try:
-            preamble = await asyncio.wait_for(self.sock_reader.read(8), self.response_timeout)
-            status_code, length = struct.unpack('<II', preamble[:8])
-            data = await asyncio.wait_for(self.sock_reader.read(length), self.response_timeout)
+            preamble = await asyncio.wait_for(
+                self.sock_reader.read(8), self.response_timeout
+            )
+            status_code, length = struct.unpack("<II", preamble[:8])
+            data = await asyncio.wait_for(
+                self.sock_reader.read(length), self.response_timeout
+            )
         except (BrokenPipeError, struct.error):
             raise PipeClosed
         except asyncio.TimeoutError:
             raise ResponseTimeout
-        payload = json.loads(data.decode('utf-8'))
+        payload = json.loads(data.decode("utf-8"))
         if payload["evt"] == "ERROR":
             raise ServerError(payload['data']['message'])
         return payload
@@ -95,17 +116,14 @@ class BaseClient:
     def send_data(self, op: int, payload: Union[dict, Payload]) -> None:
         if isinstance(payload, Payload):
             payload = payload.data
-        payload = json.dumps(payload)
+        payload_string = json.dumps(payload)
 
         if self.sock_writer is None:
             raise PyPresenceException("Not connected to Discord. Call connect() first.")
 
         self.sock_writer.write(
-            struct.pack(
-                '<II',
-                op,
-                len(payload)) +
-            payload.encode('utf-8'))
+            struct.pack("<II", op, len(payload_string)) + payload_string.encode("utf-8")
+        )
 
     def is_discord_available(self):
         """

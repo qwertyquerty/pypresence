@@ -6,6 +6,7 @@ from typing import Optional, List, Dict, Union, Any
 
 from .baseclient import BaseClient
 from .payloads import Payload
+from .types import ActivityType, StatusDisplayType
 from .utils import get_event_loop
 
 

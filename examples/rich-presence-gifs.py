@@ -1,6 +1,6 @@
+import time
 
 from pypresence import Presence
-import time
 
 """
 Create an application and get the application id here 
@@ -14,11 +14,14 @@ RPC.connect()
 
 
 RPC.update(
-            state="Custom gifs",
-            details="Using pypresence",
-            large_image=("https://media.tenor.com/9c83g4VPctQAAAAi/shaking-eyes-eyes-shaking.gif"), 
-            large_text="Watching!",
-            small_image=("https://media.giphy.com/media/4UjV5LeD66EPruSG18/giphy.gif"), small_text="Spinning"
+    state="Custom gifs",
+    details="Using pypresence",
+    large_image=(
+        "https://media.tenor.com/9c83g4VPctQAAAAi/shaking-eyes-eyes-shaking.gif"
+    ),
+    large_text="Watching!",
+    small_image=("https://media.giphy.com/media/4UjV5LeD66EPruSG18/giphy.gif"),
+    small_text="Spinning",
 )
 
 while True:
