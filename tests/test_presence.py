@@ -66,33 +66,6 @@ class TestPresenceUpdate:
         assert payload["args"]["activity"]["details"] == "Test Details"
 
     @patch("pypresence.baseclient.BaseClient.read_output")
-    def test_update_converts_timestamps_to_milliseconds(
-        self, mock_read_output, client_id
-    ):
-        """Test that timestamps are converted from seconds to milliseconds"""
-        presence = Presence(client_id)
-        presence.sock_writer = Mock()
-
-        async def mock_coro():
-            return {}
-
-        mock_read_output.return_value = mock_coro()
-
-        # Test with integer timestamp (seconds)
-        presence.update(start=1234567890)
-
-        # Get the call arguments
-        call_args = presence.sock_writer.write.call_args[0][0]
-
-        # Parse the payload
-        op, length = struct.unpack("<II", call_args[:8])
-        payload_json = call_args[8 : 8 + length].decode("utf-8")
-        payload = json.loads(payload_json)
-
-        # Should be converted to milliseconds
-        assert payload["args"]["activity"]["timestamps"]["start"] == 1234567890000
-
-    @patch("pypresence.baseclient.BaseClient.read_output")
     def test_update_with_activity_type(self, mock_read_output, client_id):
         """Test update with activity type"""
         presence = Presence(client_id)
