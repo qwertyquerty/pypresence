@@ -5,7 +5,7 @@ import inspect
 import json
 import os
 import struct
-from typing import Callable, List, Union
+from typing import Callable, List
 
 from .baseclient import BaseClient
 from .exceptions import (
@@ -150,8 +150,8 @@ class Client(BaseClient):
         details: str | None = None,
         details_url: str | None = None,
         name: str | None = None,
-        start: Union[int, float] | None = None,
-        end: Union[int, float] | None = None,
+        start: int | None = None,
+        end: int | None = None,
         large_image: str | None = None,
         large_text: str | None = None,
         large_url: str | None = None,
@@ -404,8 +404,8 @@ class AioClient(BaseClient):
         state: str | None = None,
         details: str | None = None,
         name: str | None = None,
-        start: Union[int, float] | None = None,
-        end: Union[int, float] | None = None,
+        start: int | None = None,
+        end: int | None = None,
         large_image: str | None = None,
         large_text: str | None = None,
         small_image: str | None = None,
