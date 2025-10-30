@@ -167,19 +167,6 @@ class Client(BaseClient):
         instance: bool = True,
         payload_override: dict | None = None,
     ):
-        """
-        Please note that the start and end timestamps are in seconds since the epoch (UTC) (time.time()).
-        Yes, they will be converted to milliseconds by the library.
-        """
-
-        if start:
-            if isinstance(start, int) or isinstance(start, float):
-                start = int(start) * 1000  # Convert to milliseconds
-
-        if end:
-            if isinstance(end, int) or isinstance(end, float):
-                end = int(end) * 1000  # Convert to milliseconds
-
         if payload_override is None:
             payload = Payload.set_activity(
                 pid=pid,
@@ -431,19 +418,6 @@ class AioClient(BaseClient):
         buttons: list | None = None,
         instance: bool = True,
     ):
-        """
-        Please note that the start and end timestamps are in seconds since the epoch (UTC) (time.time()).
-        Yes, they will be converted to milliseconds by the library.
-        """
-
-        if start:
-            if isinstance(start, int) or isinstance(start, float):
-                start = int(start) * 1000  # Convert to milliseconds
-
-        if end:
-            if isinstance(end, int) or isinstance(end, float):
-                end = int(end) * 1000  # Convert to milliseconds
-
         payload = Payload.set_activity(
             pid=pid,
             activity_type=activity_type.value if activity_type else None,
