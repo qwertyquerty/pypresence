@@ -147,8 +147,8 @@ Client()
    :param str details: what the player is currently doing
    :param str details_url: URL to make the details text clickable (opens when details is clicked)
    :param str name: directly set what discord will display in places like the user list
-   :param int start: epoch time for game start (in seconds, will be converted to milliseconds)
-   :param int end: epoch time for game end (in seconds, will be converted to milliseconds)
+   :param int start: epoch time for game start (in milliseconds)
+   :param int end: epoch time for game end (in milliseconds)
    :param str large_image: name of the uploaded image for the large profile artwork
    :param str large_text: tooltip for the large image
    :param str large_url: URL to make the large image clickable (opens when large image is clicked)
