@@ -19,3 +19,7 @@ pypresence/__pycache__/
 test.py
 .mypy_cache/
 *.egg-info/
+
+# Sphinx documentation build output
+docs/sphinx/_build/
+docs/**/*.backup

@@ -97,6 +97,37 @@ mypy pypresence
 black . && isort . && flake8 pypresence tests && mypy pypresence && pytest
 ```
 
+## Building Documentation
+
+pypresence uses Sphinx with autodoc to automatically generate documentation from Python docstrings.
+
+**Build HTML documentation:**
+```bash
+cd docs/sphinx
+sphinx-build -b html . _build
+```
+
+**View the documentation:**
+```bash
+# Open in your browser
+open _build/index.html  # macOS
+xdg-open _build/index.html  # Linux
+start _build/index.html  # Windows
+```
+
+**Clean build artifacts:**
+```bash
+rm -rf docs/sphinx/_build
+```
+
+The documentation is automatically generated from docstrings in the Python source code. When you update docstrings, simply rebuild the documentation to see your changes.
+
+**Documentation style:**
+- Use NumPy-style docstrings for consistency
+- Include parameter types and descriptions
+- Add return value documentation
+- Provide usage examples where appropriate
+
 ## Project Structure
 
 ```

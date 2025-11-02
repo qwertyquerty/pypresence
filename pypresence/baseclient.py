@@ -24,6 +24,30 @@ from .utils import get_event_loop, get_ipc_path
 
 
 class BaseClient:
+    """
+    Base class for Discord RPC clients.
+
+    This class handles the core IPC communication with Discord. It should not be instantiated directly;
+    instead, use Presence, Client, AioPresence, or AioClient.
+
+    Parameters
+    ----------
+    client_id : str
+        OAuth2 App ID (found at https://discord.com/developers/applications/me)
+    pipe : int, optional
+        Pipe that should be used to connect to the Discord client. Defaults to 0, can be 0-9
+    loop : asyncio.BaseEventLoop, optional
+        Your own event loop (if you have one) that PyPresence should use. One will be created if not supplied.
+    handler : function, optional
+        The exception handler pypresence should send asynchronous errors to. This can be a coroutine or
+        standard function as long as it takes two arguments (exception, future).
+    isasync : bool, optional
+        Whether this is an async client. Defaults to False.
+    connection_timeout : int, optional
+        Timeout for establishing connection in seconds. Defaults to 30.
+    response_timeout : int, optional
+        Timeout for waiting for responses in seconds. Defaults to 10.
+    """
 
     def __init__(self, client_id: str, **kwargs):
         loop = kwargs.get("loop", None)
