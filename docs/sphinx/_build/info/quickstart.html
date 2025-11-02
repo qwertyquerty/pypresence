@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Quickstart &#8212; pypresence 4.7.0-alpha.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
+    <script src="../_static/documentation_options.js?v=67a95923"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Examples" href="examples.html" />
+    <link rel="prev" title="About" href="about.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="quickstart">
+<h1>Quickstart<a class="headerlink" href="#quickstart" title="Link to this heading">¶</a></h1>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>This page exists for if you have literally no clue what you’re doing, or you just need a quick start. (For rich presence)</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>The first thing youll want to do is create a Discord RPC app. Here are the steps:</strong></p>
+<ul class="simple">
+<li><p>Navigate to <a class="reference external" href="https://discord.com/developers/">https://discord.com/developers/</a></p></li>
+<li><p>Click “Create an Application.”</p></li>
+<li><p>Setup the application how you want, give it the name you want, and give it a good image.</p></li>
+<li><p>Right under the name of your application, locate your Client ID. You will need this later.</p></li>
+<li><p>Lastly, save your application.</p></li>
+</ul>
+<p><strong>Next, you need to install pypresence. You will need python 3.9+ installed. Here are the steps:</strong></p>
+<ul class="simple">
+<li><p>Open command prompt</p></li>
+<li><p>Type <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pypresence</span></code> and hit enter</p></li>
+<li><p>It should say something near the end that says something like <code class="docutils literal notranslate"><span class="pre">&quot;Successfully</span> <span class="pre">installed</span> <span class="pre">pypresence&quot;</span></code>.</p></li>
+</ul>
+<p><strong>Now you will need to create the program to set your rich presence. First we need to import what we need, like so:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pypresence</span> <span class="kn">import</span> <span class="n">Presence</span> <span class="c1"># The simple rich presence client in pypresence</span>
+<span class="kn">import</span> <span class="nn">time</span>
+</pre></div>
+</div>
+<p><strong>Next we need to initialize our Rich Presence client. You’ll need that Client ID from earlier:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">client_id</span> <span class="o">=</span> <span class="s2">&quot;ID HERE&quot;</span>  <span class="c1"># Put your Client ID in here</span>
+<span class="n">RPC</span> <span class="o">=</span> <span class="n">Presence</span><span class="p">(</span><span class="n">client_id</span><span class="p">)</span>  <span class="c1"># Initialize the Presence client</span>
+</pre></div>
+</div>
+<p><strong>Now we need to connect our Client to Discord, so it can send presence updates:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">RPC</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="c1"># Start the handshake loop</span>
+</pre></div>
+</div>
+<p><strong>Now we need to actually set our rich presence. We can use the update() function for this. There are many options we can use, but for this we will use these:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="n">RPC</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+    <span class="n">state</span><span class="o">=</span><span class="s2">&quot;Here it is!&quot;</span><span class="p">,</span>
+    <span class="n">details</span><span class="o">=</span><span class="s2">&quot;A working presence, from python!&quot;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Rich Presence Example&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="c1"># Updates our presence</span>
+</pre></div>
+</div>
+<p><strong>Now we need our program to run forever, so we use a while loop.</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>  <span class="c1"># The presence will stay on as long as the program is running</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span> <span class="c1"># Can only update rich presence every 15 seconds</span>
+</pre></div>
+</div>
+<p><strong>Now when you run your program, it should look something like this!</strong></p>
+<figure class="align-default">
+<img alt="Finished Presence" src="../_images/quickstart-final-new.png" />
+</figure>
+<p><br /></p>
+<p><strong>Using Activity Types and Status Display Types</strong></p>
+<p>You can customize how your presence appears by using <code class="docutils literal notranslate"><span class="pre">ActivityType</span></code> and <code class="docutils literal notranslate"><span class="pre">StatusDisplayType</span></code> enums. Here’s an example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pypresence</span> <span class="kn">import</span> <span class="n">Presence</span>
+<span class="kn">from</span> <span class="nn">pypresence.types</span> <span class="kn">import</span> <span class="n">ActivityType</span><span class="p">,</span> <span class="n">StatusDisplayType</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">client_id</span> <span class="o">=</span> <span class="s2">&quot;ID HERE&quot;</span>
+<span class="n">RPC</span> <span class="o">=</span> <span class="n">Presence</span><span class="p">(</span><span class="n">client_id</span><span class="p">)</span>
+<span class="n">RPC</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+
+<span class="c1"># Show as &quot;Listening to&quot; instead of &quot;Playing&quot;</span>
+<span class="n">RPC</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+    <span class="n">activity_type</span><span class="o">=</span><span class="n">ActivityType</span><span class="o">.</span><span class="n">LISTENING</span><span class="p">,</span>
+    <span class="n">details</span><span class="o">=</span><span class="s2">&quot;My Favorite Song&quot;</span><span class="p">,</span>
+    <span class="n">state</span><span class="o">=</span><span class="s2">&quot;By My Favorite Artist&quot;</span>
+<span class="p">)</span>
+
+<span class="c1"># Or use StatusDisplayType to control what appears in the user&#39;s status</span>
+<span class="n">RPC</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+    <span class="n">status_display_type</span><span class="o">=</span><span class="n">StatusDisplayType</span><span class="o">.</span><span class="n">STATE</span><span class="p">,</span>
+    <span class="n">state</span><span class="o">=</span><span class="s2">&quot;Building something awesome&quot;</span><span class="p">,</span>
+    <span class="n">details</span><span class="o">=</span><span class="s2">&quot;Using pypresence&quot;</span>
+<span class="p">)</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Available activity types: <code class="docutils literal notranslate"><span class="pre">PLAYING</span></code> (default), <code class="docutils literal notranslate"><span class="pre">LISTENING</span></code>, <code class="docutils literal notranslate"><span class="pre">WATCHING</span></code>, <code class="docutils literal notranslate"><span class="pre">COMPETING</span></code></p>
+<p>Available status display types: <code class="docutils literal notranslate"><span class="pre">NAME</span></code> (default - shows app name), <code class="docutils literal notranslate"><span class="pre">STATE</span></code>, <code class="docutils literal notranslate"><span class="pre">DETAILS</span></code></p>
+<p><br /></p>
+<p><strong>Making Your Presence Interactive with URLs</strong></p>
+<p>You can make text and images clickable by using URL parameters. When users click on these elements, Discord will open the specified URL:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pypresence</span> <span class="kn">import</span> <span class="n">Presence</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">client_id</span> <span class="o">=</span> <span class="s2">&quot;ID HERE&quot;</span>
+<span class="n">RPC</span> <span class="o">=</span> <span class="n">Presence</span><span class="p">(</span><span class="n">client_id</span><span class="p">)</span>
+<span class="n">RPC</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+
+<span class="c1"># Make state and details clickable</span>
+<span class="n">RPC</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+    <span class="n">state</span><span class="o">=</span><span class="s2">&quot;Playing an Awesome Game&quot;</span><span class="p">,</span>
+    <span class="n">state_url</span><span class="o">=</span><span class="s2">&quot;https://example.com/game&quot;</span><span class="p">,</span>
+    <span class="n">details</span><span class="o">=</span><span class="s2">&quot;In the Main Menu&quot;</span><span class="p">,</span>
+    <span class="n">details_url</span><span class="o">=</span><span class="s2">&quot;https://example.com/game/menu&quot;</span>
+<span class="p">)</span>
+
+<span class="c1"># Make images clickable</span>
+<span class="n">RPC</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+    <span class="n">large_image</span><span class="o">=</span><span class="s2">&quot;game_logo&quot;</span><span class="p">,</span>
+    <span class="n">large_text</span><span class="o">=</span><span class="s2">&quot;My Game&quot;</span><span class="p">,</span>
+    <span class="n">large_url</span><span class="o">=</span><span class="s2">&quot;https://example.com/game&quot;</span><span class="p">,</span>
+    <span class="n">small_image</span><span class="o">=</span><span class="s2">&quot;status_online&quot;</span><span class="p">,</span>
+    <span class="n">small_text</span><span class="o">=</span><span class="s2">&quot;Online&quot;</span><span class="p">,</span>
+    <span class="n">small_url</span><span class="o">=</span><span class="s2">&quot;https://example.com/status&quot;</span>
+<span class="p">)</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Available URL parameters: <code class="docutils literal notranslate"><span class="pre">state_url</span></code>, <code class="docutils literal notranslate"><span class="pre">details_url</span></code>, <code class="docutils literal notranslate"><span class="pre">large_url</span></code>, <code class="docutils literal notranslate"><span class="pre">small_url</span></code></p>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">pypresence</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../doc/presence.html">Presence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/presence.html#aiopresence">AioPresence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/client.html">Client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/client.html#aioclient">AioClient</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="about.html" title="previous chapter">About</a></li>
+      <li>Next: <a href="examples.html" title="next chapter">Examples</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, qwertyquerty.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/info/quickstart.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

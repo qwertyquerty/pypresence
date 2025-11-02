@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Presence &#8212; pypresence 4.7.0-alpha.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
+    <script src="../_static/documentation_options.js?v=67a95923"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Client" href="client.html" />
+    <link rel="prev" title="Examples" href="../info/examples.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="presence">
+<h1>Presence<a class="headerlink" href="#presence" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="pypresence.Presence">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pypresence.</span></span><span class="sig-name descname"><span class="pre">Presence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pypresence/presence.html#Presence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pypresence.Presence" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseClient</span></code></p>
+<p>Discord Rich Presence Client.</p>
+<p>Creates a simple Rich Presence client for updating Discord activity status.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>client_id</strong> (<em>str</em>) – OAuth2 App ID (found at <a class="reference external" href="https://discord.com/developers/applications/me">https://discord.com/developers/applications/me</a>)</p></li>
+<li><p><strong>pipe</strong> (<em>int</em><em>, </em><em>optional</em>) – Pipe that should be used to connect to the Discord client. Defaults to 0, can be 0-9</p></li>
+<li><p><strong>loop</strong> (<em>asyncio.BaseEventLoop</em><em>, </em><em>optional</em>) – Your own event loop (if you have one) that PyPresence should use. One will be created if not supplied.
+Information at <a class="reference external" href="https://docs.python.org/3/library/asyncio-eventloop.html">https://docs.python.org/3/library/asyncio-eventloop.html</a></p></li>
+<li><p><strong>handler</strong> (<em>function</em><em>, </em><em>optional</em>) – The exception handler pypresence should send asynchronous errors to. This can be a coroutine or
+standard function as long as it takes two arguments (exception, future). Exception will be the
+exception to handle and future will be an instance of asyncio.Future</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pypresence</span> <span class="kn">import</span> <span class="n">Presence</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">RPC</span> <span class="o">=</span> <span class="n">Presence</span><span class="p">(</span><span class="s2">&quot;client_id&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">RPC</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">RPC</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;Playing a game&quot;</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="s2">&quot;In the main menu&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="pypresence.Presence.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pypresence/presence.html#Presence.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pypresence.Presence.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pypresence.Presence.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3662</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activity_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pypresence.types.ActivityType" title="pypresence.types.ActivityType"><span class="pre">ActivityType</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status_display_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pypresence.types.StatusDisplayType" title="pypresence.types.StatusDisplayType"><span class="pre">StatusDisplayType</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">details</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">details_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">large_image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">large_text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">large_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">small_image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">small_text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">small_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">party_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">party_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">join</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spectate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">match</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buttons</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload_override</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pypresence/presence.html#Presence.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pypresence.Presence.update" title="Link to this definition">¶</a></dt>
+<dd><p>Update the user’s Discord Rich Presence.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pid</strong> (<em>int</em><em>, </em><em>optional</em>) – The process id of your game. Defaults to current process ID.</p></li>
+<li><p><strong>activity_type</strong> (<a class="reference internal" href="#pypresence.types.ActivityType" title="pypresence.types.ActivityType"><em>ActivityType</em></a><em>, </em><em>optional</em>) – The type of activity (PLAYING, LISTENING, WATCHING, or COMPETING). See ActivityType enum.
+Defaults to PLAYING if not specified.</p></li>
+<li><p><strong>status_display_type</strong> (<a class="reference internal" href="#pypresence.types.StatusDisplayType" title="pypresence.types.StatusDisplayType"><em>StatusDisplayType</em></a><em>, </em><em>optional</em>) – Which field to display in the status (NAME, STATE, or DETAILS). See StatusDisplayType enum.
+Defaults to NAME if not specified.</p></li>
+<li><p><strong>state</strong> (<em>str</em><em>, </em><em>optional</em>) – The user’s current status</p></li>
+<li><p><strong>state_url</strong> (<em>str</em><em>, </em><em>optional</em>) – URL to make the state text clickable (opens when state is clicked)</p></li>
+<li><p><strong>details</strong> (<em>str</em><em>, </em><em>optional</em>) – What the player is currently doing</p></li>
+<li><p><strong>details_url</strong> (<em>str</em><em>, </em><em>optional</em>) – URL to make the details text clickable (opens when details is clicked)</p></li>
+<li><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – Directly set what Discord will display in places like the user list</p></li>
+<li><p><strong>start</strong> (<em>int</em><em>, </em><em>optional</em>) – Epoch time for game start (in milliseconds)</p></li>
+<li><p><strong>end</strong> (<em>int</em><em>, </em><em>optional</em>) – Epoch time for game end (in milliseconds)</p></li>
+<li><p><strong>large_image</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the uploaded image for the large profile artwork</p></li>
+<li><p><strong>large_text</strong> (<em>str</em><em>, </em><em>optional</em>) – Tooltip for the large image</p></li>
+<li><p><strong>large_url</strong> (<em>str</em><em>, </em><em>optional</em>) – URL to make the large image clickable (opens when large image is clicked)</p></li>
+<li><p><strong>small_image</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the uploaded image for the small profile artwork</p></li>
+<li><p><strong>small_text</strong> (<em>str</em><em>, </em><em>optional</em>) – Tooltip for the small image</p></li>
+<li><p><strong>small_url</strong> (<em>str</em><em>, </em><em>optional</em>) – URL to make the small image clickable (opens when small image is clicked)</p></li>
+<li><p><strong>party_id</strong> (<em>str</em><em>, </em><em>optional</em>) – ID of the player’s party, lobby, or group</p></li>
+<li><p><strong>party_size</strong> (<em>list</em><em>, </em><em>optional</em>) – Current size of the player’s party, lobby, or group, and the max in this format: [1, 4]</p></li>
+<li><p><strong>join</strong> (<em>str</em><em>, </em><em>optional</em>) – Unique hashed string for chat invitations and ask to join</p></li>
+<li><p><strong>spectate</strong> (<em>str</em><em>, </em><em>optional</em>) – Unique hashed string for spectate button</p></li>
+<li><p><strong>match</strong> (<em>str</em><em>, </em><em>optional</em>) – Unique hashed string for spectate and join</p></li>
+<li><p><strong>buttons</strong> (<em>list</em><em>, </em><em>optional</em>) – List of dicts for buttons on your profile in the format [{“label”: “My Website”, “url”: “<a class="reference external" href="https://example.com">https://example.com</a>”}, …],
+can list up to two buttons</p></li>
+<li><p><strong>instance</strong> (<em>bool</em><em>, </em><em>optional</em>) – Marks the match as a game session with a specific beginning and end. Defaults to True.</p></li>
+<li><p><strong>payload_override</strong> (<em>dict</em><em>, </em><em>optional</em>) – Custom payload to send instead of generating one from the parameters</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The response from Discord</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Response</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">RPC</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;In Main Menu&quot;</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="s2">&quot;Playing Solo&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">RPC</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">state</span><span class="o">=</span><span class="s2">&quot;Playing a Game&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">details</span><span class="o">=</span><span class="s2">&quot;Level 5&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">large_image</span><span class="o">=</span><span class="s2">&quot;game_logo&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">large_text</span><span class="o">=</span><span class="s2">&quot;My Awesome Game&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">buttons</span><span class="o">=</span><span class="p">[{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;View Game&quot;</span><span class="p">,</span> <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://example.com&quot;</span><span class="p">}]</span>
+<span class="gp">... </span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pypresence.Presence.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3662</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pypresence/presence.html#Presence.clear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pypresence.Presence.clear" title="Link to this definition">¶</a></dt>
+<dd><p>Clear the Rich Presence.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>pid</strong> (<em>int</em><em>, </em><em>optional</em>) – The process id of your game. Defaults to current process ID.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The response from Discord</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pypresence.Presence.connect">
+<span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pypresence/presence.html#Presence.connect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pypresence.Presence.connect" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize the connection to Discord.</p>
+<p>This must be called before making any updates to Rich Presence.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pypresence.Presence.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pypresence/presence.html#Presence.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pypresence.Presence.close" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="aiopresence">
+<h1>AioPresence<a class="headerlink" href="#aiopresence" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="pypresence.AioPresence">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pypresence.</span></span><span class="sig-name descname"><span class="pre">AioPresence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pypresence/presence.html#AioPresence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pypresence.AioPresence" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseClient</span></code></p>
+<p>Async Discord Rich Presence Client.</p>
+<p>Creates an asynchronous Rich Presence client for updating Discord activity status.
+This class should be used with async/await syntax.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>client_id</strong> (<em>str</em>) – OAuth2 App ID (found at <a class="reference external" href="https://discord.com/developers/applications/me">https://discord.com/developers/applications/me</a>)</p></li>
+<li><p><strong>pipe</strong> (<em>int</em><em>, </em><em>optional</em>) – Pipe that should be used to connect to the Discord client. Defaults to 0, can be 0-9</p></li>
+<li><p><strong>loop</strong> (<em>asyncio.BaseEventLoop</em><em>, </em><em>optional</em>) – Your own event loop (if you have one) that PyPresence should use. One will be created if not supplied.
+Information at <a class="reference external" href="https://docs.python.org/3/library/asyncio-eventloop.html">https://docs.python.org/3/library/asyncio-eventloop.html</a></p></li>
+<li><p><strong>handler</strong> (<em>function</em><em>, </em><em>optional</em>) – The exception handler pypresence should send asynchronous errors to. This must be a coroutine
+that takes two arguments (exception, future). Exception will be the exception to handle and
+future will be an instance of asyncio.Future</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pypresence</span> <span class="kn">import</span> <span class="n">AioPresence</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">RPC</span> <span class="o">=</span> <span class="n">AioPresence</span><span class="p">(</span><span class="s2">&quot;client_id&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="k">await</span> <span class="n">RPC</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="k">await</span> <span class="n">RPC</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;Playing a game&quot;</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="s2">&quot;In the main menu&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">await</span> <span class="n">RPC</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="pypresence.AioPresence.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pypresence/presence.html#AioPresence.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pypresence.AioPresence.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pypresence.AioPresence.update">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3662</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activity_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pypresence.types.ActivityType" title="pypresence.types.ActivityType"><span class="pre">ActivityType</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status_display_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pypresence.types.StatusDisplayType" title="pypresence.types.StatusDisplayType"><span class="pre">StatusDisplayType</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">details</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">details_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">large_image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">large_text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">large_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">small_image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">small_text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">small_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">party_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">party_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">join</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spectate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">match</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buttons</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pypresence/presence.html#AioPresence.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pypresence.AioPresence.update" title="Link to this definition">¶</a></dt>
+<dd><p>Update the user’s Discord Rich Presence asynchronously.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pid</strong> (<em>int</em><em>, </em><em>optional</em>) – The process id of your game. Defaults to current process ID.</p></li>
+<li><p><strong>activity_type</strong> (<a class="reference internal" href="#pypresence.types.ActivityType" title="pypresence.types.ActivityType"><em>ActivityType</em></a><em>, </em><em>optional</em>) – The type of activity (PLAYING, LISTENING, WATCHING, or COMPETING). See ActivityType enum.
+Defaults to PLAYING if not specified.</p></li>
+<li><p><strong>status_display_type</strong> (<a class="reference internal" href="#pypresence.types.StatusDisplayType" title="pypresence.types.StatusDisplayType"><em>StatusDisplayType</em></a><em>, </em><em>optional</em>) – Which field to display in the status (NAME, STATE, or DETAILS). See StatusDisplayType enum.
+Defaults to NAME if not specified.</p></li>
+<li><p><strong>state</strong> (<em>str</em><em>, </em><em>optional</em>) – The user’s current status</p></li>
+<li><p><strong>state_url</strong> (<em>str</em><em>, </em><em>optional</em>) – URL to make the state text clickable (opens when state is clicked)</p></li>
+<li><p><strong>details</strong> (<em>str</em><em>, </em><em>optional</em>) – What the player is currently doing</p></li>
+<li><p><strong>details_url</strong> (<em>str</em><em>, </em><em>optional</em>) – URL to make the details text clickable (opens when details is clicked)</p></li>
+<li><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – Directly set what Discord will display in places like the user list</p></li>
+<li><p><strong>start</strong> (<em>int</em><em>, </em><em>optional</em>) – Epoch time for game start (in milliseconds)</p></li>
+<li><p><strong>end</strong> (<em>int</em><em>, </em><em>optional</em>) – Epoch time for game end (in milliseconds)</p></li>
+<li><p><strong>large_image</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the uploaded image for the large profile artwork</p></li>
+<li><p><strong>large_text</strong> (<em>str</em><em>, </em><em>optional</em>) – Tooltip for the large image</p></li>
+<li><p><strong>large_url</strong> (<em>str</em><em>, </em><em>optional</em>) – URL to make the large image clickable (opens when large image is clicked)</p></li>
+<li><p><strong>small_image</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the uploaded image for the small profile artwork</p></li>
+<li><p><strong>small_text</strong> (<em>str</em><em>, </em><em>optional</em>) – Tooltip for the small image</p></li>
+<li><p><strong>small_url</strong> (<em>str</em><em>, </em><em>optional</em>) – URL to make the small image clickable (opens when small image is clicked)</p></li>
+<li><p><strong>party_id</strong> (<em>str</em><em>, </em><em>optional</em>) – ID of the player’s party, lobby, or group</p></li>
+<li><p><strong>party_size</strong> (<em>list</em><em>, </em><em>optional</em>) – Current size of the player’s party, lobby, or group, and the max in this format: [1, 4]</p></li>
+<li><p><strong>join</strong> (<em>str</em><em>, </em><em>optional</em>) – Unique hashed string for chat invitations and ask to join</p></li>
+<li><p><strong>spectate</strong> (<em>str</em><em>, </em><em>optional</em>) – Unique hashed string for spectate button</p></li>
+<li><p><strong>match</strong> (<em>str</em><em>, </em><em>optional</em>) – Unique hashed string for spectate and join</p></li>
+<li><p><strong>buttons</strong> (<em>list</em><em>, </em><em>optional</em>) – List of dicts for buttons on your profile in the format [{“label”: “My Website”, “url”: “<a class="reference external" href="https://example.com">https://example.com</a>”}, …],
+can list up to two buttons</p></li>
+<li><p><strong>instance</strong> (<em>bool</em><em>, </em><em>optional</em>) – Marks the match as a game session with a specific beginning and end. Defaults to True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The response from Discord</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Response</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">await</span> <span class="n">RPC</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;In Main Menu&quot;</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="s2">&quot;Playing Solo&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">await</span> <span class="n">RPC</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">state</span><span class="o">=</span><span class="s2">&quot;Playing a Game&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">details</span><span class="o">=</span><span class="s2">&quot;Level 5&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">large_image</span><span class="o">=</span><span class="s2">&quot;game_logo&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">large_text</span><span class="o">=</span><span class="s2">&quot;My Awesome Game&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">buttons</span><span class="o">=</span><span class="p">[{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;View Game&quot;</span><span class="p">,</span> <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://example.com&quot;</span><span class="p">}]</span>
+<span class="gp">... </span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pypresence.AioPresence.clear">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3662</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pypresence/presence.html#AioPresence.clear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pypresence.AioPresence.clear" title="Link to this definition">¶</a></dt>
+<dd><p>Clear the Rich Presence asynchronously.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>pid</strong> (<em>int</em><em>, </em><em>optional</em>) – The process id of your game. Defaults to current process ID.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The response from Discord</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pypresence.AioPresence.connect">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pypresence/presence.html#AioPresence.connect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pypresence.AioPresence.connect" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize the connection to Discord asynchronously.</p>
+<p>This must be called before making any updates to Rich Presence.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pypresence.AioPresence.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pypresence/presence.html#AioPresence.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pypresence.AioPresence.close" title="Link to this definition">¶</a></dt>
+<dd><p>Close the connection to Discord.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="activitytype-enum">
+<h2>ActivityType Enum<a class="headerlink" href="#activitytype-enum" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pypresence.types.ActivityType">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pypresence.types.</span></span><span class="sig-name descname"><span class="pre">ActivityType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pypresence/types.html#ActivityType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pypresence.types.ActivityType" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">IntEnum</span></code></p>
+<p>Activity type enum for Discord Rich Presence.</p>
+<p>Specifies what type of activity is being displayed. Discord only supports types 0, 2, 3, and 5.
+Types 1 (STREAMING) and 4 (CUSTOM) are not available via Rich Presence.</p>
+<p>See: <a class="reference external" href="https://discord.com/developers/docs/game-sdk/activities#data-models-activitytype-enum">https://discord.com/developers/docs/game-sdk/activities#data-models-activitytype-enum</a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pypresence.types.ActivityType.PLAYING">
+<span class="sig-name descname"><span class="pre">PLAYING</span></span><a class="headerlink" href="#pypresence.types.ActivityType.PLAYING" title="Link to this definition">¶</a></dt>
+<dd><p>Value 0. Shows “Playing {game name}” (default)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pypresence.types.ActivityType.LISTENING">
+<span class="sig-name descname"><span class="pre">LISTENING</span></span><a class="headerlink" href="#pypresence.types.ActivityType.LISTENING" title="Link to this definition">¶</a></dt>
+<dd><p>Value 2. Shows “Listening to {name}”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pypresence.types.ActivityType.WATCHING">
+<span class="sig-name descname"><span class="pre">WATCHING</span></span><a class="headerlink" href="#pypresence.types.ActivityType.WATCHING" title="Link to this definition">¶</a></dt>
+<dd><p>Value 3. Shows “Watching {name}”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pypresence.types.ActivityType.COMPETING">
+<span class="sig-name descname"><span class="pre">COMPETING</span></span><a class="headerlink" href="#pypresence.types.ActivityType.COMPETING" title="Link to this definition">¶</a></dt>
+<dd><p>Value 5. Shows “Competing in {name}”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">PLAYING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#id0" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">LISTENING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#id1" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">WATCHING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#id2" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">COMPETING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#id3" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<p>The <code class="docutils literal notranslate"><span class="pre">ActivityType</span></code> enum specifies what type of activity is being displayed.</p>
+<p>Available values:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ActivityType.PLAYING</span></code> (0) - Shows “Playing {game name}” (default)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ActivityType.LISTENING</span></code> (2) - Shows “Listening to {name}”</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ActivityType.WATCHING</span></code> (3) - Shows “Watching {name}”</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ActivityType.COMPETING</span></code> (5) - Shows “Competing in {name}”</p></li>
+</ul>
+<p>Example usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pypresence</span> <span class="kn">import</span> <span class="n">Presence</span>
+<span class="kn">from</span> <span class="nn">pypresence.types</span> <span class="kn">import</span> <span class="n">ActivityType</span>
+
+<span class="n">RPC</span> <span class="o">=</span> <span class="n">Presence</span><span class="p">(</span><span class="n">client_id</span><span class="p">)</span>
+<span class="n">RPC</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+<span class="n">RPC</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+    <span class="n">activity_type</span><span class="o">=</span><span class="n">ActivityType</span><span class="o">.</span><span class="n">LISTENING</span><span class="p">,</span>
+    <span class="n">details</span><span class="o">=</span><span class="s2">&quot;My Favorite Song&quot;</span><span class="p">,</span>
+    <span class="n">state</span><span class="o">=</span><span class="s2">&quot;By My Favorite Artist&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Note: Discord only supports activity types 0, 2, 3, and 5. Types 1 (STREAMING) and 4 (CUSTOM) are not available via Rich Presence.</p>
+</section>
+<section id="statusdisplaytype-enum">
+<h2>StatusDisplayType Enum<a class="headerlink" href="#statusdisplaytype-enum" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pypresence.types.StatusDisplayType">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pypresence.types.</span></span><span class="sig-name descname"><span class="pre">StatusDisplayType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pypresence/types.html#StatusDisplayType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pypresence.types.StatusDisplayType" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">IntEnum</span></code></p>
+<p>Status display type enum for Discord Rich Presence.</p>
+<p>Controls which field from your presence is displayed in the user’s Discord status bar.
+Discord only supports types 0, 1, and 2.</p>
+<p>See: <a class="reference external" href="https://discord.com/developers/docs/events/gateway-events#activity-object-status-display-types">https://discord.com/developers/docs/events/gateway-events#activity-object-status-display-types</a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pypresence.types.StatusDisplayType.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><a class="headerlink" href="#pypresence.types.StatusDisplayType.NAME" title="Link to this definition">¶</a></dt>
+<dd><p>Value 0. Displays the application name (default)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pypresence.types.StatusDisplayType.STATE">
+<span class="sig-name descname"><span class="pre">STATE</span></span><a class="headerlink" href="#pypresence.types.StatusDisplayType.STATE" title="Link to this definition">¶</a></dt>
+<dd><p>Value 1. Displays the state field</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pypresence.types.StatusDisplayType.DETAILS">
+<span class="sig-name descname"><span class="pre">DETAILS</span></span><a class="headerlink" href="#pypresence.types.StatusDisplayType.DETAILS" title="Link to this definition">¶</a></dt>
+<dd><p>Value 2. Displays the details field</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#id4" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id5">
+<span class="sig-name descname"><span class="pre">STATE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#id5" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id6">
+<span class="sig-name descname"><span class="pre">DETAILS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#id6" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<p>The <code class="docutils literal notranslate"><span class="pre">StatusDisplayType</span></code> enum controls which field from your presence is displayed in the user’s status.</p>
+<p>Available values:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">StatusDisplayType.NAME</span></code> (0) - Displays the application name (default)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">StatusDisplayType.STATE</span></code> (1) - Displays the <code class="docutils literal notranslate"><span class="pre">state</span></code> field</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">StatusDisplayType.DETAILS</span></code> (2) - Displays the <code class="docutils literal notranslate"><span class="pre">details</span></code> field</p></li>
+</ul>
+<p>Example usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pypresence</span> <span class="kn">import</span> <span class="n">Presence</span>
+<span class="kn">from</span> <span class="nn">pypresence.types</span> <span class="kn">import</span> <span class="n">StatusDisplayType</span>
+
+<span class="n">RPC</span> <span class="o">=</span> <span class="n">Presence</span><span class="p">(</span><span class="n">client_id</span><span class="p">)</span>
+<span class="n">RPC</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+<span class="n">RPC</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+    <span class="n">status_display_type</span><span class="o">=</span><span class="n">StatusDisplayType</span><span class="o">.</span><span class="n">STATE</span><span class="p">,</span>
+    <span class="n">state</span><span class="o">=</span><span class="s2">&quot;Custom Status Message&quot;</span><span class="p">,</span>
+    <span class="n">details</span><span class="o">=</span><span class="s2">&quot;What I&#39;m doing&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>This allows you to control what appears in the user’s Discord status bar while maintaining all information in the full Rich Presence display.</p>
+</section>
+<section id="clickable-urls">
+<h2>Clickable URLs<a class="headerlink" href="#clickable-urls" title="Link to this heading">¶</a></h2>
+<p>The URL parameters (<code class="docutils literal notranslate"><span class="pre">state_url</span></code>, <code class="docutils literal notranslate"><span class="pre">details_url</span></code>, <code class="docutils literal notranslate"><span class="pre">large_url</span></code>, <code class="docutils literal notranslate"><span class="pre">small_url</span></code>) allow you to make text and images in your Rich Presence clickable. When a user clicks on the associated element, Discord will open the specified URL.</p>
+<p><strong>Available URL Parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">state_url</span></code> - Makes the state text clickable</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">details_url</span></code> - Makes the details text clickable</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">large_url</span></code> - Makes the large image clickable</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">small_url</span></code> - Makes the small image clickable</p></li>
+</ul>
+<p><strong>Example: Clickable State and Details</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pypresence</span> <span class="kn">import</span> <span class="n">Presence</span>
+
+<span class="n">RPC</span> <span class="o">=</span> <span class="n">Presence</span><span class="p">(</span><span class="n">client_id</span><span class="p">)</span>
+<span class="n">RPC</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+<span class="n">RPC</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+    <span class="n">state</span><span class="o">=</span><span class="s2">&quot;Playing an Awesome Game&quot;</span><span class="p">,</span>
+    <span class="n">state_url</span><span class="o">=</span><span class="s2">&quot;https://example.com/game&quot;</span><span class="p">,</span>
+    <span class="n">details</span><span class="o">=</span><span class="s2">&quot;In the Main Menu&quot;</span><span class="p">,</span>
+    <span class="n">details_url</span><span class="o">=</span><span class="s2">&quot;https://example.com/game/menu&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Example: Clickable Images</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">RPC</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+    <span class="n">large_image</span><span class="o">=</span><span class="s2">&quot;game_logo&quot;</span><span class="p">,</span>
+    <span class="n">large_text</span><span class="o">=</span><span class="s2">&quot;My Game&quot;</span><span class="p">,</span>
+    <span class="n">large_url</span><span class="o">=</span><span class="s2">&quot;https://example.com/game&quot;</span><span class="p">,</span>
+    <span class="n">small_image</span><span class="o">=</span><span class="s2">&quot;status_icon&quot;</span><span class="p">,</span>
+    <span class="n">small_text</span><span class="o">=</span><span class="s2">&quot;Online&quot;</span><span class="p">,</span>
+    <span class="n">small_url</span><span class="o">=</span><span class="s2">&quot;https://example.com/status&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Example: Combining URLs with Buttons</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">RPC</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+    <span class="n">state</span><span class="o">=</span><span class="s2">&quot;Building Something Cool&quot;</span><span class="p">,</span>
+    <span class="n">state_url</span><span class="o">=</span><span class="s2">&quot;https://github.com/username&quot;</span><span class="p">,</span>
+    <span class="n">details</span><span class="o">=</span><span class="s2">&quot;pypresence with URL support&quot;</span><span class="p">,</span>
+    <span class="n">details_url</span><span class="o">=</span><span class="s2">&quot;https://github.com/qwertyquerty/pypresence&quot;</span><span class="p">,</span>
+    <span class="n">large_image</span><span class="o">=</span><span class="s2">&quot;project_logo&quot;</span><span class="p">,</span>
+    <span class="n">large_url</span><span class="o">=</span><span class="s2">&quot;https://project-website.com&quot;</span><span class="p">,</span>
+    <span class="n">buttons</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;View Project&quot;</span><span class="p">,</span> <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://github.com/username/project&quot;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Documentation&quot;</span><span class="p">,</span> <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://docs.project.com&quot;</span><span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Notes:</strong></p>
+<ul class="simple">
+<li><p>URLs work independently - you can set a URL even without the corresponding text/image field</p></li>
+<li><p>URLs must be valid HTTP/HTTPS URLs</p></li>
+<li><p>Clicking on the element will open the URL in the user’s default browser</p></li>
+<li><p>This feature enhances interactivity beyond the traditional button limit (max 2 buttons)</p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">pypresence</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../info/about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../info/quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../info/examples.html">Examples</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Presence</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pypresence.Presence"><code class="docutils literal notranslate"><span class="pre">Presence</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#aiopresence">AioPresence</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pypresence.AioPresence"><code class="docutils literal notranslate"><span class="pre">AioPresence</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#activitytype-enum">ActivityType Enum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#statusdisplaytype-enum">StatusDisplayType Enum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#clickable-urls">Clickable URLs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="client.html">Client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="client.html#aioclient">AioClient</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../info/examples.html" title="previous chapter">Examples</a></li>
+      <li>Next: <a href="client.html" title="next chapter">Client</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, qwertyquerty.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/doc/presence.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

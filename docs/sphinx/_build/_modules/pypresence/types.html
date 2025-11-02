@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pypresence.types &#8212; pypresence 4.7.0-alpha.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=27fed22d" />
+    <script src="../../_static/documentation_options.js?v=67a95923"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for pypresence.types</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">enum</span>
+
+
+<div class="viewcode-block" id="ActivityType">
+<a class="viewcode-back" href="../../doc/presence.html#pypresence.types.ActivityType">[docs]</a>
+<span class="k">class</span> <span class="nc">ActivityType</span><span class="p">(</span><span class="n">enum</span><span class="o">.</span><span class="n">IntEnum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Activity type enum for Discord Rich Presence.</span>
+
+<span class="sd">    Specifies what type of activity is being displayed. Discord only supports types 0, 2, 3, and 5.</span>
+<span class="sd">    Types 1 (STREAMING) and 4 (CUSTOM) are not available via Rich Presence.</span>
+
+<span class="sd">    See: https://discord.com/developers/docs/game-sdk/activities#data-models-activitytype-enum</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    PLAYING : int</span>
+<span class="sd">        Value 0. Shows &quot;Playing {game name}&quot; (default)</span>
+<span class="sd">    LISTENING : int</span>
+<span class="sd">        Value 2. Shows &quot;Listening to {name}&quot;</span>
+<span class="sd">    WATCHING : int</span>
+<span class="sd">        Value 3. Shows &quot;Watching {name}&quot;</span>
+<span class="sd">    COMPETING : int</span>
+<span class="sd">        Value 5. Shows &quot;Competing in {name}&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">PLAYING</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1"># STREAMING = 1</span>
+    <span class="n">LISTENING</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">WATCHING</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="c1"># CUSTOM = 4</span>
+    <span class="n">COMPETING</span> <span class="o">=</span> <span class="mi">5</span></div>
+
+
+
+<div class="viewcode-block" id="StatusDisplayType">
+<a class="viewcode-back" href="../../doc/presence.html#pypresence.types.StatusDisplayType">[docs]</a>
+<span class="k">class</span> <span class="nc">StatusDisplayType</span><span class="p">(</span><span class="n">enum</span><span class="o">.</span><span class="n">IntEnum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Status display type enum for Discord Rich Presence.</span>
+
+<span class="sd">    Controls which field from your presence is displayed in the user&#39;s Discord status bar.</span>
+<span class="sd">    Discord only supports types 0, 1, and 2.</span>
+
+<span class="sd">    See: https://discord.com/developers/docs/events/gateway-events#activity-object-status-display-types</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    NAME : int</span>
+<span class="sd">        Value 0. Displays the application name (default)</span>
+<span class="sd">    STATE : int</span>
+<span class="sd">        Value 1. Displays the state field</span>
+<span class="sd">    DETAILS : int</span>
+<span class="sd">        Value 2. Displays the details field</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">NAME</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">STATE</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">DETAILS</span> <span class="o">=</span> <span class="mi">2</span></div>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">pypresence</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../info/about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../info/quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../info/examples.html">Examples</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../doc/presence.html">Presence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../doc/presence.html#aiopresence">AioPresence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../doc/client.html">Client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../doc/client.html#aioclient">AioClient</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, qwertyquerty.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
