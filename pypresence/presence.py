@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import os
 import sys
-import typing
 
 from .baseclient import BaseClient
 from .payloads import Payload
