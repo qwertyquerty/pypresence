@@ -36,8 +36,8 @@ class Client(BaseClient):
         Your own event loop (if you have one) that PyPresence should use. One will be created if not supplied.
         Information at https://docs.python.org/3/library/asyncio-eventloop.html
     handler : function, optional
-        The exception handler pypresence should send asynchronous errors to. This can be a coroutine or 
-        standard function as long as it takes two arguments (exception, future). Exception will be the 
+        The exception handler pypresence should send asynchronous errors to. This can be a coroutine or
+        standard function as long as it takes two arguments (exception, future). Exception will be the
         exception to handle and future will be an instance of asyncio.Future
 
     Examples
@@ -47,6 +47,7 @@ class Client(BaseClient):
     >>> RPC.start()
     >>> RPC.set_activity(state="Playing a game", details="In the main menu")
     """
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._closed = False
@@ -165,7 +166,7 @@ class Client(BaseClient):
         client_id : str
             OAuth2 application id
         scopes : list of str
-            A list of OAuth scopes as strings. 
+            A list of OAuth scopes as strings.
             All scopes can be found at https://discord.com/developers/docs/topics/oauth2
 
         Returns
@@ -423,7 +424,7 @@ class Client(BaseClient):
         match : str, optional
             Unique hashed string for spectate and join
         buttons : list, optional
-            List of dicts for buttons on your profile in the format [{"label": "My Website", "url": "https://example.com"}, ...], 
+            List of dicts for buttons on your profile in the format [{"label": "My Website", "url": "https://example.com"}, ...],
             can list up to two buttons
         instance : bool, optional
             Marks the match as a game session with a specific beginning and end. Defaults to True.
@@ -712,7 +713,7 @@ class AioClient(BaseClient):
         Information at https://docs.python.org/3/library/asyncio-eventloop.html
     handler : function, optional
         The exception handler pypresence should send asynchronous errors to. This must be a coroutine
-        that takes two arguments (exception, future). Exception will be the exception to handle and 
+        that takes two arguments (exception, future). Exception will be the exception to handle and
         future will be an instance of asyncio.Future
 
     Examples
@@ -726,6 +727,7 @@ class AioClient(BaseClient):
     ...     RPC.close()
     >>> asyncio.run(main())
     """
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs, isasync=True)
         self._closed = False

@@ -39,7 +39,7 @@ class BaseClient:
     loop : asyncio.BaseEventLoop, optional
         Your own event loop (if you have one) that PyPresence should use. One will be created if not supplied.
     handler : function, optional
-        The exception handler pypresence should send asynchronous errors to. This can be a coroutine or 
+        The exception handler pypresence should send asynchronous errors to. This can be a coroutine or
         standard function as long as it takes two arguments (exception, future).
     isasync : bool, optional
         Whether this is an async client. Defaults to False.
