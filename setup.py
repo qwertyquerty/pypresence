@@ -9,10 +9,8 @@ from setuptools import setup
 # All configuration is now in pyproject.toml
 setup()
 
-print(
-    r"""
+print(r"""
 ___  _   _ ___  ____ ____ ____ ____ _  _ ____ ____
 |__]  \_/  |__] |__/ |___ [__  |___ |\ | |    |___
 |      |   |    |  \ |___ ___] |___ | \| |___ |___
-"""
-)
+""")
