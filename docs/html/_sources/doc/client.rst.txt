@@ -173,20 +173,6 @@ Client()
    Clear the activity.
 
    :param int pid: the process id of your game
-   :param str state: the user's current status
-   :param str details: what the player is currently doing
-   :param int start: epoch time for game start
-   :param int end: epoch time for game end
-   :param str large_image: name of the uploaded image for the large profile artwork
-   :param str large_text: tooltip for the large image
-   :param str small_image: name of the uploaded image for the small profile artwork
-   :param str small_text: tootltip for the small image
-   :param str party_id: id of the player's party, lobby, or group
-   :param list party_size: current size of the player's party, lobby, or group, and the max in this format: ``[1,4]``
-   :param str join: unique hashed string for chat invitations and ask to join
-   :param str spectate: unique hashed string for spectate button
-   :param str match: unique hashed string for spectate and join
-   :param bool instance: marks the match as a game session with a specific beginning and end
    :rtype: pypresence.Response
 
 
