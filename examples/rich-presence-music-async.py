@@ -12,7 +12,7 @@ artist = input("The artist who made it: ")
 length = int(input("The length of the song (in seconds): "))
 
 
-async def main(rpc) -> None:
+async def main(rpc: AioPresence) -> None:
     await rpc.connect()  # Start the handshake loop (async)
 
     start = int(time.time())

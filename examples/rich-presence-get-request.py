@@ -1,4 +1,5 @@
 import time
+from typing import Any
 
 import requests  # Needs requests module installed: pip install requests -U
 
@@ -7,7 +8,7 @@ from pypresence import Presence
 CLIENT_ID = ""  # Your client ID here
 
 
-def get_presence_data():
+def get_presence_data() -> dict[str, Any]:
     try:
         with requests.get("https://somewebsite.com/api/status", timeout=5) as resp:
             data = resp.json()
@@ -22,7 +23,7 @@ def get_presence_data():
         return {"state": "SomeWebsite status is down!"}
 
 
-def run():
+def run() -> None:
     presence = Presence(CLIENT_ID)
     presence.connect()
     while True:

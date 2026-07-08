@@ -5,6 +5,7 @@ import inspect
 import json
 import struct
 import sys
+from typing import Any, Callable
 
 # TODO: Get rid of this import * lol
 from .exceptions import (
@@ -25,7 +26,7 @@ from .utils import get_event_loop, get_ipc_path
 
 class BaseClient:
 
-    def __init__(self, client_id: str, **kwargs):
+    def __init__(self, client_id: str, **kwargs: Any) -> None:
         loop = kwargs.get("loop", None)
         handler = kwargs.get("handler", None)
         self.pipe = kwargs.get("pipe", None)
@@ -56,6 +57,7 @@ class BaseClient:
                     "Error handler should only accept two arguments."
                 )
 
+            err_handler: Callable[[asyncio.AbstractEventLoop, dict], object]
             if self.isasync:
                 if not inspect.iscoroutinefunction(handler):
                     raise InvalidArgument(
@@ -76,21 +78,26 @@ class BaseClient:
         else:
             self._events_on = False
 
-    def update_event_loop(self, loop):
+    def update_event_loop(self, loop: asyncio.AbstractEventLoop) -> None:
         # noinspection PyAttributeOutsideInit
         self.loop = loop
         asyncio.set_event_loop(self.loop)
 
-    def _err_handle(self, loop, context: dict):
+    def _err_handle(self, loop: asyncio.AbstractEventLoop, context: dict) -> None:
         result = self.handler(context["exception"], context["future"])
         if inspect.iscoroutinefunction(self.handler):
             loop.run_until_complete(result)
 
     # noinspection PyUnusedLocal
-    async def _async_err_handle(self, loop, context: dict):
+    async def _async_err_handle(
+        self, loop: asyncio.AbstractEventLoop, context: dict
+    ) -> None:
         await self.handler(context["exception"], context["future"])
 
-    async def read_output(self):
+    async def read_output(self) -> dict:
+        assert (
+            self.sock_reader is not None
+        ), "You must connect your client before reading events!"
         try:
             preamble = await asyncio.wait_for(
                 self.sock_reader.read(8), self.response_timeout
@@ -108,7 +115,7 @@ class BaseClient:
             raise ServerError(payload["data"]["message"])
         return payload
 
-    def send_data(self, op: int, payload: dict | Payload):
+    def send_data(self, op: int, payload: dict | Payload) -> None:
         if isinstance(payload, Payload):
             payload = payload.data
         payload_string = json.dumps(payload)
@@ -121,7 +128,7 @@ class BaseClient:
             struct.pack("<II", op, len(payload_string)) + payload_string.encode("utf-8")
         )
 
-    async def create_reader_writer(self, ipc_path):
+    async def create_reader_writer(self, ipc_path: str) -> None:
         try:
             if sys.platform == "linux" or sys.platform == "darwin":
                 self.sock_reader, self.sock_writer = await asyncio.wait_for(
@@ -133,7 +140,9 @@ class BaseClient:
                     self.sock_reader, loop=self.loop
                 )
                 self.sock_writer, _ = await asyncio.wait_for(
-                    self.loop.create_pipe_connection(lambda: reader_protocol, ipc_path),
+                    self.loop.create_pipe_connection(  # type: ignore[attr-defined]
+                        lambda: reader_protocol, ipc_path
+                    ),
                     self.connection_timeout,
                 )
         except FileNotFoundError:
@@ -141,12 +150,13 @@ class BaseClient:
         except asyncio.TimeoutError:
             raise ConnectionTimeout
 
-    async def handshake(self):
+    async def handshake(self) -> None:
         ipc_path = get_ipc_path(self.pipe)
         if not ipc_path:
             raise DiscordNotFound
 
         await self.create_reader_writer(ipc_path)
+        assert self.sock_reader is not None, "create_reader_writer must set sock_reader"
 
         self.send_data(0, {"v": 1, "client_id": self.client_id})
         preamble = await self.sock_reader.read(8)
@@ -159,4 +169,6 @@ class BaseClient:
                 raise InvalidID
             raise DiscordError(data["code"], data["message"])
         if self._events_on:
-            self.sock_reader.feed_data = self.on_event
+            # Subclasses (Client/AioClient) define on_event; monkey-patched in
+            # to receive raw pipe data instead of implementing our own reader.
+            self.sock_reader.feed_data = self.on_event  # type: ignore[method-assign,attr-defined]

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import os
 import sys
+from typing import Any
 
 from .baseclient import BaseClient
 from .payloads import Payload
@@ -11,7 +12,7 @@ from .utils import get_event_loop
 
 class Presence(BaseClient):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
 
     def update(
@@ -40,7 +41,8 @@ class Presence(BaseClient):
         buttons: list | None = None,
         instance: bool = True,
         payload_override: dict | None = None,
-    ):
+    ) -> dict:
+        payload: Payload | dict
         if payload_override is None:
             payload = Payload.set_activity(
                 pid=pid,
@@ -75,25 +77,26 @@ class Presence(BaseClient):
         self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def clear(self, pid: int = os.getpid()):
+    def clear(self, pid: int = os.getpid()) -> dict:
         payload = Payload.set_activity(pid, activity=None)
         self.send_data(1, payload)
         return self.loop.run_until_complete(self.read_output())
 
-    def connect(self):
+    def connect(self) -> None:
         self.update_event_loop(get_event_loop())
         self.loop.run_until_complete(self.handshake())
 
-    def close(self):
+    def close(self) -> None:
         self.send_data(2, {"v": 1, "client_id": self.client_id})
         self.loop.close()
         if sys.platform == "win32":
-            self.sock_writer._call_connection_lost(None)
+            assert self.sock_writer is not None
+            self.sock_writer._call_connection_lost(None)  # type: ignore[attr-defined]
 
 
 class AioPresence(BaseClient):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs, isasync=True)
 
     async def update(
@@ -121,7 +124,7 @@ class AioPresence(BaseClient):
         match: str | None = None,
         buttons: list | None = None,
         instance: bool = True,
-    ):
+    ) -> dict:
         payload = Payload.set_activity(
             pid=pid,
             activity_type=activity_type,
@@ -151,17 +154,18 @@ class AioPresence(BaseClient):
         self.send_data(1, payload)
         return await self.read_output()
 
-    async def clear(self, pid: int = os.getpid()):
+    async def clear(self, pid: int = os.getpid()) -> dict:
         payload = Payload.set_activity(pid, activity=None)
         self.send_data(1, payload)
         return await self.read_output()
 
-    async def connect(self):
+    async def connect(self) -> None:
         self.update_event_loop(get_event_loop())
         await self.handshake()
 
-    def close(self):
+    def close(self) -> None:
         self.send_data(2, {"v": 1, "client_id": self.client_id})
         self.loop.close()
         if sys.platform == "win32":
-            self.sock_writer._call_connection_lost(None)
+            assert self.sock_writer is not None
+            self.sock_writer._call_connection_lost(None)  # type: ignore[attr-defined]

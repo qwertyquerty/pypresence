@@ -10,16 +10,16 @@ from .utils import remove_none
 
 class Payload:
 
-    def __init__(self, data, clear_none=True):
+    def __init__(self, data: dict, clear_none: bool = True) -> None:
         if clear_none:
             data = remove_none(data)
         self.data = data
 
-    def __str__(self):
+    def __str__(self) -> str:
         return json.dumps(self.data, indent=2)
 
     @staticmethod
-    def time():
+    def time() -> float:
         return time.time()
 
     @classmethod
@@ -50,7 +50,7 @@ class Payload:
         instance: bool = True,
         activity: bool | None = True,
         _rn: bool = True,
-    ):
+    ) -> Payload:
 
         # They should already be an int because we give typehints, but some people are fucking stupid and use
         # IDLE or some other stupid shit.
@@ -110,7 +110,7 @@ class Payload:
         return cls(payload, clear)
 
     @classmethod
-    def authorize(cls, client_id: str, scopes: list[str]):
+    def authorize(cls, client_id: str, scopes: list[str]) -> Payload:
         payload = {
             "cmd": "AUTHORIZE",
             "args": {"client_id": str(client_id), "scopes": scopes},
@@ -119,7 +119,7 @@ class Payload:
         return cls(payload)
 
     @classmethod
-    def authenticate(cls, token: str):
+    def authenticate(cls, token: str) -> Payload:
         payload = {
             "cmd": "AUTHENTICATE",
             "args": {"access_token": token},
@@ -129,7 +129,7 @@ class Payload:
         return cls(payload)
 
     @classmethod
-    def get_guilds(cls):
+    def get_guilds(cls) -> Payload:
         payload = {
             "cmd": "GET_GUILDS",
             "args": {},
@@ -139,7 +139,7 @@ class Payload:
         return cls(payload)
 
     @classmethod
-    def get_guild(cls, guild_id: str):
+    def get_guild(cls, guild_id: str) -> Payload:
         payload = {
             "cmd": "GET_GUILD",
             "args": {
@@ -151,7 +151,7 @@ class Payload:
         return cls(payload)
 
     @classmethod
-    def get_channels(cls, guild_id: str):
+    def get_channels(cls, guild_id: str) -> Payload:
         payload = {
             "cmd": "GET_CHANNELS",
             "args": {
@@ -163,7 +163,7 @@ class Payload:
         return cls(payload)
 
     @classmethod
-    def get_channel(cls, channel_id: str):
+    def get_channel(cls, channel_id: str) -> Payload:
         payload = {
             "cmd": "GET_CHANNEL",
             "args": {
@@ -182,7 +182,7 @@ class Payload:
         pan_right: float | None = None,
         volume: int | None = None,
         mute: bool | None = None,
-    ):
+    ) -> Payload:
         payload = {
             "cmd": "SET_USER_VOICE_SETTINGS",
             "args": {
@@ -197,7 +197,7 @@ class Payload:
         return cls(payload, True)
 
     @classmethod
-    def select_voice_channel(cls, channel_id: str):
+    def select_voice_channel(cls, channel_id: str) -> Payload:
         payload = {
             "cmd": "SELECT_VOICE_CHANNEL",
             "args": {
@@ -209,7 +209,7 @@ class Payload:
         return cls(payload)
 
     @classmethod
-    def get_selected_voice_channel(cls):
+    def get_selected_voice_channel(cls) -> Payload:
         payload = {
             "cmd": "GET_SELECTED_VOICE_CHANNEL",
             "args": {},
@@ -219,7 +219,7 @@ class Payload:
         return cls(payload)
 
     @classmethod
-    def select_text_channel(cls, channel_id: str):
+    def select_text_channel(cls, channel_id: str) -> Payload:
         payload = {
             "cmd": "SELECT_TEXT_CHANNEL",
             "args": {
@@ -231,7 +231,7 @@ class Payload:
         return cls(payload)
 
     @classmethod
-    def subscribe(cls, event: str, args=None):
+    def subscribe(cls, event: str, args: dict | None = None) -> Payload:
         if args is None:
             args = {}
         payload = {
@@ -244,7 +244,7 @@ class Payload:
         return cls(payload)
 
     @classmethod
-    def unsubscribe(cls, event: str, args=None):
+    def unsubscribe(cls, event: str, args: dict | None = None) -> Payload:
         if args is None:
             args = {}
         payload = {
@@ -257,7 +257,7 @@ class Payload:
         return cls(payload)
 
     @classmethod
-    def get_voice_settings(cls):
+    def get_voice_settings(cls) -> Payload:
         payload = {
             "cmd": "GET_VOICE_SETTINGS",
             "args": {},
@@ -279,7 +279,7 @@ class Payload:
         silence_warning: bool | None = None,
         deaf: bool | None = None,
         mute: bool | None = None,
-    ):
+    ) -> Payload:
         payload = {
             "cmd": "SET_VOICE_SETTINGS",
             "args": {
@@ -300,7 +300,7 @@ class Payload:
         return cls(payload, True)
 
     @classmethod
-    def capture_shortcut(cls, action: str):
+    def capture_shortcut(cls, action: str) -> Payload:
         payload = {
             "cmd": "CAPTURE_SHORTCUT",
             "args": {"action": action.upper()},
@@ -310,7 +310,7 @@ class Payload:
         return cls(payload)
 
     @classmethod
-    def send_activity_join_invite(cls, user_id: str):
+    def send_activity_join_invite(cls, user_id: str) -> Payload:
         payload = {
             "cmd": "SEND_ACTIVITY_JOIN_INVITE",
             "args": {"user_id": str(user_id)},
@@ -320,7 +320,7 @@ class Payload:
         return cls(payload)
 
     @classmethod
-    def close_activity_request(cls, user_id: str):
+    def close_activity_request(cls, user_id: str) -> Payload:
         payload = {
             "cmd": "CLOSE_ACTIVITY_REQUEST",
             "args": {"user_id": str(user_id)},

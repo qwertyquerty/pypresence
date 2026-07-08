@@ -1,5 +1,7 @@
 """Util functions that are needed but messy."""
 
+from __future__ import annotations
+
 import asyncio
 import os
 import socket
@@ -7,7 +9,7 @@ import sys
 import tempfile
 
 
-def remove_none(d: dict):
+def remove_none(d: dict) -> dict:
     for item in d.copy():
         if isinstance(d[item], dict):
             if len(d[item]):
@@ -19,7 +21,7 @@ def remove_none(d: dict):
     return d
 
 
-def test_ipc_path(path) -> bool:
+def test_ipc_path(path: str) -> bool:
     """Tests an IPC pipe to ensure that it actually works"""
     if sys.platform == "win32":
         with open(path):
@@ -31,15 +33,16 @@ def test_ipc_path(path) -> bool:
 
 
 # Returns on first IPC pipe matching Discord's
-def get_ipc_path(pipe=None):
+def get_ipc_path(pipe: int | None = None) -> str | None:
     ipc = "discord-ipc-"
     if pipe is not None:
         ipc = f"{ipc}{pipe}"
 
     if sys.platform in ("linux", "darwin"):
+        uid = os.getuid()  # type: ignore[attr-defined]
         tempdir = os.environ.get("XDG_RUNTIME_DIR") or (
-            f"/run/user/{os.getuid()}"
-            if os.path.exists(f"/run/user/{os.getuid()}")
+            f"/run/user/{uid}"
+            if os.path.exists(f"/run/user/{uid}")
             else tempfile.gettempdir()
         )
         paths = [
@@ -66,8 +69,10 @@ def get_ipc_path(pipe=None):
                 ):
                     return entry.path
 
+    return None
 
-def get_event_loop(force_fresh: bool = False):
+
+def get_event_loop(force_fresh: bool = False) -> asyncio.AbstractEventLoop:
     if force_fresh:
         return asyncio.new_event_loop()
     try:

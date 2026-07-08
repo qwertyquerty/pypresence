@@ -21,7 +21,7 @@ RPC.update(
     large_text="Programming B)",
     small_image="SMALL_IMAGE_HERE",
     small_text="Hello!",
-    start=start_time,
+    start=int(start_time),
 )  # We want to apply start time when you run the presence.
 
 while 1:
