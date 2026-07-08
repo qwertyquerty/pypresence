@@ -24,6 +24,7 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: Implementation :: CPython",
     "Typing :: Typed",
@@ -64,6 +65,7 @@ version = {attr = "pypresence.__version__"}
 pypresence = ["py.typed"]
 
 [tool.black]
+target-version = ["py39", "py310", "py311", "py312", "py313", "py314"]
 extend-exclude = '''
 /(\.(git|hg|mypy_cache|tox|venv|env|.eggs|.vscode|.github|.idea)|
  build|
