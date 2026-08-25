@@ -46,9 +46,13 @@ class Presence(BaseClient):
         if payload_override is None:
             payload = Payload.set_activity(
                 pid=pid,
-                activity_type=activity_type.value if activity_type else None,
+                activity_type=(
+                    activity_type.value if activity_type is not None else None
+                ),
                 status_display_type=(
-                    status_display_type.value if status_display_type else None
+                    status_display_type.value
+                    if status_display_type is not None
+                    else None
                 ),
                 state=state,
                 state_url=state_url,
