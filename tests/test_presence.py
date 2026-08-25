@@ -7,7 +7,7 @@ from unittest.mock import AsyncMock, Mock, patch
 import pytest
 
 from pypresence import AioPresence, Presence
-from pypresence.types import ActivityType
+from pypresence.types import ActivityType, StatusDisplayType
 
 
 class TestPresenceInit:
@@ -84,6 +84,51 @@ class TestPresenceUpdate:
         payload = json.loads(payload_json)
 
         assert payload["args"]["activity"]["type"] == ActivityType.LISTENING.value
+
+    @patch("pypresence.baseclient.BaseClient.read_output")
+    def test_update_with_activity_type_playing_zero(self, mock_read_output, client_id):
+        """Test that ActivityType.PLAYING (value 0) is not discarded as falsy."""
+        presence = Presence(client_id)
+        presence.sock_writer = Mock()
+
+        async def mock_coro():
+            return {}
+
+        mock_read_output.return_value = mock_coro()
+
+        presence.update(activity_type=ActivityType.PLAYING)
+
+        call_args = presence.sock_writer.write.call_args[0][0]
+        op, length = struct.unpack("<II", call_args[:8])
+        payload_json = call_args[8 : 8 + length].decode("utf-8")
+        payload = json.loads(payload_json)
+
+        assert payload["args"]["activity"]["type"] == ActivityType.PLAYING.value
+
+    @patch("pypresence.baseclient.BaseClient.read_output")
+    def test_update_with_status_display_type_name_zero(
+        self, mock_read_output, client_id
+    ):
+        """Test that StatusDisplayType.NAME (value 0) is not discarded as falsy."""
+        presence = Presence(client_id)
+        presence.sock_writer = Mock()
+
+        async def mock_coro():
+            return {}
+
+        mock_read_output.return_value = mock_coro()
+
+        presence.update(status_display_type=StatusDisplayType.NAME)
+
+        call_args = presence.sock_writer.write.call_args[0][0]
+        op, length = struct.unpack("<II", call_args[:8])
+        payload_json = call_args[8 : 8 + length].decode("utf-8")
+        payload = json.loads(payload_json)
+
+        assert (
+            payload["args"]["activity"]["status_display_type"]
+            == StatusDisplayType.NAME.value
+        )
 
     @patch("pypresence.baseclient.BaseClient.read_output")
     def test_update_with_name(self, mock_read_output, client_id):
